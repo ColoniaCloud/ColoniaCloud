@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/ClashDisplay-Variable.woff2') format('woff2');
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --cc-bg: #FFFAFA;
+  --cc-text: #000000;
+  --cc-text-body: #555555;
+  --cc-text-label: #333333;
+  --cc-muted: #A9A793;
+  --cc-accent: #C17A5A;
+  --cc-accent-hover: #A8634A;
+  --cc-accent-light: #F5EDE8;
+  --cc-surface: #F3EFEC;
+  --cc-font-display: 'Clash Display', sans-serif;
+  --cc-font-body: 'DM Sans', sans-serif;
+  --cc-radius-sm: 2px;
+  --cc-radius-md: 6px;
+  --cc-radius-lg: 10px;
+  --cc-radius-xl: 16px;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--cc-bg);
+  color: var(--cc-text);
+  font-family: var(--cc-font-body);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
