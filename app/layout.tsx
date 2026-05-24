@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/layout/Navbar";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -20,7 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={dmSans.variable}>{children}</body>
+      <body className={dmSans.variable}>
+        <Navbar />
+        <main style={{ paddingTop: 58 }}>{children}</main>
+      </body>
     </html>
   );
 }
