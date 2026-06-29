@@ -23,7 +23,7 @@
   --cc-font-display: 'Clash Display', sans-serif;
   --cc-font-body: 'DM Sans', sans-serif;
   --cc-radius-sm: 2px;
-  --cc-radius-md: 6px;
+  --cc-radius-md: 8px;
   --cc-radius-lg: 10px;
   --cc-radius-xl: 16px;
 }
@@ -54,5 +54,98 @@ a {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .max-w-\[1280px\] {
+    max-width: 90vw !important;
+  }
+
+  @media (min-width: 768px) {
+    .max-w-\[1280px\] {
+      max-width: 85vw !important;
+    }
+  }
+
+  /* Gradiente suave para el botón primario */
+  .bg-cc-accent {
+    background: 
+      linear-gradient(to bottom, var(--cc-accent) 0%, var(--cc-accent) 65%, #9E5338 100%) padding-box,
+      linear-gradient(to bottom, rgba(158, 83, 56, 0.5) 0%, rgba(158, 83, 56, 0.5) 65%, rgba(193, 122, 90, 0.5) 100%) border-box !important;
+    border: 1px solid transparent !important;
+    box-shadow: 
+      0 1px 2px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+  }
+  .hover\:bg-cc-accent-hover:hover {
+    background: 
+      linear-gradient(to bottom, var(--cc-accent-hover) 0%, var(--cc-accent-hover) 65%, #8A4228 100%) padding-box,
+      linear-gradient(to bottom, rgba(138, 66, 40, 0.5) 0%, rgba(138, 66, 40, 0.5) 65%, rgba(168, 99, 74, 0.5) 100%) border-box !important;
+    border: 1px solid transparent !important;
+    box-shadow: 
+      0 2px 4px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  }
+
+  /* Estilos del botón Liquid Glass (Estilo Apple Tahoe — Cristal Puro) */
+  .glass-button-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .glass-button {
+    position: relative;
+    z-index: 10;
+    color: #ffffff !important;
+    font-weight: 500;
+    
+    /* Cristal Puro — Fondo altamente transparente sin gradiente blanco */
+    background: rgba(255, 255, 255, 0.05) !important;
+    
+    /* Borde blanco 50% transparente */
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    
+    backdrop-filter: blur(16px) saturate(120%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(120%) !important;
+    
+    /* Brillos internos sutiles */
+    box-shadow: 
+      inset 0 1px 0 rgba(255, 255, 255, 0.25),
+      0 1px 2px rgba(0, 0, 0, 0.03) !important;
+  }
+
+  .glass-button:hover {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-color: rgba(255, 255, 255, 0.65) !important;
+    box-shadow: 
+      inset 0 1px 0 rgba(255, 255, 255, 0.45),
+      0 4px 12px rgba(255, 255, 255, 0.08) !important;
+  }
+
+  .glass-button:active {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 
+      inset 0 1.5px 3px rgba(0, 0, 0, 0.08),
+      inset 0 -0.5px 0 rgba(255, 255, 255, 0.1) !important;
+  }
+
+  .glass-button-shadow {
+    position: absolute;
+    inset: 1px;
+    z-index: 0;
+    background: radial-gradient(circle, rgba(193, 122, 90, 0.14) 0%, transparent 75%);
+    filter: blur(8px);
+    opacity: 0.3;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+
+  .glass-button-wrap:hover .glass-button-shadow {
+    opacity: 0.7;
   }
 }

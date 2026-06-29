@@ -1,4 +1,5 @@
 import { IconBrandWhatsapp } from '@tabler/icons-react';
+import { Button } from '@/components/ui/Button';
 
 type Props = {
   title: string;
@@ -14,15 +15,20 @@ export default function SectionCta({ title, description }: Props) {
         </h3>
         <p className="text-[14px] text-cc-text-body">{description}</p>
       </div>
-      <a
-        href="https://wa.me/59800000000"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 bg-cc-accent hover:bg-cc-accent-hover text-white rounded-md px-6 py-3 text-[14px] font-medium transition-colors duration-150 whitespace-nowrap flex-shrink-0"
+      <Button
+        variant="primary"
+        asChild
       >
-        <IconBrandWhatsapp size={17} aria-hidden="true" />
-        Escribinos por WhatsApp
-      </a>
+        <a
+          href="https://wa.me/59800000000"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 whitespace-nowrap flex-shrink-0"
+        >
+          <IconBrandWhatsapp size={17} aria-hidden="true" />
+          Escribinos por WhatsApp
+        </a>
+      </Button>
     </div>
   );
 }

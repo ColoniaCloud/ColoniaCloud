@@ -6,7 +6,7 @@ type Props = {
 
 export default function InternalHero({ badge, title, description }: Props) {
   return (
-    <section className="bg-cc-bg border-b border-black/[0.06] py-[48px]">
+    <section className="bg-cc-bg border-b border-black/[0.06] pt-[110px] md:pt-[130px] pb-[48px]">
       <div className="max-w-[1280px] mx-auto px-7 flex flex-col items-center text-center gap-4">
         <span className="inline-flex items-center gap-1.5 bg-cc-accent-light text-cc-accent rounded-full px-3 py-1 text-[11px] font-medium uppercase tracking-wide">
           {badge}

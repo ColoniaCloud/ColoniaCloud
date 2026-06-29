@@ -133,7 +133,7 @@ function SubHeader({
   icon: Icon,
   title,
 }: {
-  icon: React.ComponentType<{ size?: number; className?: string; 'aria-hidden'?: 'true' }>;
+  icon: React.ElementType;
   title: string;
 }) {
   return (

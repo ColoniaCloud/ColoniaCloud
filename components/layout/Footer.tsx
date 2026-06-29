@@ -39,18 +39,12 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-[1.6fr_1fr_1fr] gap-8">
           {/* Columna 1 — Brand */}
           <div>
-            <div className="flex items-center gap-2">
-              <span
-                aria-hidden="true"
-                className="w-7 h-7 bg-cc-accent rounded-md flex items-center justify-center shrink-0"
-              >
-                <span className="text-white font-display text-[13px] font-medium leading-none">
-                  CC
-                </span>
-              </span>
-              <span className="font-display text-[15px] text-white">
-                Colonia Cloud
-              </span>
+            <div className="flex items-center h-8">
+              <img
+                src="/brand/logo.svg"
+                alt="Colonia Cloud Logo"
+                className="h-[26px] w-auto brightness-0 invert"
+              />
             </div>
 
             <p className="text-[13px] text-white/50 mt-3">

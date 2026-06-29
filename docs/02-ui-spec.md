@@ -68,7 +68,7 @@ Escala base de 4px. Todos los espaciados deben ser múltiplos de esta unidad.
 | Token | Valor | Uso |
 |---|---|---|
 | `--cc-radius-sm` | 2px | Tags, indicadores pequeños |
-| `--cc-radius-md` | 6px | Botones, inputs, badges, selects |
+| `--cc-radius-md` | 8px | Botones, inputs, badges, selects |
 | `--cc-radius-lg` | 10px | Cards de contenido, navbar, paneles |
 | `--cc-radius-xl` | 16px | Cards de pricing, modales, página wrapper |
 | `--cc-radius-full` | 9999px | Badges pill, avatares, toggles |
@@ -284,7 +284,7 @@ Escala base de 4px. Todos los espaciados deben ser múltiplos de esta unidad.
 
   /* Border radius */
   --cc-radius-sm: 2px;
-  --cc-radius-md: 6px;
+  --cc-radius-md: 8px;
   --cc-radius-lg: 10px;
   --cc-radius-xl: 16px;
 }
