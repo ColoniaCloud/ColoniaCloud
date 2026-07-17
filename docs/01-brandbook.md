@@ -56,18 +56,20 @@
 | Hex | Nombre | Uso |
 |---|---|---|
 | `#FFFAFA` | Blanco cálido | Fondo principal |
-| `#000000` | Negro | Texto principal |
+| `#000000` | Negro | Texto principal y acento interactivo |
 | `#555555` | Gris medio | Texto secundario |
 | `#333333` | Gris oscuro | Elementos sutiles |
-| `#A9A793` | Topo / Arena | Acento de calidez |
-| `#C17A5A` | Terracota | Acento interactivo |
+| `#A3A3A3` | Gris medio-claro | Separadores, metadata |
+| `#262626` | Gris muy oscuro | Hover de acento |
+
+> **Nota:** El acento (botones, links, CTAs) comparte hex con el texto principal (`#000000`). Ya no existe un color de acento diferenciado por tono — la diferenciación viene de la forma (fondo sólido vs. texto) y el peso tipográfico.
 
 ### Reglas de uso
 
 - **Fondo:** Siempre `#FFFAFA`. Nunca blanco puro (`#FFFFFF`) en superficies grandes.
 - **Texto:** Negro para títulos, Gris medio para cuerpo, Gris oscuro para labels.
-- **Acento:** Terracota únicamente en botones, links, highlights y CTAs.
-- **Topo/Arena:** Para separadores, labels secundarios y detalles decorativos.
+- **Acento:** Negro únicamente en botones, links, highlights y CTAs. Hover: `#262626`.
+- **Gris medio-claro:** Para separadores, labels secundarios y detalles decorativos.
 
 ---
 
@@ -111,7 +113,8 @@ Fuente: `fonts.google.com/specimen/DM+Sans`
 |---|---|
 | Clara | `#FFFAFA` |
 | Oscura | `#000000` |
-| Terracota | `#C17A5A` |
+
+> ⚠️ **Pendiente de decisión:** la versión "Terracota" (`#C17A5A`) queda huérfana tras este cambio, ya que el acento ahora es negro — coincide con la versión "Oscura". Definir si se elimina esta tercera versión o si se reemplaza por una variante sobre gris (`#EDEDED`).
 
 ### Espacio de respeto
 Mantener un espacio libre mínimo equivalente a la altura de la "C" del símbolo en todos los lados del logo.
@@ -123,7 +126,7 @@ Mantener un espacio libre mínimo equivalente a la altura de la "C" del símbolo
 - ❌ No usar sobre fondos que generen bajo contraste.
 - ❌ No rotar ni inclinar el logo.
 - ❌ No recolorear con colores fuera de la paleta oficial.
-- ❌ No usar la versión oscura sobre fondo terracota o gris claro.
+- ❌ No usar la versión oscura sobre fondos que generen bajo contraste (p. ej. gris claro).
 
 > El logo incluye el símbolo (doble C) + logotipo "COLONIA CLOUD" + tagline "CLOUD". Pueden usarse por separado según contexto.
 

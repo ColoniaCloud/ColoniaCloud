@@ -19,7 +19,7 @@ export default function CtaFinalSection() {
           href="https://wa.me/59800000000"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-cc-accent hover:bg-cc-accent-hover text-white rounded-md px-8 py-4 text-[16px] font-medium transition-colors duration-150"
+          className="inline-flex items-center gap-2 bg-white hover:bg-cc-accent-light text-black rounded-md px-8 py-4 text-[16px] font-medium transition-colors duration-150"
         >
           <IconBrandWhatsapp size={20} aria-hidden="true" />
           Escribinos por WhatsApp

@@ -66,7 +66,7 @@ export default function WhatsAppButton() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Contactar por WhatsApp"
-        className="group relative w-14 h-14 rounded-full bg-cc-accent hover:bg-cc-accent-hover flex items-center justify-center shadow-[0_4px_16px_rgba(193,122,90,0.35)] hover:scale-[1.08] transition-all duration-200"
+        className="group relative w-14 h-14 rounded-full bg-cc-accent hover:bg-cc-accent-hover flex items-center justify-center border border-white/15 shadow-[0_4px_16px_rgba(0,0,0,0.35)] hover:scale-[1.08] transition-all duration-200"
       >
         {/* Tooltip */}
         <span className="absolute right-[calc(100%+12px)] top-1/2 -translate-y-1/2 bg-cc-text text-white text-[12px] font-medium px-3 py-1.5 rounded-md whitespace-nowrap pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-200">

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { IconSend, IconAlertCircle } from '@tabler/icons-react';
+import { IconSend, IconAlertCircle, IconBrandWhatsapp } from '@tabler/icons-react';
 import { Button } from '@/components/ui/Button';
 
 const schema = z.object({
@@ -22,7 +22,7 @@ const baseInputClass = [
   'px-3 py-[9px]',
   'border border-black/[0.11]',
   'focus:outline-none focus:border-cc-accent',
-  'focus:shadow-[0_0_0_3px_rgba(193,122,90,0.15)]',
+  'focus:shadow-[0_0_0_3px_rgba(0,0,0,0.15)]',
   'placeholder:text-cc-muted',
   'transition-all duration-150',
 ].join(' ');
@@ -37,7 +37,12 @@ const errorInputClass = [
   'transition-all duration-150',
 ].join(' ');
 
-export default function ContactForm() {
+interface ContactFormProps {
+  withWhatsApp?: boolean;
+  showHeading?: boolean;
+}
+
+export default function ContactForm({ withWhatsApp = false, showHeading = true }: ContactFormProps) {
   const router = useRouter();
   const [status, setStatus] = useState<Status>('idle');
 
@@ -60,14 +65,16 @@ export default function ContactForm() {
 
   return (
     <div className="flex flex-col gap-5">
-      <div>
-        <h3 className="font-display font-medium text-[1.125rem] text-cc-text mb-1">
-          O dejanos tu mensaje
-        </h3>
-        <p className="text-[13px] text-cc-text-body mb-4">
-          Te respondemos por email o WhatsApp.
-        </p>
-      </div>
+      {showHeading && (
+        <div>
+          <h3 className="font-display font-medium text-[1.125rem] text-cc-text mb-1">
+            O dejanos tu mensaje
+          </h3>
+          <p className="text-[13px] text-cc-text-body mb-4">
+            Te respondemos por email o WhatsApp.
+          </p>
+        </div>
+      )}
 
       {status === 'error' && (
         <div className="bg-[#FCECEA] border border-[#F0AAAA] rounded-md p-3 flex items-center gap-2">
@@ -151,6 +158,18 @@ export default function ContactForm() {
             </>
           )}
         </Button>
+
+        {withWhatsApp && (
+          <a
+            href="https://wa.me/59800000000"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 text-[13px] font-medium text-cc-accent hover:underline"
+          >
+            <IconBrandWhatsapp size={16} aria-hidden="true" />
+            O escribinos por WhatsApp
+          </a>
+        )}
       </form>
     </div>
   );

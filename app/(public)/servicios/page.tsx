@@ -153,7 +153,7 @@ function PricingCardEl({ card }: { card: PricingCard }) {
       className={[
         'border rounded-xl p-6 bg-cc-bg flex flex-col h-full',
         card.featured
-          ? 'border-[1.5px] border-cc-accent bg-[#F5EDE8]/40'
+          ? 'border-[1.5px] border-cc-accent bg-[#EDEDED]/40'
           : 'border-black/10',
       ].join(' ')}
     >

@@ -53,7 +53,7 @@ export default function ServiciosSection() {
           {services.map(({ icon: Icon, title, description, href }) => (
             <div
               key={title}
-              className="group p-[22px] border border-black/10 rounded-lg bg-cc-bg hover:border-cc-accent hover:shadow-[0_0_0_3px_#F5EDE8] transition-all duration-200 cursor-pointer"
+              className="group p-[22px] border border-black/10 rounded-lg bg-cc-bg hover:border-cc-accent hover:shadow-[0_0_0_3px_var(--cc-accent-light)] transition-all duration-200 cursor-pointer"
             >
               <div className="w-10 h-10 rounded-md bg-cc-accent-light flex items-center justify-center mb-4">
                 <Icon size={20} className="text-cc-accent" aria-hidden="true" />

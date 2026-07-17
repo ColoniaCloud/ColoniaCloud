@@ -29,7 +29,7 @@ const socialLinks = [
 const columnHeadingClass =
   'text-[11px] font-medium text-white/35 uppercase tracking-wider mb-4';
 const navLinkClass =
-  'block text-[13px] text-white/60 hover:text-cc-accent transition-colors duration-150 mb-2 last:mb-0';
+  'block text-[13px] text-white/60 hover:text-white transition-colors duration-150 mb-2 last:mb-0';
 
 export default function Footer() {
   return (
@@ -59,7 +59,7 @@ export default function Footer() {
                   aria-label={label}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-[30px] h-[30px] rounded-md bg-white/[0.07] hover:bg-cc-accent flex items-center justify-center transition-colors duration-150 text-white/70 hover:text-white"
+                  className="w-[30px] h-[30px] rounded-md bg-white/[0.07] hover:bg-white flex items-center justify-center transition-colors duration-150 text-white/70 hover:text-black"
                 >
                   <Icon size={16} aria-hidden="true" />
                 </a>

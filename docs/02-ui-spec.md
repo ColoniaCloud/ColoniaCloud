@@ -24,11 +24,11 @@ Los tokens son las variables base del sistema. Todo componente debe referenciar 
 | `--cc-text` | `#000000` | Negro | Títulos y texto de alto contraste |
 | `--cc-text-body` | `#555555` | Gris medio | Cuerpo de texto y párrafos |
 | `--cc-text-label` | `#333333` | Gris oscuro | Labels, UI secundaria, subtítulos |
-| `--cc-muted` | `#A9A793` | Topo / Arena | Placeholders, separadores, metadata |
-| `--cc-accent` | `#C17A5A` | Terracota | CTAs, botones primarios, links, highlights |
-| `--cc-accent-hover` | `#A8634A` | Terracota oscuro | Estado hover sobre elementos terracota |
-| `--cc-accent-light` | `#F5EDE8` | Terracota claro | Fondos de íconos, badges, estados activos |
-| `--cc-surface` | `#F3EFEC` | Arena claro | Secciones alternadas, fondo de pasos |
+| `--cc-muted` | `#A3A3A3` | Gris medio | Placeholders, separadores, metadata |
+| `--cc-accent` | `#000000` | Negro | CTAs, botones primarios, links, highlights |
+| `--cc-accent-hover` | `#262626` | Gris muy oscuro | Estado hover sobre elementos de acento |
+| `--cc-accent-light` | `#EDEDED` | Gris claro | Fondos de íconos, badges, estados activos |
+| `--cc-surface` | `#F2F2F2` | Gris claro (superficie) | Secciones alternadas, fondo de pasos |
 
 > **Regla crítica:** Nunca usar blanco puro (`#FFFFFF`) en superficies grandes. Siempre `#FFFAFA` como fondo principal.
 
@@ -81,10 +81,10 @@ Escala base de 4px. Todos los espaciados deben ser múltiplos de esta unidad.
 
 | Variante | Fondo | Texto / Borde | Uso |
 |---|---|---|---|
-| Primary | `#C17A5A` (terracota) | Blanco / Sin borde | Acción principal, CTA de página |
-| Secondary | Transparente | Terracota / Borde terracota | Acción secundaria |
+| Primary | `#000000` (negro) | Blanco / Sin borde | Acción principal, CTA de página |
+| Secondary | Transparente | Negro / Borde negro | Acción secundaria |
 | Ghost | Transparente | Gris medio / Borde gris | Tercera opción, cancelar |
-| Icon | `#C17A5A` (terracota) | Ícono blanco / Sin borde | Acciones compactas, toolbar |
+| Icon | `#000000` (negro) | Ícono blanco / Sin borde | Acciones compactas, toolbar |
 
 #### Tamaños
 
@@ -97,7 +97,7 @@ Escala base de 4px. Todos los espaciados deben ser múltiplos de esta unidad.
 #### Estados
 
 - **Default:** color base definido por variante
-- **Hover:** fondo 10% más oscuro (primary) o fondo `--cc-accent-light` (secondary)
+- **Hover:** fondo `--cc-accent-hover` (`#262626`) (primary) o fondo `--cc-accent-light` (secondary)
 - **Active:** `transform: scale(0.97)` — feedback táctil
 - **Disabled:** `opacity: 0.38`, `pointer-events: none`
 - **Loading:** spinner inline + texto "Cargando…", deshabilitado implícitamente
@@ -108,7 +108,7 @@ Escala base de 4px. Todos los espaciados deben ser múltiplos de esta unidad.
 |---|---|---|
 | Default | `1px solid rgba(0,0,0,0.11)` | Ninguno |
 | Hover | `1px solid rgba(0,0,0,0.20)` | Ninguno |
-| Focus | `1px solid #C17A5A` | `0 0 0 3px rgba(193,122,90,0.15)` |
+| Focus | `1px solid #000000` | `0 0 0 3px rgba(0,0,0,0.15)` |
 | Error | `1px solid #C0392B` | `0 0 0 3px rgba(192,57,43,0.12)` en focus |
 | Disabled | `1px solid rgba(0,0,0,0.06)` | Ninguno, `opacity: 0.45` |
 
@@ -118,11 +118,11 @@ Escala base de 4px. Todos los espaciados deben ser múltiplos de esta unidad.
 
 | Variante | Fondo | Texto | Uso |
 |---|---|---|---|
-| Accent | `#F5EDE8` | `#7A3E25` | Novedades, destacados de marca |
+| Accent | `#EDEDED` | `#000000` | Novedades, destacados de marca |
 | Success | `#E6F4EC` | `#1E6E3A` | Activo, publicado, completado |
 | Warning | `#FDF3E0` | `#7A5A0A` | Pendiente, revisión requerida |
 | Danger | `#FCECEA` | `#8C2020` | Vencido, error, cancelado |
-| Neutral | `#F3EFEC` | `#333333` | Beta, draft, sin estado definido |
+| Neutral | `#F2F2F2` | `#333333` | Beta, draft, sin estado definido |
 
 ---
 
@@ -134,19 +134,19 @@ Escala base de 4px. Todos los espaciados deben ser múltiplos de esta unidad.
 - Padding: 20–22px
 - Border: `0.5px solid rgba(0,0,0,0.10)`
 - Border radius: `--cc-radius-lg` (10px)
-- Hover: border-color terracota + `box-shadow: 0 0 0 3px --cc-accent-light`
+- Hover: border-color negro + `box-shadow: 0 0 0 3px --cc-accent-light`
 - Estructura: ícono (40×40px, fondo accent-light) → título H3 → descripción body-sm → link con flecha
 
 #### Pricing card
 - Border radius: `--cc-radius-xl` (16px)
-- Featured: `border: 1.5px solid terracota` + fondo `--cc-accent-light`
+- Featured: `border: 1.5px solid negro` + fondo `--cc-accent-light`
 - No-featured: `border: 0.5px solid` gris estándar
 - Estructura: badge (opcional) → nombre plan → precio → lista de features → botón
 
 #### Testimonial card
-- Border izquierdo: `3px solid terracota` (sin border-radius en ese lado)
+- Border izquierdo: `3px solid negro` (sin border-radius en ese lado)
 - Otros bordes: `0.5px solid` gris
-- Fondo: `--cc-surface` (`#F3EFEC`)
+- Fondo: `--cc-surface` (`#F2F2F2`)
 - Estructura: estrellas → cita en cursiva → avatar + nombre + rol
 
 #### Stat card
@@ -157,12 +157,13 @@ Escala base de 4px. Todos los espaciados deben ser múltiplos de esta unidad.
 
 ### 4.2 Navbar
 
+- Ancho: sigue la misma escala del contenedor principal (90vw / 85vw / 75vw / 75vw — ver 5.2), centrado
 - Altura: 58px
 - Padding horizontal: 28px
 - Fondo: `--cc-bg` con `border-bottom: 0.5px` gris
-- Logo: cuadrado 28×28px, fondo terracota, border-radius md, texto "CC" blanco
+- Logo: cuadrado 28×28px, fondo negro, border-radius md, texto "CC" blanco
 - Brand name: Clash Display 15px
-- Links: DM Sans 13px, color gris-body; activo/hover: terracota
+- Links: DM Sans 13px, color gris-body; activo/hover: negro
 - CTA: botón primario sm (`8px 16px`, 13px)
 
 ### 4.3 Alertas
@@ -173,7 +174,7 @@ Escala base de 4px. Todos los espaciados deben ser múltiplos de esta unidad.
 | Info | `#E8F1FB` | `#B5CEEF` | Información neutral, actualizaciones |
 | Warning | `#FDF3E0` | `#F0D08A` | Atención requerida, próximo vencimiento |
 | Danger | `#FCECEA` | `#F0AAAA` | Errores, fallos críticos |
-| Accent | `#F5EDE8` | `rgba(193,122,90,0.3)` | Promociones y novedades de marca |
+| Accent | `#EDEDED` | `rgba(0,0,0,0.3)` | Promociones y novedades de marca |
 
 ### 4.4 Footer
 
@@ -181,9 +182,11 @@ Escala base de 4px. Todos los espaciados deben ser múltiplos de esta unidad.
 - Layout: grid 3 columnas (`1.6fr 1fr 1fr`)
 - Columna 1: brand name, tagline, íconos de redes sociales
 - Columnas 2–3: listas de links con títulos en uppercase 11px, color `rgba(255,255,255,0.35)`
-- Links: 13px, color `rgba(255,255,255,0.6)`, hover: terracota
+- Links: 13px, color `rgba(255,255,255,0.6)`, hover: blanco
 - Bottom bar: `border-top: rgba(255,255,255,0.08)`, copyright izquierda, dominio derecha
-- Íconos sociales: 30×30px, fondo `rgba(255,255,255,0.07)`, hover: fondo terracota
+- Íconos sociales: 30×30px, fondo `rgba(255,255,255,0.07)`, hover: fondo blanco + ícono negro
+
+> **Excepción de acento:** el footer tiene fondo negro puro, igual que el acento. Por eso sus estados hover se invierten a blanco (en vez de usar `--cc-accent`) para no perder visibilidad — mismo criterio aplicado en el CTA principal del Hero y en la sección CTA final.
 
 ---
 
@@ -197,15 +200,24 @@ Escala base de 4px. Todos los espaciados deben ser múltiplos de esta unidad.
 | sm (mobile L) | 480px | 1–2 | Cards pueden ir en 2 columnas. |
 | md (tablet) | 768px | 2 | Hero: 2 col. Services: 2 col. Footer: 2 col. |
 | lg (desktop) | 1024px | 3 | Layout completo. Services: 3 col. Steps: 4 col. |
-| xl (wide) | 1280px | 3–4 | Max-width del contenedor: 1280px, centrado. |
+| xl (wide) | 1280px | 3–4 | Max-width del contenedor: 80vw, centrado. |
 
 > Usar `repeat(auto-fit, minmax(180px, 1fr))` para grids de cards.
 
 ### 5.2 Contenedor principal
 
-- Max-width: 1280px
+- Max-width: relativo al viewport, no un valor fijo en px — ver tabla abajo.
 - Padding horizontal: 48px desktop / 24px tablet / 16px móvil
 - Centrado con `margin: 0 auto`
+
+| Breakpoint | Max-width |
+|---|---|
+| Móvil (< 768px) | `90vw` |
+| Tablet (≥ 768px) | `85vw` |
+| Desktop chico (≥ 1024px) | `75vw` |
+| Desktop grande (≥ 1280px) | `75vw` |
+
+> El header flotante (Navbar) usa este mismo ancho — ver 4.2.
 
 ### 5.3 Secciones de página
 
@@ -228,13 +240,13 @@ Escala base de 4px. Todos los espaciados deben ser múltiplos de esta unidad.
 
 - Texto negro (`#000`) sobre `--cc-bg`: ratio 20.7:1 — cumple AAA
 - Texto gris medio (`#555`) sobre `--cc-bg`: ratio 7.4:1 — cumple AA
-- Texto blanco sobre terracota (`#C17A5A`): ratio 3.1:1 — cumple AA para texto grande
-- Nunca usar gris claro (`#A9A793`) como texto principal — solo metadata/placeholder
+- Texto blanco sobre negro (`#000000`): ratio 21:1 — cumple AAA
+- Nunca usar gris medio-claro (`#A3A3A3`) como texto principal — solo metadata/placeholder
 
 ### 6.2 Estados de foco
 
-- Input en focus: `box-shadow: 0 0 0 3px rgba(193,122,90,0.15)` + borde terracota
-- Botones en focus: `outline: 2px solid terracota`, `offset: 2px`
+- Input en focus: `box-shadow: 0 0 0 3px rgba(0,0,0,0.15)` + borde negro
+- Botones en focus: `outline: 2px solid negro`, `offset: 2px`
 - No usar `outline: none` sin reemplazarlo por un estilo alternativo claro
 
 ### 6.3 Semántica HTML
@@ -272,11 +284,11 @@ Escala base de 4px. Todos los espaciados deben ser múltiplos de esta unidad.
   --cc-text: #000000;
   --cc-text-body: #555555;
   --cc-text-label: #333333;
-  --cc-muted: #A9A793;
-  --cc-accent: #C17A5A;
-  --cc-accent-hover: #A8634A;
-  --cc-accent-light: #F5EDE8;
-  --cc-surface: #F3EFEC;
+  --cc-muted: #A3A3A3;
+  --cc-accent: #000000;
+  --cc-accent-hover: #262626;
+  --cc-accent-light: #EDEDED;
+  --cc-surface: #F2F2F2;
 
   /* Tipografía */
   --cc-font-display: 'Clash Display', sans-serif;
@@ -298,7 +310,8 @@ Escala base de 4px. Todos los espaciados deben ser múltiplos de esta unidad.
 - [ ] ¿Usa los tokens CSS definidos en el `:root`? (sin valores hardcodeados)
 - [ ] ¿Respeta la tipografía: Clash Display para títulos, DM Sans para el resto?
 - [ ] ¿El fondo es `#FFFAFA`, no `#FFFFFF`?
-- [ ] ¿Los CTAs y elementos interactivos usan terracota (`#C17A5A`)?
+- [ ] ¿Los CTAs y elementos interactivos usan negro (`#000000`)?
+- [ ] ¿Los botones/hovers de acento sobre fondos negros puros (Hero, CTA final, Footer) están invertidos a blanco para no perder visibilidad?
 - [ ] ¿Los border-radius corresponden a la escala definida?
 
 ### Interactividad

@@ -110,14 +110,14 @@ El sitio se organiza en dos mundos separados: el **sitio público** para atraer 
 | **Desktop** | Fijo en la parte superior. Al hacer scroll agrega sombra sutil. |
 | **Móvil** | Hamburger menu. Al abrir: slide-down del menú con overlay. Cierra con tap fuera o en X. |
 | **CTA WhatsApp** | Siempre visible en el navbar — no se oculta en scroll. |
-| **Link activo** | Color terracota en la página actual. Transición `color 0.15s` en hover. |
+| **Link activo** | Color negro en la página actual. Transición `color 0.15s` en hover. |
 
 ### 5.2 Botón WhatsApp flotante
 
 | Elemento | Comportamiento |
 |---|---|
 | **Posición** | Fixed, esquina inferior derecha, 24px desde el borde. |
-| **Apariencia** | Círculo 56px, fondo terracota, ícono WhatsApp blanco. |
+| **Apariencia** | Círculo 56px, fondo negro con borde sutil blanco/15%, ícono WhatsApp blanco. |
 | **Desktop** | Oculto en el primer viewport. Aparece con fade-in tras 300px de scroll. |
 | **Móvil** | Siempre visible desde el inicio de la página. |
 | **Desaparece** | En ambos dispositivos: desaparece cuando el footer entra en el viewport. |
@@ -141,14 +141,14 @@ El sitio se organiza en dos mundos separados: el **sitio público** para atraer 
 | **Tipo** | Fade-in + `translateY(16px → 0)` al entrar en viewport. |
 | **Duración** | 0.4s ease-out. Delay máximo 0.1s por elemento. |
 | **Cards en grid** | Entrada escalonada: delay 0s, 0.08s, 0.16s por card. |
-| **Hero** | Sin animación de scroll — aparece instantáneo al cargar. |
+| **Hero** | Sin animación de scroll. Ícono y título tienen entrada propia al cargar: blur-in (ícono, 1.2s) y blur-in desde la derecha (título, 0.9s) — ver 5.1. |
 | **Reduced motion** | `@media (prefers-reduced-motion: reduce)` elimina todas las animaciones. |
 
 ### 5.5 Cards de servicios
 
 | Elemento | Comportamiento |
 |---|---|
-| **Hover** | Border color terracota + `box-shadow: 0 0 0 3px accent-light`. Transición 0.2s. |
+| **Hover** | Border color negro + `box-shadow: 0 0 0 3px accent-light`. Transición 0.2s. |
 | **Link interno** | Flecha → al final de la card. En hover se desplaza 4px a la derecha. |
 | **Móvil** | Sin hover. El estado activo (tap) aplica el efecto de borde brevemente. |
 

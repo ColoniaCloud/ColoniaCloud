@@ -1,14 +1,11 @@
 import Link from 'next/link';
-import {
-  IconBrandWhatsapp,
-  IconArrowDown,
-  IconClock,
-} from '@tabler/icons-react';
+import { IconArrowDown } from '@tabler/icons-react';
 import { Button } from '@/components/ui/Button';
+import ContactModal from '@/components/ui/ContactModal';
 
 export default function HeroSection() {
   return (
-    <section className="relative w-full overflow-hidden pt-[140px] pb-[96px] md:pt-[180px] md:pb-[130px] bg-black">
+    <section className="relative w-full overflow-hidden pt-[120px] pb-[80px] md:pt-[150px] md:pb-[110px] bg-black">
       {/* Background Video */}
       <video
         autoPlay
@@ -25,58 +22,52 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-black/55 z-10" aria-hidden="true" />
 
       {/* Content */}
-      <div className="relative z-20 max-w-[1280px] mx-auto px-7 flex flex-col items-center text-center gap-6">
-        {/* Título */}
-        <h1 className="font-display font-medium text-[2.2rem] leading-[1.15] md:text-[3.2rem] text-white max-w-[680px]">
-          Llevamos tu negocio
-          <br />
-          a la <span className="text-cc-accent font-semibold">nube</span>
-        </h1>
-
-        {/* Subtítulo */}
-        <p className="text-[1rem] text-white/80 leading-relaxed max-w-[480px]">
-          Diseñamos, desarrollamos y hacemos crecer la presencia digital de
-          negocios en Colonia del Sacramento.
-        </p>
-
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center gap-3 mt-2">
-          <Button
-            variant="primary"
-            size="lg"
-            asChild
+      <div className="relative z-20 max-w-[1280px] mx-auto px-7 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+        {/* Columna 1 — Ícono */}
+        <div className="order-2 md:order-1 flex items-center justify-center md:justify-start">
+          <svg
+            viewBox="0 0 489 496"
+            fill="currentColor"
+            aria-hidden="true"
+            className="animate-hero-icon h-auto w-36 text-white sm:w-44 md:w-56 lg:w-64"
           >
-            <a
-              href="https://wa.me/59800000000"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2"
-            >
-              <IconBrandWhatsapp size={18} aria-hidden="true" />
-              Escribinos por WhatsApp
-            </a>
-          </Button>
-
-          <Button
-            variant="secondary"
-            size="lg"
-            asChild
-          >
-            <Link
-              href="#servicios"
-              className="inline-flex items-center gap-1.5"
-            >
-              Ver servicios
-              <IconArrowDown size={16} aria-hidden="true" />
-            </Link>
-          </Button>
+            <path d="M238.455 417.179C193.513 417.179 150.411 399.311 118.632 367.507C86.8532 335.703 69 292.567 69 247.589C69 202.611 86.8532 159.476 118.632 127.672C150.411 95.8674 193.513 78 238.455 78L238.455 417.179Z" />
+            <path d="M421 417.179C376.058 417.179 332.956 399.311 301.177 367.507C269.398 335.703 251.545 292.567 251.545 247.589C251.545 202.611 269.398 159.476 301.177 127.672C332.956 95.8674 376.058 78 421 78V417.179Z" />
+          </svg>
         </div>
 
-        {/* Promesa */}
-        <p className="flex items-center gap-1.5 text-[12px] text-white/50">
-          <IconClock size={13} aria-hidden="true" className="text-cc-accent" />
-          Respondemos en menos de 24 horas
-        </p>
+        {/* Columna 2 — Texto */}
+        <div className="order-1 flex flex-col items-center gap-6 text-center md:order-2 md:items-end md:text-right">
+          {/* Título */}
+          <h1 className="animate-hero-title font-display font-bold text-[2.1rem] leading-[1.2] text-white md:text-[2.6rem] lg:text-[3rem] max-w-[560px]">
+            Promoviendo la excelencia digital del departamento
+          </h1>
+
+          {/* Subtítulo */}
+          <p className="text-[1rem] text-white/80 leading-relaxed max-w-[440px]">
+            Diseñamos, desarrollamos y proveemos todos los servicios digitales
+            para la actualización e innovación de su empresa.
+          </p>
+
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row items-center gap-3 mt-2">
+            <ContactModal triggerClassName="bg-white hover:bg-cc-accent-light text-black" />
+
+            <Button
+              variant="secondary"
+              size="lg"
+              asChild
+            >
+              <Link
+                href="#servicios"
+                className="inline-flex items-center gap-1.5"
+              >
+                Servicios
+                <IconArrowDown size={16} aria-hidden="true" />
+              </Link>
+            </Button>
+          </div>
+        </div>
       </div>
     </section>
   );
