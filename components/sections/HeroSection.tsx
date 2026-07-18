@@ -5,7 +5,7 @@ import ContactModal from '@/components/ui/ContactModal';
 
 export default function HeroSection() {
   return (
-    <section className="relative w-full overflow-hidden pt-[120px] pb-[80px] md:pt-[150px] md:pb-[110px] bg-black">
+    <section className="relative w-full overflow-hidden pt-[100px] pb-[64px] md:pt-[130px] md:pb-[90px] bg-black">
       {/* Background Video */}
       <video
         autoPlay
@@ -37,9 +37,9 @@ export default function HeroSection() {
         </div>
 
         {/* Columna 2 — Texto */}
-        <div className="order-1 flex flex-col items-center gap-6 text-center md:order-2 md:items-end md:text-right">
+        <div className="order-1 flex flex-col items-center gap-6 text-center md:order-2">
           {/* Título */}
-          <h1 className="animate-hero-title font-display font-bold text-[2.1rem] leading-[1.2] text-white md:text-[2.6rem] lg:text-[3rem] max-w-[560px]">
+          <h1 className="animate-hero-title font-display font-semibold text-[2.1rem] leading-[1.2] text-white md:text-[2.6rem] lg:text-[3rem] max-w-[560px]">
             Promoviendo la excelencia digital del departamento
           </h1>
 

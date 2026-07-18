@@ -1,31 +1,63 @@
 import Link from 'next/link';
 import {
+  IconRobot,
+  IconLayoutDashboard,
+  IconBulb,
   IconCode,
-  IconChartBar,
-  IconBolt,
+  IconSpeakerphone,
+  IconServer,
+  IconShieldLock,
   IconArrowRight,
 } from '@tabler/icons-react';
 
 const services = [
   {
+    icon: IconRobot,
+    title: 'Infraestructura de IA y automatizaciones',
+    description:
+      'Adaptamos la IA a tu negocio y tu negocio a la IA: desde simples agentes de atención hasta automatizaciones complejas en flujos de producción.',
+    href: '/servicios',
+  },
+  {
+    icon: IconLayoutDashboard,
+    title: 'Software de gestión',
+    description:
+      'Creamos soluciones a medida para la gestión de tu proyecto: logística, comunicación y toma de decisiones, todo en un mismo lugar.',
+    href: '/servicios',
+  },
+  {
+    icon: IconBulb,
+    title: 'IT Creative',
+    description:
+      'Más que un servicio, es una alianza de intercambio de ideas con el fin de promover la innovación en tu proyecto.',
+    href: '/servicios',
+  },
+  {
     icon: IconCode,
-    title: 'Desarrollo web y app',
+    title: 'Web & App',
     description:
       'Sitios institucionales, tiendas online y aplicaciones a medida. Diseño UI/UX exclusivo, rápido y optimizado para móviles.',
     href: '/servicios',
   },
   {
-    icon: IconChartBar,
-    title: 'Marketing digital',
+    icon: IconSpeakerphone,
+    title: 'Digital Branding & RRSS',
     description:
-      'Gestión de redes sociales, campañas publicitarias y estrategia de contenido para hacer crecer tu presencia online.',
+      'Nuestro servicio de marketing digital profesional: gestión de comunidad y reputación online (ORM), monitoreo y respuesta a menciones de marca.',
     href: '/servicios',
   },
   {
-    icon: IconBolt,
-    title: 'Automatizaciones',
+    icon: IconServer,
+    title: 'Infraestructura VPS, dominios y bases de datos',
     description:
-      'Conectamos tus herramientas y automatizamos procesos repetitivos. Desde notificaciones hasta integraciones con IA.',
+      'Ofrecemos el servicio "manejado" para simplificarte los procesos: configuración, mantenimiento y monitoreo de tu infraestructura.',
+    href: '/servicios',
+  },
+  {
+    icon: IconShieldLock,
+    title: 'Ciberseguridad',
+    description:
+      'Auditorías de seguridad, mitigaciones de urgencia y consultoría para proteger tu negocio.',
     href: '/servicios',
   },
 ];
@@ -43,17 +75,17 @@ export default function ServiciosSection() {
             Todo lo que tu negocio necesita online
           </h2>
           <p className="text-[15px] text-cc-text-body max-w-[480px] mx-auto leading-relaxed">
-            Desde tu primera web hasta automatizar tus procesos — lo hacemos con
-            vos, paso a paso.
+            Desde inteligencia artificial hasta ciberseguridad — todo el
+            ecosistema digital de tu negocio, en un mismo lugar.
           </p>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-10">
+        {/* Grid tipo masonry */}
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-5 mt-10">
           {services.map(({ icon: Icon, title, description, href }) => (
             <div
               key={title}
-              className="group p-[22px] border border-black/10 rounded-lg bg-cc-bg hover:border-cc-accent hover:shadow-[0_0_0_3px_var(--cc-accent-light)] transition-all duration-200 cursor-pointer"
+              className="group mb-5 break-inside-avoid p-[22px] border border-black/10 rounded-lg bg-cc-bg hover:border-cc-accent hover:shadow-[0_0_0_3px_var(--cc-accent-light)] transition-all duration-200 cursor-pointer"
             >
               <div className="w-10 h-10 rounded-md bg-cc-accent-light flex items-center justify-center mb-4">
                 <Icon size={20} className="text-cc-accent" aria-hidden="true" />
