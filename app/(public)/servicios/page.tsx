@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import {
-  IconCode,
-  IconChartBar,
-  IconBolt,
-  IconServer,
-  IconInfoCircle,
-} from '@tabler/icons-react';
+  Code,
+  ChartBar,
+  Bolt,
+  Server,
+  Info,
+} from 'lucide-react';
 import InternalHero from '@/components/ui/InternalHero';
 import SectionCta from '@/components/ui/SectionCta';
 
@@ -197,7 +197,7 @@ function PricingCardEl({ card }: { card: PricingCard }) {
 
       {/* Tipo */}
       <div className="mt-auto pt-4 border-t border-black/[0.06] flex items-center gap-1 text-[12px] text-cc-muted">
-        <IconInfoCircle size={13} aria-hidden="true" />
+        <Info size={13} aria-hidden="true" />
         {card.tipo}
       </div>
     </div>
@@ -218,14 +218,14 @@ export default function ServiciosPage() {
       {/* Desarrollo web & App */}
       <section className="py-[64px] bg-cc-bg">
         <div className="max-w-[1280px] mx-auto px-7">
-          <SubHeader icon={IconCode} title="Desarrollo web & App" />
+          <SubHeader icon={Code} title="Desarrollo web & App" />
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             {webCards.map((card) => (
               <PricingCardEl key={card.name} card={card} />
             ))}
             {/* Add-on */}
             <div className="col-span-full bg-cc-surface border border-black/10 rounded-xl p-5 flex flex-col md:flex-row items-start md:items-center gap-4">
-              <IconServer
+              <Server
                 size={20}
                 className="text-cc-accent flex-shrink-0"
                 aria-hidden="true"
@@ -247,14 +247,14 @@ export default function ServiciosPage() {
       {/* Marketing digital */}
       <section className="py-[64px] bg-cc-surface">
         <div className="max-w-[1280px] mx-auto px-7">
-          <SubHeader icon={IconChartBar} title="Marketing digital" />
+          <SubHeader icon={ChartBar} title="Marketing digital" />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[800px]">
             {mktCards.map((card) => (
               <PricingCardEl key={card.name} card={card} />
             ))}
           </div>
           <p className="mt-4 text-[12px] text-cc-muted flex items-center gap-1.5">
-            <IconInfoCircle size={13} aria-hidden="true" />
+            <Info size={13} aria-hidden="true" />
             El presupuesto de pauta publicitaria lo abona el cliente directamente a Meta o Google.
           </p>
         </div>
@@ -263,7 +263,7 @@ export default function ServiciosPage() {
       {/* Automatizaciones */}
       <section className="py-[64px] bg-cc-bg">
         <div className="max-w-[1280px] mx-auto px-7">
-          <SubHeader icon={IconBolt} title="Automatizaciones" />
+          <SubHeader icon={Bolt} title="Automatizaciones" />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[800px]">
             {autoCards.map((card) => (
               <PricingCardEl key={card.name} card={card} />

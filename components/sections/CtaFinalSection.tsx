@@ -1,4 +1,5 @@
-import { IconBrandWhatsapp, IconClock } from '@tabler/icons-react';
+import { Clock } from 'lucide-react';
+import { WhatsAppIcon } from '@/components/ui/brand-icons';
 
 export default function CtaFinalSection() {
   return (
@@ -21,13 +22,13 @@ export default function CtaFinalSection() {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 bg-white hover:bg-cc-accent-light text-black rounded-md px-8 py-4 text-[16px] font-medium transition-colors duration-150"
         >
-          <IconBrandWhatsapp size={20} aria-hidden="true" />
+          <WhatsAppIcon size={20} aria-hidden="true" />
           Escribinos por WhatsApp
         </a>
 
         {/* Promesa */}
         <p className="flex items-center gap-1.5 text-[12px] text-white/35">
-          <IconClock size={13} aria-hidden="true" />
+          <Clock size={13} aria-hidden="true" />
           Respondemos en menos de 24 horas hábiles
         </p>
       </div>

@@ -1,35 +1,35 @@
 import {
-  IconMessageCircle,
-  IconFileText,
-  IconCode,
-  IconLifebuoy,
-} from '@tabler/icons-react';
+  MessageCircle,
+  FileText,
+  Code,
+  LifeBuoy,
+} from 'lucide-react';
 
 const steps = [
   {
     number: '01',
-    icon: IconMessageCircle,
+    icon: MessageCircle,
     title: 'Consulta',
     description:
       'Nos contás qué necesita tu negocio. Sin formularios largos — una charla por WhatsApp alcanza.',
   },
   {
     number: '02',
-    icon: IconFileText,
+    icon: FileText,
     title: 'Propuesta',
     description:
       'Te enviamos una propuesta clara con alcance, tiempos y precio. Sin letra chica.',
   },
   {
     number: '03',
-    icon: IconCode,
+    icon: Code,
     title: 'Desarrollo',
     description:
       'Trabajamos con revisiones en cada etapa. Vos aprobás antes de avanzar al siguiente paso.',
   },
   {
     number: '04',
-    icon: IconLifebuoy,
+    icon: LifeBuoy,
     title: 'Soporte',
     description:
       'Entregamos y te acompañamos. 30 días de garantía y soporte continuo disponible.',

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { IconBrandWhatsapp } from '@tabler/icons-react';
+import { WhatsAppIcon } from '@/components/ui/brand-icons';
 
 export default function WhatsAppButton() {
   const [isVisible, setIsVisible] = useState(false);
@@ -73,7 +73,7 @@ export default function WhatsAppButton() {
           Escribínos
         </span>
 
-        <IconBrandWhatsapp size={26} className="text-white" aria-hidden="true" />
+        <WhatsAppIcon size={26} className="text-white" aria-hidden="true" />
       </a>
     </div>
   );

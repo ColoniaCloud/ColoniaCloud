@@ -1,4 +1,4 @@
-import { IconBrandWhatsapp } from '@tabler/icons-react';
+import { WhatsAppIcon } from '@/components/ui/brand-icons';
 import { Button } from '@/components/ui/Button';
 
 type Props = {
@@ -25,7 +25,7 @@ export default function SectionCta({ title, description }: Props) {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 whitespace-nowrap flex-shrink-0"
         >
-          <IconBrandWhatsapp size={17} aria-hidden="true" />
+          <WhatsAppIcon size={17} aria-hidden="true" />
           Escribinos por WhatsApp
         </a>
       </Button>

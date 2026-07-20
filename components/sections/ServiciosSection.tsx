@@ -1,66 +1,119 @@
 import Link from 'next/link';
+import type { LucideIcon } from 'lucide-react';
 import {
-  IconRobot,
-  IconLayoutDashboard,
-  IconBulb,
-  IconCode,
-  IconSpeakerphone,
-  IconServer,
-  IconShieldLock,
-  IconArrowRight,
-} from '@tabler/icons-react';
+  Bot,
+  LayoutDashboard,
+  Lightbulb,
+  Code,
+  Megaphone,
+  Server,
+  ShieldCheck,
+  ArrowRight,
+} from 'lucide-react';
+import { CursorCardsContainer, CursorCard } from '@/components/ui/cursor-cards';
 
 const services = [
   {
-    icon: IconRobot,
+    icon: Bot,
     title: 'Infraestructura de IA y automatizaciones',
     description:
       'Adaptamos la IA a tu negocio y tu negocio a la IA: desde simples agentes de atención hasta automatizaciones complejas en flujos de producción.',
     href: '/servicios',
   },
   {
-    icon: IconLayoutDashboard,
+    icon: LayoutDashboard,
     title: 'Software de gestión',
     description:
       'Creamos soluciones a medida para la gestión de tu proyecto: logística, comunicación y toma de decisiones, todo en un mismo lugar.',
     href: '/servicios',
   },
   {
-    icon: IconBulb,
+    icon: Lightbulb,
     title: 'IT Creative',
     description:
       'Más que un servicio, es una alianza de intercambio de ideas con el fin de promover la innovación en tu proyecto.',
     href: '/servicios',
   },
   {
-    icon: IconCode,
+    icon: Code,
     title: 'Web & App',
     description:
       'Sitios institucionales, tiendas online y aplicaciones a medida. Diseño UI/UX exclusivo, rápido y optimizado para móviles.',
     href: '/servicios',
   },
   {
-    icon: IconSpeakerphone,
+    icon: Megaphone,
     title: 'Digital Branding & RRSS',
     description:
       'Nuestro servicio de marketing digital profesional: gestión de comunidad y reputación online (ORM), monitoreo y respuesta a menciones de marca.',
     href: '/servicios',
   },
   {
-    icon: IconServer,
+    icon: Server,
     title: 'Infraestructura VPS, dominios y bases de datos',
     description:
       'Ofrecemos el servicio "manejado" para simplificarte los procesos: configuración, mantenimiento y monitoreo de tu infraestructura.',
     href: '/servicios',
   },
   {
-    icon: IconShieldLock,
+    icon: ShieldCheck,
     title: 'Ciberseguridad',
     description:
       'Auditorías de seguridad, mitigaciones de urgencia y consultoría para proteger tu negocio.',
     href: '/servicios',
   },
 ];
+
+interface ServiceCardProps {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  href: string;
+  isFeatured: boolean;
+}
+
+function ServiceCard({ icon: Icon, title, description, href, isFeatured }: ServiceCardProps) {
+  return (
+    <CursorCard
+      className={`rounded-lg overflow-hidden cursor-pointer ${
+        isFeatured ? 'sm:col-span-2 lg:col-span-1 lg:row-span-3' : ''
+      }`}
+    >
+      <div className="relative flex flex-col h-full p-[22px]">
+        <Icon
+          size={isFeatured ? 40 : 30}
+          strokeWidth={1.5}
+          className="text-cc-accent mb-4"
+          aria-hidden="true"
+        />
+
+        <h3
+          className={`font-display font-medium text-cc-text mb-2 ${
+            isFeatured ? 'text-[1.375rem]' : 'text-[1.125rem]'
+          }`}
+        >
+          {title}
+        </h3>
+
+        <p className="text-[14px] text-cc-text-body leading-relaxed mb-5">
+          {description}
+        </p>
+
+        <Link
+          href={href}
+          className="inline-flex items-center gap-1.5 text-[13px] text-cc-accent font-medium mt-auto"
+        >
+          Ver detalle
+          <ArrowRight
+            size={14}
+            aria-hidden="true"
+            className="group-hover:translate-x-1 transition-transform duration-200"
+          />
+        </Link>
+      </div>
+    </CursorCard>
+  );
+}
 
 export default function ServiciosSection() {
   return (
@@ -80,39 +133,19 @@ export default function ServiciosSection() {
           </p>
         </div>
 
-        {/* Grid tipo masonry */}
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-5 mt-10">
-          {services.map(({ icon: Icon, title, description, href }) => (
-            <div
+        {/* Grid: tarjeta destacada a la izquierda + grid parejo de 6 a la derecha */}
+        <CursorCardsContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-3 gap-5 mt-10">
+          {services.map(({ icon, title, description, href }, index) => (
+            <ServiceCard
               key={title}
-              className="group mb-5 break-inside-avoid p-[22px] border border-black/10 rounded-lg bg-cc-bg hover:border-cc-accent hover:shadow-[0_0_0_3px_var(--cc-accent-light)] transition-all duration-200 cursor-pointer"
-            >
-              <div className="w-10 h-10 rounded-md bg-cc-accent-light flex items-center justify-center mb-4">
-                <Icon size={20} className="text-cc-accent" aria-hidden="true" />
-              </div>
-
-              <h3 className="font-display font-medium text-[1.125rem] text-cc-text mb-2">
-                {title}
-              </h3>
-
-              <p className="text-[14px] text-cc-text-body leading-relaxed mb-5">
-                {description}
-              </p>
-
-              <Link
-                href={href}
-                className="inline-flex items-center gap-1.5 text-[13px] text-cc-accent font-medium"
-              >
-                Ver detalle
-                <IconArrowRight
-                  size={14}
-                  aria-hidden="true"
-                  className="group-hover:translate-x-1 transition-transform duration-200"
-                />
-              </Link>
-            </div>
+              icon={icon}
+              title={title}
+              description={description}
+              href={href}
+              isFeatured={index === 0}
+            />
           ))}
-        </div>
+        </CursorCardsContainer>
       </div>
     </section>
   );

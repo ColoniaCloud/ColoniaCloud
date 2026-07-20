@@ -1,4 +1,4 @@
-import { IconStarFilled } from '@tabler/icons-react';
+import { Star } from 'lucide-react';
 
 const testimonios = [
   {
@@ -51,9 +51,10 @@ export default function TestimoniosSection() {
               {/* Estrellas */}
               <div className="flex items-center gap-0.5 mb-4" aria-label="5 estrellas">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <IconStarFilled
+                  <Star
                     key={i}
                     size={14}
+                    fill="currentColor"
                     className="text-cc-accent"
                     aria-hidden="true"
                   />

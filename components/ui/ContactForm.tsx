@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { IconSend, IconAlertCircle, IconBrandWhatsapp } from '@tabler/icons-react';
+import { Send, CircleAlert } from 'lucide-react';
+import { WhatsAppIcon } from '@/components/ui/brand-icons';
 import { Button } from '@/components/ui/Button';
 
 const schema = z.object({
@@ -78,7 +79,7 @@ export default function ContactForm({ withWhatsApp = false, showHeading = true }
 
       {status === 'error' && (
         <div className="bg-[#FCECEA] border border-[#F0AAAA] rounded-md p-3 flex items-center gap-2">
-          <IconAlertCircle size={16} className="text-red-600 flex-shrink-0" aria-hidden="true" />
+          <CircleAlert size={16} className="text-red-600 flex-shrink-0" aria-hidden="true" />
           <p className="text-[13px] text-red-700">
             Hubo un error al enviar. Intentá de nuevo o escribinos por WhatsApp.
           </p>
@@ -153,7 +154,7 @@ export default function ContactForm({ withWhatsApp = false, showHeading = true }
             </>
           ) : (
             <>
-              <IconSend size={16} aria-hidden="true" />
+              <Send size={16} aria-hidden="true" />
               Enviar mensaje
             </>
           )}
@@ -166,7 +167,7 @@ export default function ContactForm({ withWhatsApp = false, showHeading = true }
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 text-[13px] font-medium text-cc-accent hover:underline"
           >
-            <IconBrandWhatsapp size={16} aria-hidden="true" />
+            <WhatsAppIcon size={16} aria-hidden="true" />
             O escribinos por WhatsApp
           </a>
         )}

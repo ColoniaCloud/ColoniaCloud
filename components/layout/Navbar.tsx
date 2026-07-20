@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { IconBrandWhatsapp, IconMenu2, IconX } from '@tabler/icons-react';
+import { Menu, X } from 'lucide-react';
+import { WhatsAppIcon } from '@/components/ui/brand-icons';
 import { Button } from '@/components/ui/Button';
 
 const navLinks = [
@@ -99,9 +100,9 @@ export default function Navbar() {
             ].join(' ')}
           >
             {isMenuOpen ? (
-              <IconX size={20} aria-hidden="true" />
+              <X size={20} aria-hidden="true" />
             ) : (
-              <IconMenu2 size={20} aria-hidden="true" />
+              <Menu size={20} aria-hidden="true" />
             )}
           </button>
 
@@ -117,7 +118,7 @@ export default function Navbar() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5"
             >
-              <IconBrandWhatsapp size={15} aria-hidden="true" />
+              <WhatsAppIcon size={15} aria-hidden="true" />
               Escribinos
             </a>
           </Button>

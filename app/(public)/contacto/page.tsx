@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { IconBrandWhatsapp, IconClock, IconMapPin, IconShieldCheck } from '@tabler/icons-react';
+import { Clock, MapPin, ShieldCheck } from 'lucide-react';
+import { WhatsAppIcon } from '@/components/ui/brand-icons';
 import InternalHero from '@/components/ui/InternalHero';
 import ContactForm from '@/components/ui/ContactForm';
 import { Button } from '@/components/ui/Button';
@@ -10,9 +11,9 @@ export const metadata: Metadata = {
 };
 
 const infoItems = [
-  { icon: IconClock, text: 'Respondemos en menos de 24 horas hábiles' },
-  { icon: IconMapPin, text: 'Colonia del Sacramento, Uruguay' },
-  { icon: IconShieldCheck, text: 'Sin compromiso ni costo por consultar' },
+  { icon: Clock, text: 'Respondemos en menos de 24 horas hábiles' },
+  { icon: MapPin, text: 'Colonia del Sacramento, Uruguay' },
+  { icon: ShieldCheck, text: 'Sin compromiso ni costo por consultar' },
 ];
 
 export default function ContactoPage() {
@@ -55,7 +56,7 @@ export default function ContactoPage() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2"
                 >
-                  <IconBrandWhatsapp size={20} aria-hidden="true" />
+                  <WhatsAppIcon size={20} aria-hidden="true" />
                   Abrir WhatsApp
                 </a>
               </Button>

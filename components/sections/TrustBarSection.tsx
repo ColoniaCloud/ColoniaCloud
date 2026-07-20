@@ -1,17 +1,17 @@
 import {
-  IconToolsKitchen2,
-  IconBuildingStore,
-  IconBriefcase,
-  IconBuildingBank,
-  IconRocket,
-} from '@tabler/icons-react';
+  Utensils,
+  Store,
+  Briefcase,
+  Landmark,
+  Rocket,
+} from 'lucide-react';
 
 const sectors = [
-  { icon: IconToolsKitchen2, label: 'Restaurantes y bares' },
-  { icon: IconBuildingStore, label: 'Comercios' },
-  { icon: IconBriefcase, label: 'Profesionales' },
-  { icon: IconBuildingBank, label: 'Instituciones' },
-  { icon: IconRocket, label: 'Emprendedores' },
+  { icon: Utensils, label: 'Restaurantes y bares' },
+  { icon: Store, label: 'Comercios' },
+  { icon: Briefcase, label: 'Profesionales' },
+  { icon: Landmark, label: 'Instituciones' },
+  { icon: Rocket, label: 'Emprendedores' },
 ];
 
 export default function TrustBarSection() {

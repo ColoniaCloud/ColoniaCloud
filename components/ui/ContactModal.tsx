@@ -1,7 +1,7 @@
 'use client';
 
 import * as Dialog from '@radix-ui/react-dialog';
-import { IconX, IconMessageCircle } from '@tabler/icons-react';
+import { X, MessageCircle } from 'lucide-react';
 import { Button, type ButtonProps } from '@/components/ui/Button';
 import ContactForm from '@/components/ui/ContactForm';
 import { cn } from '@/lib/utils';
@@ -25,7 +25,7 @@ export default function ContactModal({
           size="lg"
           className={cn('gap-2', triggerClassName)}
         >
-          <IconMessageCircle size={18} aria-hidden="true" />
+          <MessageCircle size={18} aria-hidden="true" />
           {triggerLabel}
         </Button>
       </Dialog.Trigger>
@@ -41,7 +41,7 @@ export default function ContactModal({
               aria-label="Cerrar"
               className="absolute right-4 top-4 text-cc-text-body hover:text-cc-text transition-colors duration-150"
             >
-              <IconX size={20} aria-hidden="true" />
+              <X size={20} aria-hidden="true" />
             </button>
           </Dialog.Close>
 

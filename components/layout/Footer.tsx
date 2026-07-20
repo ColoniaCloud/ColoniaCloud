@@ -1,9 +1,5 @@
 import Link from 'next/link';
-import {
-  IconBrandInstagram,
-  IconBrandLinkedin,
-  IconBrandWhatsapp,
-} from '@tabler/icons-react';
+import { InstagramIcon, LinkedinIcon, WhatsAppIcon } from '@/components/ui/brand-icons';
 
 const serviciosLinks = [
   { label: 'Desarrollo web', href: '/servicios' },
@@ -21,9 +17,9 @@ const empresaLinks = [
 ];
 
 const socialLinks = [
-  { label: 'Instagram', href: '#', icon: IconBrandInstagram },
-  { label: 'LinkedIn', href: '#', icon: IconBrandLinkedin },
-  { label: 'WhatsApp', href: '#', icon: IconBrandWhatsapp },
+  { label: 'Instagram', href: '#', icon: InstagramIcon },
+  { label: 'LinkedIn', href: '#', icon: LinkedinIcon },
+  { label: 'WhatsApp', href: '#', icon: WhatsAppIcon },
 ];
 
 const columnHeadingClass =

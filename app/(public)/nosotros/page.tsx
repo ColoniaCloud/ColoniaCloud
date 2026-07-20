@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { IconShieldCheck, IconMapPin, IconUsers } from '@tabler/icons-react';
+import { ShieldCheck, MapPin, Users } from 'lucide-react';
 import InternalHero from '@/components/ui/InternalHero';
 import SectionCta from '@/components/ui/SectionCta';
 
@@ -11,19 +11,19 @@ export const metadata: Metadata = {
 
 const valores = [
   {
-    icon: IconShieldCheck,
+    icon: ShieldCheck,
     title: 'Claridad ante todo',
     description:
       'Propuestas sin letra chica. Precios directos. Proceso explicado paso a paso.',
   },
   {
-    icon: IconMapPin,
+    icon: MapPin,
     title: 'Conocemos el mercado local',
     description:
       'Trabajamos desde Colonia. Entendemos la estacionalidad, el cliente y el ritmo del negocio local.',
   },
   {
-    icon: IconUsers,
+    icon: Users,
     title: 'Relación directa',
     description:
       'Sin intermediarios ni cuentas ejecutivas. Hablás directo con quien hace el trabajo.',

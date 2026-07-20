@@ -1,10 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import {
-  IconCheck,
-  IconClock,
-  IconBrandWhatsapp,
-} from '@tabler/icons-react';
+import { Check, Clock } from 'lucide-react';
+import { WhatsAppIcon } from '@/components/ui/brand-icons';
 import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
@@ -18,7 +15,7 @@ export default function GraciasPage() {
       <div className="max-w-[480px] mx-auto px-7 flex flex-col items-center text-center gap-5">
         {/* Ícono */}
         <div className="w-16 h-16 rounded-full bg-cc-accent-light flex items-center justify-center mb-2">
-          <IconCheck size={32} className="text-cc-accent" aria-hidden="true" />
+          <Check size={32} className="text-cc-accent" aria-hidden="true" />
         </div>
 
         {/* Título */}
@@ -33,7 +30,7 @@ export default function GraciasPage() {
 
         {/* Promesa */}
         <div className="flex items-center gap-2 bg-cc-surface rounded-lg px-5 py-3">
-          <IconClock size={16} className="text-cc-accent flex-shrink-0" aria-hidden="true" />
+          <Clock size={16} className="text-cc-accent flex-shrink-0" aria-hidden="true" />
           <p className="text-[13px] text-cc-text-body">
             Tiempo promedio de respuesta: menos de 24 horas
           </p>
@@ -51,7 +48,7 @@ export default function GraciasPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2"
             >
-              <IconBrandWhatsapp size={17} aria-hidden="true" />
+              <WhatsAppIcon size={17} aria-hidden="true" />
               Escribinos ahora
             </a>
           </Button>
