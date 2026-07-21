@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 import { WhatsAppIcon } from '@/components/ui/brand-icons';
 import { Button } from '@/components/ui/Button';
@@ -17,21 +17,56 @@ const navLinks = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  const isHome = pathname === '/';
+
+  const headerRef = useRef<HTMLElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(isHome);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // El header pasa a tema claro (texto/logo blancos) mientras su propio
+  // rectángulo se superponga verticalmente con alguna sección de fondo
+  // oscuro marcada con data-navbar-theme="dark" (Hero, CTA final, Footer).
+  // Se compara contra el rect del header, no contra todo el viewport, para
+  // que no cambie apenas la sección oscura asoma más abajo en la pantalla.
   useEffect(() => {
-    const handler = () => setIsScrolled(window.scrollY > 150);
-    window.addEventListener('scroll', handler, { passive: true });
-    return () => window.removeEventListener('scroll', handler);
-  }, []);
+    const headerEl = headerRef.current;
+    if (!headerEl) return;
+
+    const darkSections = Array.from(
+      document.querySelectorAll<HTMLElement>('[data-navbar-theme="dark"]')
+    );
+
+    let ticking = false;
+    const evaluate = () => {
+      ticking = false;
+      setIsScrolled(window.scrollY > 150);
+
+      const headerRect = headerEl.getBoundingClientRect();
+      const overlapsDarkSection = darkSections.some((section) => {
+        const rect = section.getBoundingClientRect();
+        return rect.top < headerRect.bottom && rect.bottom > headerRect.top;
+      });
+      setIsDarkTheme(overlapsDarkSection);
+    };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(evaluate);
+    };
+
+    evaluate();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [pathname]);
 
   useEffect(() => {
     setIsMenuOpen(false);
   }, [pathname]);
-
-  const isHome = pathname === '/';
-  const isDarkTheme = isHome && !isScrolled;
 
   const headerBgClass = isDarkTheme
     ? 'bg-white/5 backdrop-blur-sm border-white/10'
@@ -39,6 +74,7 @@ export default function Navbar() {
 
   return (
     <header
+      ref={headerRef}
       className={[
         'fixed top-4 left-[5vw] w-[90vw] md:left-[7.5vw] md:w-[85vw] lg:left-[12.5vw] lg:w-[75vw] z-50 h-[58px] border rounded-xl transition-all duration-300',
         headerBgClass,

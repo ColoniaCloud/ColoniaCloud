@@ -29,7 +29,7 @@ const navLinkClass =
 
 export default function Footer() {
   return (
-    <footer className="bg-black">
+    <footer className="bg-black" data-navbar-theme="dark">
       <div className="max-w-[1280px] mx-auto px-7 py-8">
         {/* Grid principal */}
         <div className="grid grid-cols-1 md:grid-cols-[1.6fr_1fr_1fr] gap-8">

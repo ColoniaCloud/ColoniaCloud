@@ -3,7 +3,7 @@ import { WhatsAppIcon } from '@/components/ui/brand-icons';
 
 export default function CtaFinalSection() {
   return (
-    <section className="bg-black py-[72px]">
+    <section className="bg-black py-[72px]" data-navbar-theme="dark">
       <div className="max-w-[1280px] mx-auto px-7 flex flex-col items-center text-center gap-6">
         {/* Título */}
         <h2 className="font-display font-medium text-[1.8rem] md:text-[2.2rem] leading-[1.2] text-white max-w-[520px]">

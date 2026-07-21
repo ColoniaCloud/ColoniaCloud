@@ -11,6 +11,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { CursorCardsContainer, CursorCard } from '@/components/ui/cursor-cards';
+import { BorderBeam } from '@/components/ui/border-beam';
 
 const services = [
   {
@@ -21,24 +22,17 @@ const services = [
     href: '/servicios',
   },
   {
-    icon: LayoutDashboard,
-    title: 'Software de gestión',
-    description:
-      'Creamos soluciones a medida para la gestión de tu proyecto: logística, comunicación y toma de decisiones, todo en un mismo lugar.',
-    href: '/servicios',
-  },
-  {
-    icon: Lightbulb,
-    title: 'IT Creative',
-    description:
-      'Más que un servicio, es una alianza de intercambio de ideas con el fin de promover la innovación en tu proyecto.',
-    href: '/servicios',
-  },
-  {
     icon: Code,
     title: 'Web & App',
     description:
       'Sitios institucionales, tiendas online y aplicaciones a medida. Diseño UI/UX exclusivo, rápido y optimizado para móviles.',
+    href: '/servicios',
+  },
+  {
+    icon: LayoutDashboard,
+    title: 'Software de gestión',
+    description:
+      'Creamos soluciones a medida para la gestión de tu proyecto: logística, comunicación y toma de decisiones, todo en un mismo lugar.',
     href: '/servicios',
   },
   {
@@ -49,6 +43,13 @@ const services = [
     href: '/servicios',
   },
   {
+    icon: ShieldCheck,
+    title: 'Ciberseguridad',
+    description:
+      'Auditorías de seguridad, mitigaciones de urgencia y consultoría para proteger tu negocio.',
+    href: '/servicios',
+  },
+  {
     icon: Server,
     title: 'Infraestructura VPS, dominios y bases de datos',
     description:
@@ -56,10 +57,10 @@ const services = [
     href: '/servicios',
   },
   {
-    icon: ShieldCheck,
-    title: 'Ciberseguridad',
+    icon: Lightbulb,
+    title: 'IT Creative',
     description:
-      'Auditorías de seguridad, mitigaciones de urgencia y consultoría para proteger tu negocio.',
+      'Más que un servicio, es una alianza de intercambio de ideas con el fin de promover la innovación en tu proyecto.',
     href: '/servicios',
   },
 ];
@@ -79,6 +80,8 @@ function ServiceCard({ icon: Icon, title, description, href, isFeatured }: Servi
         isFeatured ? 'sm:col-span-2 lg:col-span-1 lg:row-span-3' : ''
       }`}
     >
+      {isFeatured && <BorderBeam colorFrom="#000000" colorTo="#A3A3A3" borderWidth={1.5} duration={8} />}
+
       <div className="relative flex flex-col h-full p-[22px]">
         <Icon
           size={isFeatured ? 40 : 30}
@@ -119,18 +122,29 @@ export default function ServiciosSection() {
   return (
     <section id="servicios" className="bg-cc-bg py-[64px]">
       <div className="max-w-[1280px] mx-auto px-7">
-        {/* Encabezado */}
-        <div className="text-center mb-12">
-          <span className="inline-flex items-center gap-1.5 bg-cc-accent-light text-cc-accent rounded-full px-3 py-1 text-[11px] font-medium uppercase tracking-wide mb-4">
-            Nuestros servicios
-          </span>
-          <h2 className="font-display font-medium text-[1.75rem] text-cc-text mb-3">
-            Todo lo que tu negocio necesita online
-          </h2>
-          <p className="text-[15px] text-cc-text-body max-w-[480px] mx-auto leading-relaxed">
-            Desde inteligencia artificial hasta ciberseguridad — todo el
-            ecosistema digital de tu negocio, en un mismo lugar.
-          </p>
+        {/* Encabezado: columna imagen (35%) + columna título/texto (resto) */}
+        <div className="grid grid-cols-1 md:grid-cols-[35%_1fr] gap-8 md:gap-12 items-center mb-12">
+          <div className="flex justify-center md:justify-start">
+            <img
+              src="/atardecer-mask.png"
+              alt=""
+              aria-hidden="true"
+              className="w-full max-w-[280px] md:max-w-none h-auto"
+            />
+          </div>
+
+          <div className="text-center md:text-left">
+            <span className="inline-flex items-center gap-1.5 bg-cc-accent-light text-cc-accent rounded-full px-3 py-1 text-[11px] font-medium uppercase tracking-wide mb-4">
+              Nuestros servicios
+            </span>
+            <h2 className="font-display font-medium text-[1.75rem] text-cc-text mb-3">
+              Todo lo que tu negocio necesita online
+            </h2>
+            <p className="text-[15px] text-cc-text-body max-w-[480px] mx-auto md:mx-0 leading-relaxed">
+              Desde inteligencia artificial hasta ciberseguridad — todo el
+              ecosistema digital de tu negocio, en un mismo lugar.
+            </p>
+          </div>
         </div>
 
         {/* Grid: tarjeta destacada a la izquierda + grid parejo de 6 a la derecha */}

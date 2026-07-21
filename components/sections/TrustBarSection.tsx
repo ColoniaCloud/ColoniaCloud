@@ -1,32 +1,35 @@
 import {
-  Utensils,
-  Store,
-  Briefcase,
-  Landmark,
-  Rocket,
-} from 'lucide-react';
+  GoogleCloudIcon,
+  MysqlIcon,
+  RedhatIcon,
+  AnthropicIcon,
+  AntelIcon,
+} from '@/components/ui/brand-icons';
 
-const sectors = [
-  { icon: Utensils, label: 'Restaurantes y bares' },
-  { icon: Store, label: 'Comercios' },
-  { icon: Briefcase, label: 'Profesionales' },
-  { icon: Landmark, label: 'Instituciones' },
-  { icon: Rocket, label: 'Emprendedores' },
+const certifications = [
+  { icon: GoogleCloudIcon, label: 'Google Cloud' },
+  { icon: MysqlIcon, label: 'MySQL' },
+  { icon: RedhatIcon, label: 'Red Hat' },
+  { icon: AnthropicIcon, label: 'Anthropic' },
+  { icon: AntelIcon, label: 'Antel' },
 ];
 
 export default function TrustBarSection() {
   return (
-    <section className="bg-cc-bg border-y border-black/[0.06] py-5">
-      <div className="max-w-[1280px] mx-auto px-7">
-        <p className="text-[11px] uppercase tracking-wider text-cc-muted text-center mb-4">
-          Trabajamos con
+    <section className="bg-black py-6" data-navbar-theme="dark">
+      <div className="max-w-[1280px] mx-auto px-7 flex flex-wrap md:flex-nowrap items-center justify-center gap-x-8 gap-y-3">
+        <p className="text-[11px] uppercase tracking-wider text-white/50 whitespace-nowrap">
+          Certificados en:
         </p>
 
-        <ul className="flex flex-wrap items-center justify-center gap-6 md:gap-10 list-none">
-          {sectors.map(({ icon: Icon, label }) => (
-            <li key={label} className="flex items-center gap-2">
-              <Icon size={18} className="text-cc-accent" aria-hidden="true" />
-              <span className="text-[13px] text-cc-text-body">{label}</span>
+        <ul className="flex flex-wrap md:flex-nowrap items-center justify-center gap-x-8 gap-y-3 list-none">
+          {certifications.map(({ icon: Icon, label }) => (
+            <li key={label} className="flex items-center">
+              <Icon
+                size={22}
+                className="text-white/70 hover:text-white transition-colors duration-150"
+                aria-label={label}
+              />
             </li>
           ))}
         </ul>
