@@ -3,13 +3,13 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
 import { WhatsAppIcon } from '@/components/ui/brand-icons';
 import { Button } from '@/components/ui/Button';
+import { services } from '@/lib/services';
 
 const navLinks = [
   { label: 'Inicio', href: '/' },
-  { label: 'Servicios', href: '/servicios' },
   { label: 'Nosotros', href: '/nosotros' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contacto', href: '/contacto' },
@@ -23,6 +23,19 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(isHome);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
+  const closeServicesTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isServicesActive = pathname.startsWith('/servicios');
+
+  const openServicesMenu = () => {
+    if (closeServicesTimeout.current) clearTimeout(closeServicesTimeout.current);
+    setIsServicesOpen(true);
+  };
+  const scheduleCloseServicesMenu = () => {
+    if (closeServicesTimeout.current) clearTimeout(closeServicesTimeout.current);
+    closeServicesTimeout.current = setTimeout(() => setIsServicesOpen(false), 150);
+  };
 
   // El header pasa a tema claro (texto/logo blancos) mientras su propio
   // rectángulo se superponga verticalmente con alguna sección de fondo
@@ -66,7 +79,15 @@ export default function Navbar() {
 
   useEffect(() => {
     setIsMenuOpen(false);
+    setIsServicesOpen(false);
+    setIsMobileServicesOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    return () => {
+      if (closeServicesTimeout.current) clearTimeout(closeServicesTimeout.current);
+    };
+  }, []);
 
   const headerBgClass = isDarkTheme
     ? 'bg-white/5 backdrop-blur-sm border-white/10'
@@ -99,28 +120,115 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <ul className="hidden md:flex items-center gap-6 list-none">
-          {navLinks.map(({ label, href }) => {
-            const isActive = pathname === href;
-            return (
-              <li key={href}>
-                <Link
-                  href={href}
-                  className={[
-                    'text-[13px] font-body transition-colors duration-150',
-                    isDarkTheme
-                      ? isActive
-                        ? 'text-white font-medium'
-                        : 'text-white/70 hover:text-white'
-                      : isActive
-                        ? 'text-cc-accent font-medium'
-                        : 'text-cc-text-body hover:text-cc-accent',
-                  ].join(' ')}
-                >
-                  {label}
-                </Link>
-              </li>
-            );
-          })}
+          <li>
+            <Link
+              href="/"
+              className={[
+                'text-[13px] font-body transition-colors duration-150',
+                isDarkTheme
+                  ? pathname === '/'
+                    ? 'text-white font-medium'
+                    : 'text-white/70 hover:text-white'
+                  : pathname === '/'
+                    ? 'text-cc-accent font-medium'
+                    : 'text-cc-text-body hover:text-cc-accent',
+              ].join(' ')}
+            >
+              Inicio
+            </Link>
+          </li>
+
+          {/* Servicios — trigger de megamenú */}
+          <li
+            className="relative"
+            onMouseEnter={openServicesMenu}
+            onMouseLeave={scheduleCloseServicesMenu}
+          >
+            <button
+              type="button"
+              aria-haspopup="true"
+              aria-expanded={isServicesOpen}
+              onClick={() => setIsServicesOpen((prev) => !prev)}
+              className={[
+                'flex items-center gap-1 text-[13px] font-body transition-colors duration-150',
+                isDarkTheme
+                  ? isServicesActive
+                    ? 'text-white font-medium'
+                    : 'text-white/70 hover:text-white'
+                  : isServicesActive
+                    ? 'text-cc-accent font-medium'
+                    : 'text-cc-text-body hover:text-cc-accent',
+              ].join(' ')}
+            >
+              Servicios
+              <ChevronDown
+                size={13}
+                aria-hidden="true"
+                className={['transition-transform duration-200', isServicesOpen ? 'rotate-180' : ''].join(' ')}
+              />
+            </button>
+
+            {/* Panel del megamenú */}
+            {isServicesOpen && (
+              <div className="absolute top-[calc(100%+14px)] left-1/2 -translate-x-1/2 w-[640px] max-w-[calc(90vw)] bg-cc-bg border border-black/[0.08] rounded-xl shadow-[0_12px_32px_rgba(0,0,0,0.12)] p-5 z-50">
+                <div className="grid grid-cols-2 gap-1.5">
+                  {services.map(({ slug, icon: Icon, name, cardDescription }) => (
+                    <Link
+                      key={slug}
+                      href={`/servicios/${slug}`}
+                      className="group flex items-start gap-3 p-2.5 rounded-lg hover:bg-cc-surface transition-colors"
+                    >
+                      <div className="w-9 h-9 bg-cc-accent-light rounded-md flex items-center justify-center flex-shrink-0">
+                        <Icon size={17} strokeWidth={1.5} className="text-cc-accent" aria-hidden="true" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="font-display font-medium text-[13.5px] text-cc-text group-hover:text-cc-accent transition-colors">
+                          {name}
+                        </p>
+                        <p className="text-[12px] text-cc-text-body leading-snug line-clamp-2 mt-0.5">
+                          {cardDescription}
+                        </p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+                <div className="mt-3 pt-3 border-t border-black/[0.06]">
+                  <Link
+                    href="/servicios"
+                    className="inline-flex items-center gap-1.5 text-[13px] text-cc-accent font-medium hover:gap-2 transition-all duration-150"
+                  >
+                    Ver todos los servicios
+                    <ArrowRight size={14} aria-hidden="true" />
+                  </Link>
+                </div>
+              </div>
+            )}
+          </li>
+
+          {navLinks
+            .filter(({ href }) => href !== '/')
+            .map(({ label, href }) => {
+              const isActive = pathname === href;
+              return (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className={[
+                      'text-[13px] font-body transition-colors duration-150',
+                      isDarkTheme
+                        ? isActive
+                          ? 'text-white font-medium'
+                          : 'text-white/70 hover:text-white'
+                        : isActive
+                          ? 'text-cc-accent font-medium'
+                          : 'text-cc-text-body hover:text-cc-accent',
+                    ].join(' ')}
+                  >
+                    {label}
+                  </Link>
+                </li>
+              );
+            })}
         </ul>
 
         {/* Right side */}
@@ -169,23 +277,83 @@ export default function Navbar() {
             onClick={() => setIsMenuOpen(false)}
             aria-hidden="true"
           />
-          <div className="fixed top-[78px] left-[5vw] w-[90vw] bg-cc-bg z-50 border border-black/[0.08] rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] overflow-hidden">
+          <div className="fixed top-[78px] left-[5vw] w-[90vw] bg-cc-bg z-50 border border-black/[0.08] rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] overflow-hidden max-h-[calc(100vh-100px)] overflow-y-auto">
             <ul className="px-6 py-4 flex flex-col gap-1 list-none">
-              {navLinks.map(({ label, href }, index) => (
-                <li key={href}>
+              <li>
+                <Link
+                  href="/"
+                  onClick={() => setIsMenuOpen(false)}
+                  className={[
+                    'block py-3 text-[15px] transition-colors duration-150 hover:text-cc-accent border-b border-black/[0.04]',
+                    pathname === '/' ? 'text-cc-accent' : 'text-cc-text-body',
+                  ].join(' ')}
+                >
+                  Inicio
+                </Link>
+              </li>
+
+              {/* Servicios — acordeón mobile */}
+              <li className="border-b border-black/[0.04]">
+                <div className="flex items-center justify-between">
                   <Link
-                    href={href}
+                    href="/servicios"
                     onClick={() => setIsMenuOpen(false)}
                     className={[
                       'block py-3 text-[15px] transition-colors duration-150 hover:text-cc-accent',
-                      index < navLinks.length - 1 ? 'border-b border-black/[0.04]' : '',
-                      pathname === href ? 'text-cc-accent' : 'text-cc-text-body',
+                      isServicesActive ? 'text-cc-accent' : 'text-cc-text-body',
                     ].join(' ')}
                   >
-                    {label}
+                    Servicios
                   </Link>
-                </li>
-              ))}
+                  <button
+                    type="button"
+                    aria-label={isMobileServicesOpen ? 'Ocultar servicios' : 'Mostrar servicios'}
+                    aria-expanded={isMobileServicesOpen}
+                    onClick={() => setIsMobileServicesOpen((prev) => !prev)}
+                    className="p-2 -mr-2 text-cc-text-body"
+                  >
+                    <ChevronDown
+                      size={16}
+                      aria-hidden="true"
+                      className={['transition-transform duration-200', isMobileServicesOpen ? 'rotate-180' : ''].join(' ')}
+                    />
+                  </button>
+                </div>
+                {isMobileServicesOpen && (
+                  <ul className="pb-3 flex flex-col gap-0.5 list-none">
+                    {services.map(({ slug, icon: Icon, name }) => (
+                      <li key={slug}>
+                        <Link
+                          href={`/servicios/${slug}`}
+                          onClick={() => setIsMenuOpen(false)}
+                          className="flex items-center gap-2.5 py-2 pl-2 text-[13.5px] text-cc-text-body hover:text-cc-accent transition-colors"
+                        >
+                          <Icon size={15} strokeWidth={1.5} className="text-cc-accent flex-shrink-0" aria-hidden="true" />
+                          {name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+
+              {navLinks
+                .filter(({ href }) => href !== '/')
+                .map(({ label, href }, index, arr) => (
+                  <li key={href}>
+                    <Link
+                      href={href}
+                      onClick={() => setIsMenuOpen(false)}
+                      className={[
+                        'block py-3 text-[15px] transition-colors duration-150 hover:text-cc-accent',
+                        index < arr.length - 1 ? 'border-b border-black/[0.04]' : '',
+                        pathname === href ? 'text-cc-accent' : 'text-cc-text-body',
+                      ].join(' ')}
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                ))}
             </ul>
           </div>
         </>
