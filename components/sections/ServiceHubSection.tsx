@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef, useState, type RefObject } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, useMotionValue, useSpring } from 'motion/react';
 
 import { DotPattern } from '@/components/magicui/dot-pattern';
 import InteractiveModel from '@/components/three/InteractiveModel';
@@ -120,6 +120,57 @@ function AnchorPoint({
   );
 }
 
+// Tooltip que sigue al cursor, visible solo mientras el mouse está dentro
+// de esta sección (no aplica a touch, donde no existe cursor).
+function CursorTooltip({ containerRef }: { containerRef: RefObject<HTMLElement | null> }) {
+  const [visible, setVisible] = useState(false);
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const x = useSpring(rawX, { damping: 30, stiffness: 400, mass: 0.5 });
+  const y = useSpring(rawY, { damping: 30, stiffness: 400, mass: 0.5 });
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const updatePosition = (e: PointerEvent) => {
+      const rect = el.getBoundingClientRect();
+      rawX.set(e.clientX - rect.left + 18);
+      rawY.set(e.clientY - rect.top + 18);
+    };
+    const handleEnter = (e: PointerEvent) => {
+      if (e.pointerType !== 'mouse') return;
+      updatePosition(e);
+      setVisible(true);
+    };
+    const handleMove = (e: PointerEvent) => {
+      if (e.pointerType !== 'mouse') return;
+      updatePosition(e);
+    };
+    const handleLeave = () => setVisible(false);
+
+    el.addEventListener('pointerenter', handleEnter);
+    el.addEventListener('pointermove', handleMove);
+    el.addEventListener('pointerleave', handleLeave);
+    return () => {
+      el.removeEventListener('pointerenter', handleEnter);
+      el.removeEventListener('pointermove', handleMove);
+      el.removeEventListener('pointerleave', handleLeave);
+    };
+  }, [containerRef, rawX, rawY]);
+
+  return (
+    <motion.div
+      className="pointer-events-none absolute left-0 top-0 z-20 hidden select-none whitespace-nowrap rounded-full bg-white px-3 py-1.5 text-[12px] font-medium text-black md:block"
+      style={{ x, y }}
+      animate={{ opacity: visible ? 1 : 0, scale: visible ? 1 : 0.9 }}
+      transition={{ duration: 0.15, ease: 'easeOut' }}
+    >
+      Nuestros servicios
+    </motion.div>
+  );
+}
+
 interface ServiceCardProps {
   slug: string;
   title: string;
@@ -139,7 +190,7 @@ function ServiceCard({ slug, title, description }: ServiceCardProps) {
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') setOpen((prev) => !prev);
       }}
-      className="w-[200px] cursor-pointer rounded-xl border border-white/15 bg-white/[0.04] p-4 backdrop-blur-sm transition-colors hover:border-white/30 md:w-[220px]"
+      className="w-full min-w-0 cursor-pointer rounded-xl border border-white/15 bg-white/[0.04] p-4 backdrop-blur-sm transition-colors hover:border-white/30 md:w-[220px]"
     >
       <h3 className="font-display text-[14px] font-medium text-white">{title}</h3>
 
@@ -163,6 +214,7 @@ function ServiceCard({ slug, title, description }: ServiceCardProps) {
 }
 
 export default function ServiceHubSection() {
+  const sectionRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
 
@@ -191,6 +243,7 @@ export default function ServiceHubSection() {
 
   return (
     <section
+      ref={sectionRef}
       className="relative z-10 w-full overflow-hidden bg-black py-[72px]"
       data-navbar-theme="dark"
     >
@@ -198,6 +251,8 @@ export default function ServiceHubSection() {
         glow
         className="text-white/70 [mask-image:radial-gradient(500px_circle_at_center,white,transparent)]"
       />
+
+      <CursorTooltip containerRef={sectionRef} />
 
       <div className="relative mx-auto max-w-[1280px] px-7">
         <div className="mx-auto mb-10 max-w-[560px] text-center">
