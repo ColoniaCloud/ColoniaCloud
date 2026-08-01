@@ -85,6 +85,35 @@ export default async function ServicioDetallePage({
         </div>
       </section>
 
+      {/* Subservicios incluidos */}
+      {service.subServices && service.subServices.length > 0 && (
+        <section className="py-[64px] bg-cc-bg">
+          <div className="max-w-[1280px] mx-auto px-7">
+            <h2 className="font-display font-medium text-[1.5rem] text-cc-text mb-6">
+              También incluye
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {service.subServices.map((sub) => (
+                <div
+                  key={sub.name}
+                  className="border border-cc-accent/20 rounded-xl p-6 bg-cc-surface"
+                >
+                  <span className="inline-block text-[11px] bg-cc-accent-light text-cc-accent rounded-sm px-2 py-0.5 font-medium mb-3">
+                    Subservicio
+                  </span>
+                  <h3 className="font-display font-medium text-[1.0625rem] text-cc-text mb-2">
+                    {sub.name}
+                  </h3>
+                  <p className="text-[14px] text-cc-text-body leading-relaxed">
+                    {sub.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Qué incluye */}
       <section className="py-[64px] bg-cc-surface">
         <div className="max-w-[1280px] mx-auto px-7">

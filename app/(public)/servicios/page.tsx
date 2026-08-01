@@ -5,6 +5,7 @@ import {
   Bolt,
   Server,
   Info,
+  type LucideIcon,
 } from 'lucide-react';
 import InternalHero from '@/components/ui/InternalHero';
 import SectionCta from '@/components/ui/SectionCta';
@@ -133,7 +134,7 @@ function SubHeader({
   icon: Icon,
   title,
 }: {
-  icon: React.ElementType;
+  icon: LucideIcon;
   title: string;
 }) {
   return (

@@ -99,13 +99,13 @@ export default function ServiciosSection() {
               Todo lo que tu negocio necesita online
             </h2>
             <p className="text-[15px] text-cc-text-body max-w-[540px] mx-auto md:mx-0 leading-relaxed">
-              Desde inteligencia artificial hasta ciberseguridad — todo el
+              Desde el desarrollo web hasta la infraestructura — todo el
               ecosistema digital de tu negocio, en un mismo lugar.
             </p>
           </div>
         </div>
 
-        {/* Grid: tarjeta destacada a lo ancho arriba + grid parejo de 6 debajo */}
+        {/* Grid: tarjeta destacada a lo ancho arriba + grid parejo de 3 debajo */}
         <CursorCardsContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
           {services.map(({ slug, icon, cardTitle, cardDescription }, index) => (
             <ServiceCard

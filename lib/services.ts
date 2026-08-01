@@ -1,9 +1,6 @@
 import {
-  Bot,
   Code,
   LayoutDashboard,
-  Megaphone,
-  ShieldCheck,
   Server,
   Lightbulb,
   type LucideIcon,
@@ -11,6 +8,11 @@ import {
 
 export type ServiceFeature = {
   title: string;
+  description: string;
+};
+
+export type SubService = {
+  name: string;
   description: string;
 };
 
@@ -34,6 +36,8 @@ export type Service = {
   intro: string;
   /** Bloques de "En qué consiste" */
   features: ServiceFeature[];
+  /** Subservicios incluidos dentro de este servicio principal */
+  subServices?: SubService[];
   /** Checklist de "Qué incluye" */
   deliverables: string[];
   ctaTitle: string;
@@ -43,64 +47,18 @@ export type Service = {
 // El orden define el orden en el grid del home (índice 0 = tarjeta destacada).
 export const services: Service[] = [
   {
-    slug: 'ia-automatizaciones',
-    icon: Bot,
-    badge: 'IA & Automatización',
-    name: 'IA y automatizaciones',
-    cardTitle: 'Infraestructura de IA y automatizaciones',
-    cardDescription:
-      'Adaptamos la IA a tu negocio y tu negocio a la IA: desde simples agentes de atención hasta automatizaciones complejas en flujos de producción.',
-    heroTitle: 'Infraestructura de IA y automatizaciones',
-    heroDescription:
-      'Adaptamos la IA a tu negocio y tu negocio a la IA: desde agentes de atención hasta automatizaciones complejas en tus flujos de producción.',
-    intro:
-      'La inteligencia artificial dejó de ser una promesa a futuro. Hoy podés automatizar tareas repetitivas, responder a tus clientes las 24 horas y tomar mejores decisiones con datos. Diseñamos e implementamos soluciones de IA y automatización pensadas para tu operativa real, no para una demo.',
-    features: [
-      {
-        title: 'Agentes de atención 24/7',
-        description:
-          'Asistentes que responden consultas frecuentes en WhatsApp, web o redes sociales, y derivan a una persona cuando hace falta.',
-      },
-      {
-        title: 'Automatización de flujos',
-        description:
-          'Conectamos tus herramientas —reservas, pagos, CRM, planillas— para que las tareas manuales se hagan solas.',
-      },
-      {
-        title: 'IA aplicada a producción',
-        description:
-          'Integramos modelos de lenguaje y APIs en tus procesos: clasificación, redacción, extracción de datos y más.',
-      },
-      {
-        title: 'Reportes automáticos',
-        description:
-          'Procesamos tu información y generamos informes claros de forma periódica, sin planillas hechas a mano.',
-      },
-    ],
-    deliverables: [
-      'Relevamiento de tus procesos actuales',
-      'Diseño del flujo o agente a medida',
-      'Implementación e integración con tus herramientas',
-      'Documentación y capacitación del equipo',
-      'Soporte post-implementación',
-    ],
-    ctaTitle: '¿Listo para automatizar tu negocio?',
-    ctaDescription:
-      'Contanos qué tareas te consumen tiempo y armamos una propuesta a medida.',
-  },
-  {
     slug: 'web-app',
     icon: Code,
     badge: 'Web & App',
     name: 'Web & App',
     cardTitle: 'Web & App',
     cardDescription:
-      'Sitios institucionales, tiendas online y aplicaciones a medida. Diseño UI/UX exclusivo, rápido y optimizado para móviles.',
+      'Sitios institucionales, tiendas online y aplicaciones a medida, con branding digital y redes sociales incluidos.',
     heroTitle: 'Sitios web y aplicaciones a medida',
     heroDescription:
       'Sitios institucionales, tiendas online y aplicaciones diseñadas a medida. Rápidas, seguras y optimizadas para móviles.',
     intro:
-      'Tu sitio web es la primera impresión de tu negocio online. Creamos desde páginas institucionales hasta e-commerce y aplicaciones complejas, siempre con diseño propio, buen rendimiento y foco en convertir visitas en clientes.',
+      'Tu sitio web es la primera impresión de tu negocio online. Creamos desde páginas institucionales hasta e-commerce y aplicaciones complejas, siempre con diseño propio, buen rendimiento y foco en convertir visitas en clientes. Además, sumamos branding digital y gestión de redes sociales para que tu presencia online sea consistente de punta a punta.',
     features: [
       {
         title: 'Sitios institucionales',
@@ -123,6 +81,13 @@ export const services: Service[] = [
           'Nada de plantillas genéricas: diseñamos una identidad visual que te representa.',
       },
     ],
+    subServices: [
+      {
+        name: 'Digital Branding & RRSS',
+        description:
+          'Gestión de comunidad, reputación online (ORM), campañas de pauta en Meta y Google Ads, y estrategia de contenidos para tus redes sociales.',
+      },
+    ],
     deliverables: [
       'Diseño responsive optimizado para móviles',
       'SEO técnico y buenas prácticas de performance',
@@ -135,18 +100,18 @@ export const services: Service[] = [
       'Contanos tu idea y te enviamos una propuesta sin compromiso.',
   },
   {
-    slug: 'software-gestion',
+    slug: 'software',
     icon: LayoutDashboard,
     badge: 'Software',
-    name: 'Software de gestión',
-    cardTitle: 'Software de gestión',
+    name: 'Software',
+    cardTitle: 'Software',
     cardDescription:
-      'Creamos soluciones a medida para la gestión de tu proyecto: logística, comunicación y toma de decisiones, todo en un mismo lugar.',
-    heroTitle: 'Software de gestión a medida',
+      'Soluciones de gestión a medida para tu negocio, con IA y automatizaciones incluidas para ordenar tu operación de punta a punta.',
+    heroTitle: 'Software de gestión, IA y automatizaciones',
     heroDescription:
-      'Soluciones para gestionar tu proyecto: logística, comunicación y toma de decisiones, todo en un mismo lugar.',
+      'Paneles y herramientas a medida para tu operación, potenciados con inteligencia artificial y automatización de procesos.',
     intro:
-      'Cuando las planillas y los mensajes sueltos ya no alcanzan, un sistema a medida ordena tu operación. Desarrollamos paneles y herramientas internas que se adaptan a cómo trabajás, no al revés.',
+      'Cuando las planillas y los mensajes sueltos ya no alcanzan, un sistema a medida ordena tu operación. Desarrollamos paneles y herramientas internas que se adaptan a cómo trabajás, no al revés. Además, incorporamos inteligencia artificial y automatización para que las tareas repetitivas se hagan solas.',
     features: [
       {
         title: 'Paneles a medida',
@@ -169,6 +134,13 @@ export const services: Service[] = [
           'Métricas y reportes que te ayudan a decidir con información, no con intuición.',
       },
     ],
+    subServices: [
+      {
+        name: 'IA y automatizaciones',
+        description:
+          'Agentes de atención 24/7, automatización de flujos entre tus herramientas e integración de modelos de lenguaje en tus procesos productivos.',
+      },
+    ],
     deliverables: [
       'Relevamiento de tu operativa actual',
       'Diseño funcional y de interfaz',
@@ -181,110 +153,18 @@ export const services: Service[] = [
       'Contanos cómo trabajás hoy y diseñamos la herramienta que te falta.',
   },
   {
-    slug: 'branding-rrss',
-    icon: Megaphone,
-    badge: 'Marketing',
-    name: 'Digital Branding & RRSS',
-    cardTitle: 'Digital Branding & RRSS',
-    cardDescription:
-      'Nuestro servicio de marketing digital profesional: gestión de comunidad y reputación online (ORM), monitoreo y respuesta a menciones de marca.',
-    heroTitle: 'Digital Branding & Redes Sociales',
-    heroDescription:
-      'Marketing digital profesional: gestión de comunidad, reputación online y campañas que hacen crecer tu marca.',
-    intro:
-      'Tener redes no alcanza: hay que gestionarlas con estrategia. Nos ocupamos de tu presencia en redes sociales, tu reputación online y tus campañas publicitarias para que tu marca crezca de forma sostenida.',
-    features: [
-      {
-        title: 'Gestión de comunidad',
-        description:
-          'Publicaciones, diseño gráfico y respuesta a comentarios y mensajes de tu audiencia.',
-      },
-      {
-        title: 'Reputación online (ORM)',
-        description:
-          'Monitoreo y respuesta a menciones de tu marca para cuidar tu imagen.',
-      },
-      {
-        title: 'Campañas de pauta',
-        description:
-          'Publicidad en Meta y Google Ads con segmentación geográfica y objetivos claros.',
-      },
-      {
-        title: 'Contenido y estrategia',
-        description:
-          'Calendario de contenidos y línea gráfica coherente con tu identidad.',
-      },
-    ],
-    deliverables: [
-      'Gestión mensual de Instagram y/o Facebook',
-      'Diseño gráfico de las publicaciones',
-      'Monitoreo de menciones y respuesta',
-      'Campañas de pauta publicitaria (opcional)',
-      'Reporte mensual de resultados',
-    ],
-    ctaTitle: '¿Querés hacer crecer tu marca?',
-    ctaDescription:
-      'Contanos sobre tu negocio y armamos una estrategia para tus redes.',
-  },
-  {
-    slug: 'ciberseguridad',
-    icon: ShieldCheck,
-    badge: 'Seguridad',
-    name: 'Ciberseguridad',
-    cardTitle: 'Ciberseguridad',
-    cardDescription:
-      'Auditorías de seguridad, mitigaciones de urgencia y consultoría para proteger tu negocio.',
-    heroTitle: 'Ciberseguridad para tu negocio',
-    heroDescription:
-      'Auditorías, mitigación de urgencias y consultoría para proteger tu negocio y los datos de tus clientes.',
-    intro:
-      'Un incidente de seguridad puede costar la confianza de tus clientes y la continuidad de tu negocio. Evaluamos tu exposición, resolvemos urgencias y te ayudamos a construir defensas sólidas y sostenibles.',
-    features: [
-      {
-        title: 'Auditorías de seguridad',
-        description:
-          'Detectamos vulnerabilidades en tus sitios, sistemas y configuraciones antes de que las encuentre otro.',
-      },
-      {
-        title: 'Mitigación de urgencias',
-        description:
-          'Respuesta rápida ante ataques, accesos indebidos o sitios comprometidos.',
-      },
-      {
-        title: 'Consultoría y hardening',
-        description:
-          'Recomendaciones concretas y aplicación de buenas prácticas de seguridad.',
-      },
-      {
-        title: 'Monitoreo continuo',
-        description:
-          'Vigilancia y alertas para detectar problemas antes de que escalen.',
-      },
-    ],
-    deliverables: [
-      'Análisis de vulnerabilidades',
-      'Informe con hallazgos y prioridades',
-      'Plan de mitigación y remediación',
-      'Configuración segura (hardening)',
-      'Recomendaciones de monitoreo',
-    ],
-    ctaTitle: '¿Dudas sobre tu seguridad?',
-    ctaDescription:
-      'Escribinos y evaluamos juntos la exposición de tu negocio.',
-  },
-  {
     slug: 'infraestructura-vps',
     icon: Server,
     badge: 'Infraestructura',
-    name: 'Infraestructura VPS y dominios',
-    cardTitle: 'Infraestructura VPS, dominios y bases de datos',
+    name: 'VPS, dominios y base de datos',
+    cardTitle: 'VPS, dominios y base de datos',
     cardDescription:
-      'Ofrecemos el servicio "manejado" para simplificarte los procesos: configuración, mantenimiento y monitoreo de tu infraestructura.',
-    heroTitle: 'Infraestructura VPS, dominios y bases de datos',
+      'Servicio "manejado" de VPS, dominios y bases de datos, con ciberseguridad incluida para proteger tu negocio.',
+    heroTitle: 'VPS, dominios y base de datos',
     heroDescription:
-      'El servicio "manejado" para que no te preocupes por la infraestructura: configuración, mantenimiento y monitoreo.',
+      'El servicio "manejado" para que no te preocupes por la infraestructura: configuración, mantenimiento, monitoreo y seguridad.',
     intro:
-      'Un servidor mal configurado es una bomba de tiempo. Nos hacemos cargo de tu infraestructura de punta a punta —servidores, dominios y bases de datos— para que vos te dediques a tu negocio.',
+      'Un servidor mal configurado es una bomba de tiempo. Nos hacemos cargo de tu infraestructura de punta a punta —servidores, dominios y bases de datos— para que vos te dediques a tu negocio. Sumamos también ciberseguridad para proteger tu operación y los datos de tus clientes.',
     features: [
       {
         title: 'VPS manejado',
@@ -307,6 +187,13 @@ export const services: Service[] = [
           'Copias de seguridad automáticas y vigilancia para evitar caídas.',
       },
     ],
+    subServices: [
+      {
+        name: 'Ciberseguridad',
+        description:
+          'Auditorías de seguridad, mitigación de urgencias y consultoría para proteger tu negocio y los datos de tus clientes.',
+      },
+    ],
     deliverables: [
       'Configuración inicial del servidor',
       'Migración de tus sistemas (si aplica)',
@@ -319,18 +206,18 @@ export const services: Service[] = [
       'Dejanos tu infraestructura a nosotros y ganá tranquilidad.',
   },
   {
-    slug: 'it-creative',
+    slug: 'asesoria',
     icon: Lightbulb,
-    badge: 'Innovación',
-    name: 'IT Creative',
-    cardTitle: 'IT Creative',
+    badge: 'Asesoría',
+    name: 'Asesoría',
+    cardTitle: 'Asesoría',
     cardDescription:
       'Más que un servicio, es una alianza de intercambio de ideas con el fin de promover la innovación en tu proyecto.',
-    heroTitle: 'IT Creative',
+    heroTitle: 'Asesoría',
     heroDescription:
       'Más que un servicio, una alianza de ideas para promover la innovación en tu proyecto.',
     intro:
-      'A veces lo que necesitás no es un producto cerrado, sino un socio tecnológico que piense con vos. IT Creative es un espacio de intercambio de ideas para explorar oportunidades, resolver problemas complejos y llevar la innovación a tu negocio.',
+      'A veces lo que necesitás no es un producto cerrado, sino un socio tecnológico que piense con vos. Asesoría es un espacio de intercambio de ideas para explorar oportunidades, resolver problemas complejos y llevar la innovación a tu negocio.',
     features: [
       {
         title: 'Consultoría de innovación',

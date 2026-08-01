@@ -2,7 +2,7 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative w-full overflow-hidden py-[100px] md:py-[130px] bg-black"
+      className="sticky top-0 z-0 w-full overflow-hidden py-[100px] md:py-[130px] bg-black"
       data-navbar-theme="dark"
     >
       {/* Background Video */}

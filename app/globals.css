@@ -34,13 +34,16 @@
   margin: 0;
 }
 
-html,
-body {
+html {
   max-width: 100vw;
   overflow-x: hidden;
 }
 
 body {
+  /* No overflow-x acá: si tanto html como body lo definen, body pasa a ser
+     su propio contenedor de scroll (por la propagación de overflow), y eso
+     rompe position:sticky para cualquier descendiente. */
+  max-width: 100vw;
   background-color: var(--cc-bg);
   color: var(--cc-text);
   font-family: var(--cc-font-body);
