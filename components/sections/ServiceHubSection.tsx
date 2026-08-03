@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, useState, type RefObject } from 'react';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, type LucideIcon } from 'lucide-react';
 import { motion, useMotionValue, useSpring } from 'motion/react';
 
 import { DotPattern } from '@/components/magicui/dot-pattern';
@@ -206,17 +206,24 @@ interface ServiceCardProps {
   slug: string;
   title: string;
   description: string;
+  icon: LucideIcon;
 }
 
-function ServiceCard({ slug, title, description }: ServiceCardProps) {
+// Tamaños de texto según la escala documentada (docs/02-ui-spec.md §2.2):
+// H3 (18px / 1.125rem) para títulos de card, Small (14px / 0.875rem) para
+// descripciones y labels de botón/link.
+function ServiceCard({ slug, title, description, icon: Icon }: ServiceCardProps) {
   return (
     <div className="w-full min-w-0 rounded-xl border border-white/15 bg-white/[0.04] p-4 backdrop-blur-sm transition-colors hover:border-white/30 md:w-[220px]">
-      <h3 className="font-display text-[14px] font-medium text-white">{title}</h3>
-      <p className="mt-2 text-[12px] leading-relaxed text-white/60">{description}</p>
+      <div className="flex items-center gap-2">
+        <Icon size={20} strokeWidth={1.75} className="shrink-0 text-white/50" aria-hidden="true" />
+        <h3 className="font-display text-[1.125rem] font-medium text-white">{title}</h3>
+      </div>
+      <p className="mt-2 text-[0.875rem] leading-relaxed text-white/60">{description}</p>
       <Link
         href={`/servicios/${slug}`}
         aria-label={`Ir al servicio de ${title}`}
-        className="mt-3 inline-flex items-center gap-1.5 text-[12px] font-medium text-white"
+        className="mt-3 inline-flex items-center gap-1.5 text-[0.875rem] font-medium text-white"
       >
         Ir al servicio
         <ArrowRight size={12} aria-hidden="true" />
@@ -246,12 +253,10 @@ export default function ServiceHubSection() {
     useRef<HTMLDivElement>(null),
   ];
 
-  // Anclas para las 2 líneas de mobile: una a cada lado del modelo, y una
-  // encima de cada columna de cards.
-  const mobileModelAnchorLeft = useRef<HTMLDivElement>(null);
-  const mobileModelAnchorRight = useRef<HTMLDivElement>(null);
-  const mobileColLeftRef = useRef<HTMLDivElement>(null);
-  const mobileColRightRef = useRef<HTMLDivElement>(null);
+  // Anclas para la línea de mobile: una en la base del modelo y una encima
+  // de la columna única de cards.
+  const mobileModelAnchorRef = useRef<HTMLDivElement>(null);
+  const mobileColAnchorRef = useRef<HTMLDivElement>(null);
 
   return (
     <section
@@ -300,16 +305,11 @@ export default function ServiceHubSection() {
               />
             ))}
 
-            {/* Anclas del modelo para mobile (una a cada lado, cerca de la base) */}
+            {/* Ancla del modelo para mobile (centrada, cerca de la base) */}
             <AnchorPoint
-              anchorRef={mobileModelAnchorLeft}
-              className="left-1/2 md:hidden"
-              style={{ transform: 'translate(-22px, 0)', top: '132px' }}
-            />
-            <AnchorPoint
-              anchorRef={mobileModelAnchorRight}
-              className="left-1/2 md:hidden"
-              style={{ transform: 'translate(22px, 0)', top: '132px' }}
+              anchorRef={mobileModelAnchorRef}
+              className="left-1/2 -translate-x-1/2 md:hidden"
+              style={{ top: '132px' }}
             />
 
             {/* Líneas: solo desktop, por detrás del modelo (z-10). */}
@@ -335,36 +335,27 @@ export default function ServiceHubSection() {
                   slug={service.slug}
                   title={service.cardTitle}
                   description={service.cardDescription}
+                  icon={service.icon}
                 />
               </div>
             ))}
           </div>
 
-          {/* Líneas hacia cada columna: solo mobile, por detrás del modelo (stage = z-10) */}
+          {/* Línea hacia la columna: solo mobile, por detrás del modelo (stage = z-10) */}
           <div className="pointer-events-none absolute inset-0 z-0 md:hidden">
             <DashedConnector
               containerRef={wrapRef}
-              lightRef={mobileColLeftRef}
-              darkRef={mobileModelAnchorLeft}
-              bend="v-first"
-            />
-            <DashedConnector
-              containerRef={wrapRef}
-              lightRef={mobileColRightRef}
-              darkRef={mobileModelAnchorRight}
+              lightRef={mobileColAnchorRef}
+              darkRef={mobileModelAnchorRef}
               bend="v-first"
             />
           </div>
 
-          {/* Mobile: cards apiladas debajo del modelo */}
-          <div className="relative mt-3 grid grid-cols-2 gap-3 md:hidden">
+          {/* Mobile: cards apiladas debajo del modelo, en una sola columna */}
+          <div className="relative mt-3 grid grid-cols-1 gap-3 md:hidden">
             <AnchorPoint
-              anchorRef={mobileColLeftRef}
-              className="left-1/4 -top-1 -translate-x-1/2"
-            />
-            <AnchorPoint
-              anchorRef={mobileColRightRef}
-              className="left-3/4 -top-1 -translate-x-1/2"
+              anchorRef={mobileColAnchorRef}
+              className="left-1/2 -top-1 -translate-x-1/2"
             />
             {services.map((service) => (
               <ServiceCard
@@ -372,6 +363,7 @@ export default function ServiceHubSection() {
                 slug={service.slug}
                 title={service.cardTitle}
                 description={service.cardDescription}
+                icon={service.icon}
               />
             ))}
           </div>
