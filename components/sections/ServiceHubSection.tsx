@@ -9,6 +9,27 @@ import { DotPattern } from '@/components/magicui/dot-pattern';
 import InteractiveModel from '@/components/three/InteractiveModel';
 import { services } from '@/lib/services';
 
+const SITE_URL = 'https://colonia.cloud';
+
+// Datos estructurados (schema.org) de los 4 servicios, para que los
+// buscadores entiendan la oferta sin depender solo del texto visible.
+const SERVICES_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: services.map((service, index) => ({
+    '@type': 'Service',
+    position: index + 1,
+    name: service.name,
+    description: service.cardDescription,
+    url: `${SITE_URL}/servicios/${service.slug}`,
+    provider: {
+      '@type': 'Organization',
+      name: 'Colonia Cloud',
+      url: SITE_URL,
+    },
+  })),
+};
+
 // Posición de cada card alrededor del modelo (desktop): 2 arriba, 2 abajo.
 const CARD_POSITION_CLASSES = [
   'left-0 top-2 md:top-4',
@@ -67,6 +88,9 @@ function DashedConnector({ containerRef, lightRef, darkRef, bend }: DashedConnec
     const resizeObserver = new ResizeObserver(update);
     if (containerRef.current) resizeObserver.observe(containerRef.current);
     update();
+    // La tipografía custom puede tardar en cargar y correr el layout de las
+    // cards después de esta primera medición; re-medir cuando termine.
+    document.fonts?.ready.then(update);
 
     return () => resizeObserver.disconnect();
   }, [containerRef, lightRef, darkRef]);
@@ -133,29 +157,36 @@ function CursorTooltip({ containerRef }: { containerRef: RefObject<HTMLElement |
     const el = containerRef.current;
     if (!el) return;
 
-    const updatePosition = (e: PointerEvent) => {
-      const rect = el.getBoundingClientRect();
-      rawX.set(e.clientX - rect.left + 18);
-      rawY.set(e.clientY - rect.top + 18);
+    // Se mide una sola vez al entrar (y se refresca en resize) en vez de en
+    // cada pointermove, para no forzar un reflow por cada pixel de movimiento.
+    let rect = el.getBoundingClientRect();
+    const refreshRect = () => {
+      rect = el.getBoundingClientRect();
     };
+
     const handleEnter = (e: PointerEvent) => {
       if (e.pointerType !== 'mouse') return;
-      updatePosition(e);
+      refreshRect();
+      rawX.set(e.clientX - rect.left + 18);
+      rawY.set(e.clientY - rect.top + 18);
       setVisible(true);
     };
     const handleMove = (e: PointerEvent) => {
       if (e.pointerType !== 'mouse') return;
-      updatePosition(e);
+      rawX.set(e.clientX - rect.left + 18);
+      rawY.set(e.clientY - rect.top + 18);
     };
     const handleLeave = () => setVisible(false);
 
     el.addEventListener('pointerenter', handleEnter);
     el.addEventListener('pointermove', handleMove);
     el.addEventListener('pointerleave', handleLeave);
+    window.addEventListener('resize', refreshRect);
     return () => {
       el.removeEventListener('pointerenter', handleEnter);
       el.removeEventListener('pointermove', handleMove);
       el.removeEventListener('pointerleave', handleLeave);
+      window.removeEventListener('resize', refreshRect);
     };
   }, [containerRef, rawX, rawY]);
 
@@ -178,37 +209,18 @@ interface ServiceCardProps {
 }
 
 function ServiceCard({ slug, title, description }: ServiceCardProps) {
-  const [open, setOpen] = useState(false);
-
   return (
-    <div
-      role="button"
-      tabIndex={0}
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-      onClick={() => setOpen((prev) => !prev)}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') setOpen((prev) => !prev);
-      }}
-      className="w-full min-w-0 cursor-pointer rounded-xl border border-white/15 bg-white/[0.04] p-4 backdrop-blur-sm transition-colors hover:border-white/30 md:w-[220px]"
-    >
+    <div className="w-full min-w-0 rounded-xl border border-white/15 bg-white/[0.04] p-4 backdrop-blur-sm transition-colors hover:border-white/30 md:w-[220px]">
       <h3 className="font-display text-[14px] font-medium text-white">{title}</h3>
-
-      <motion.div
-        initial={false}
-        animate={{ height: open ? 'auto' : 0, opacity: open ? 1 : 0 }}
-        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        className="overflow-hidden"
+      <p className="mt-2 text-[12px] leading-relaxed text-white/60">{description}</p>
+      <Link
+        href={`/servicios/${slug}`}
+        aria-label={`Ir al servicio de ${title}`}
+        className="mt-3 inline-flex items-center gap-1.5 text-[12px] font-medium text-white"
       >
-        <p className="mt-2 text-[12px] leading-relaxed text-white/60">{description}</p>
-        <Link
-          href={`/servicios/${slug}`}
-          className="mt-3 inline-flex items-center gap-1.5 text-[12px] font-medium text-white"
-        >
-          Ir al servicio
-          <ArrowRight size={12} aria-hidden="true" />
-        </Link>
-      </motion.div>
+        Ir al servicio
+        <ArrowRight size={12} aria-hidden="true" />
+      </Link>
     </div>
   );
 }
@@ -247,6 +259,11 @@ export default function ServiceHubSection() {
       className="relative z-10 w-full overflow-hidden bg-black py-[72px]"
       data-navbar-theme="dark"
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(SERVICES_JSON_LD) }}
+      />
+
       <DotPattern
         glow
         className="text-white/70 [mask-image:radial-gradient(500px_circle_at_center,white,transparent)]"
@@ -266,8 +283,8 @@ export default function ServiceHubSection() {
 
         <div ref={wrapRef} className="relative mx-auto max-w-[920px]">
           {/* Stage: modelo 3D + cards (desktop) */}
-          <div ref={stageRef} className="relative h-[190px] md:h-[500px]">
-            <div className="absolute inset-0">
+          <div ref={stageRef} className="relative z-10 h-[190px] md:h-[500px]">
+            <div className="absolute inset-0 z-10">
               <InteractiveModel />
             </div>
 
@@ -295,8 +312,8 @@ export default function ServiceHubSection() {
               style={{ transform: 'translate(22px, 0)', top: '132px' }}
             />
 
-            {/* Líneas: solo desktop, para no ensuciar el layout apilado de mobile */}
-            <div className="pointer-events-none absolute inset-0 hidden md:block">
+            {/* Líneas: solo desktop, por detrás del modelo (z-10). */}
+            <div className="pointer-events-none absolute inset-0 z-0 hidden md:block">
               {services.map((service, index) => (
                 <DashedConnector
                   key={service.slug}
@@ -312,7 +329,7 @@ export default function ServiceHubSection() {
               <div
                 key={service.slug}
                 ref={cardRefs[index]}
-                className={`absolute hidden md:block ${CARD_POSITION_CLASSES[index]}`}
+                className={`absolute z-20 hidden md:block ${CARD_POSITION_CLASSES[index]}`}
               >
                 <ServiceCard
                   slug={service.slug}
@@ -323,8 +340,8 @@ export default function ServiceHubSection() {
             ))}
           </div>
 
-          {/* Líneas hacia cada columna: solo mobile */}
-          <div className="pointer-events-none absolute inset-0 md:hidden">
+          {/* Líneas hacia cada columna: solo mobile, por detrás del modelo (stage = z-10) */}
+          <div className="pointer-events-none absolute inset-0 z-0 md:hidden">
             <DashedConnector
               containerRef={wrapRef}
               lightRef={mobileColLeftRef}

@@ -12,9 +12,10 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://colonia.cloud'),
   title: 'Colonia Cloud — Llevamos tu negocio a la nube',
   description:
-    'Desarrollo web, marketing digital y automatizaciones para negocios en Colonia del Sacramento, Uruguay.',
+    'Web & App, Software, VPS/dominios/bases de datos y Asesoría: el ecosistema digital completo para negocios en Colonia del Sacramento, Uruguay.',
 };
 
 export default function RootLayout({
