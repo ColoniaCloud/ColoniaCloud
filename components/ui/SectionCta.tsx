@@ -20,7 +20,7 @@ export default function SectionCta({ title, description }: Props) {
         asChild
       >
         <a
-          href="https://wa.me/59800000000"
+          href="https://wa.me/59896082266"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 whitespace-nowrap flex-shrink-0"

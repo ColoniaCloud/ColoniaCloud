@@ -11,11 +11,27 @@ const dmSans = DM_Sans({
   display: 'swap',
 });
 
+const title = 'Colonia Cloud — Llevamos tu negocio a la nube';
+const description =
+  'Web & App, Software, VPS/dominios/bases de datos y Asesoría: el ecosistema digital completo para negocios en Colonia del Sacramento, Uruguay.';
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://colonia.cloud'),
-  title: 'Colonia Cloud — Llevamos tu negocio a la nube',
-  description:
-    'Web & App, Software, VPS/dominios/bases de datos y Asesoría: el ecosistema digital completo para negocios en Colonia del Sacramento, Uruguay.',
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    url: 'https://colonia.cloud',
+    siteName: 'Colonia Cloud',
+    locale: 'es_UY',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+  },
 };
 
 export default function RootLayout({

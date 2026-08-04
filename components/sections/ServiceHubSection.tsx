@@ -130,7 +130,7 @@ function AnchorPoint({
   className,
   style,
 }: {
-  anchorRef: RefObject<HTMLDivElement>;
+  anchorRef: RefObject<HTMLDivElement | null>;
   className?: string;
   style?: React.CSSProperties;
 }) {

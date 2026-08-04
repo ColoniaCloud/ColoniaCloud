@@ -17,9 +17,9 @@ const empresaLinks = [
 ];
 
 const socialLinks = [
-  { label: 'Instagram', href: '#', icon: InstagramIcon },
-  { label: 'LinkedIn', href: '#', icon: LinkedinIcon },
-  { label: 'WhatsApp', href: '#', icon: WhatsAppIcon },
+  { label: 'Instagram', href: 'https://instagram.com/colonia.cloud', icon: InstagramIcon },
+  { label: 'LinkedIn', href: 'https://linkedin.com/company/coloniacloud', icon: LinkedinIcon },
+  { label: 'WhatsApp', href: 'https://wa.me/59896082266', icon: WhatsAppIcon },
 ];
 
 const columnHeadingClass =

@@ -62,7 +62,7 @@ export default function WhatsAppButton() {
       ].join(' ')}
     >
       <a
-        href="https://wa.me/59800000000"
+        href="https://wa.me/59896082266"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Contactar por WhatsApp"

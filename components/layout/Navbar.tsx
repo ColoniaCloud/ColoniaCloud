@@ -257,7 +257,7 @@ export default function Navbar() {
             asChild
           >
             <a
-              href="https://wa.me/59800000000"
+              href="https://wa.me/59896082266"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5"

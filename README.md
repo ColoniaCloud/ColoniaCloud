@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://colonia.cloud/">Sitio web</a> •
-  <a href="https://wa.me/59800000000">WhatsApp</a>
+  <a href="https://wa.me/59896082266">WhatsApp</a>
 </p>
 
 ## 🌐 Sobre Colonia Cloud
@@ -39,13 +39,18 @@ Soluciones con IA que optimizan procesos y ahorran tiempo en tu día a día.
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/tu-usuario/colonia-cloud.git
+git clone https://github.com/ColoniaCloud/ColoniaCloud.git
 
 # Instalar dependencias
 npm install
 
+# Configurar variables de entorno (ver .env.example)
+cp .env.example .env.local
+
 # Levantar en modo desarrollo
 npm run dev
 ```
+
+El formulario de contacto envía los mensajes por [Resend](https://resend.com); necesitás definir `RESEND_API_KEY` en `.env.local` para que funcione en local.
 
 El proyecto va a estar disponible en `http://localhost:3000`

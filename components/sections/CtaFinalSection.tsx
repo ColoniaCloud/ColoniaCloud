@@ -17,7 +17,7 @@ export default function CtaFinalSection() {
 
         {/* CTA */}
         <a
-          href="https://wa.me/59800000000"
+          href="https://wa.me/59896082266"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 bg-white hover:bg-cc-accent-light text-black rounded-md px-8 py-4 text-[16px] font-medium transition-colors duration-150"

@@ -53,10 +53,17 @@ export default function ContactForm({ withWhatsApp = false, showHeading = true }
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  const onSubmit = async () => {
+  const onSubmit = async (data: FormData) => {
     setStatus('loading');
     try {
-      await new Promise((r) => setTimeout(r, 1500));
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) throw new Error('send_failed');
+
       setStatus('success');
       router.push('/gracias');
     } catch {
@@ -162,7 +169,7 @@ export default function ContactForm({ withWhatsApp = false, showHeading = true }
 
         {withWhatsApp && (
           <a
-            href="https://wa.me/59800000000"
+            href="https://wa.me/59896082266"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 text-[13px] font-medium text-cc-accent hover:underline"
