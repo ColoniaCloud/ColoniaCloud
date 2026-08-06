@@ -1,12 +1,7 @@
-'use client';
-
-import { useEffect, useId, useRef, useState, type RefObject } from 'react';
 import Link from 'next/link';
 import { ArrowRight, type LucideIcon } from 'lucide-react';
-import { motion, useMotionValue, useSpring } from 'motion/react';
 
 import { DotPattern } from '@/components/magicui/dot-pattern';
-import InteractiveModel from '@/components/three/InteractiveModel';
 import { services } from '@/lib/services';
 
 const SITE_URL = 'https://colonia.cloud';
@@ -30,200 +25,77 @@ const SERVICES_JSON_LD = {
   })),
 };
 
-// Posición de cada card alrededor del modelo (desktop): 2 arriba, 2 abajo.
-const CARD_POSITION_CLASSES = [
-  'left-0 top-2 md:top-4',
-  'right-0 top-2 md:top-4',
-  'left-0 bottom-2 md:bottom-4',
-  'right-0 bottom-2 md:bottom-4',
-];
+// Layout tipo bento: el servicio de Desarrollo web & App es el destacado
+// (índice 0 en lib/services.ts, ver comentario ahí) y ocupa el ancho
+// completo arriba; Asesoría cierra el grid también a ancho completo.
+const BENTO_LAYOUT: Record<string, { span?: string; featured?: boolean }> = {
+  'web-app': { span: 'sm:col-span-2', featured: true },
+  asesoria: { span: 'sm:col-span-2' },
+};
 
-// Signo (x, y) del punto de anclaje en el modelo para cada card, en el mismo
-// orden que CARD_POSITION_CLASSES: un punto distinto por esquina para que
-// ninguna línea comparta tramo con otra.
-const CARD_ANCHOR_SIGNS: [number, number][] = [
-  [-1, -1],
-  [1, -1],
-  [-1, 1],
-  [1, 1],
-];
-
-const DESKTOP_ANCHOR_OFFSET = { x: 92, y: 50 };
-
-// ---- Conector punteado en ángulo recto, con degradado estático ------------
-// lightRef = extremo claro (card / columna), darkRef = extremo oscuro y
-// semi-transparente (modelo 3D). `bend` define si el trazo sale del extremo
-// claro en horizontal o en vertical antes de doblar en ángulo recto.
-
-type Bend = 'h-first' | 'v-first';
-
-interface DashedConnectorProps {
-  containerRef: RefObject<HTMLElement | null>;
-  lightRef: RefObject<HTMLElement | null>;
-  darkRef: RefObject<HTMLElement | null>;
-  bend: Bend;
-}
-
-function DashedConnector({ containerRef, lightRef, darkRef, bend }: DashedConnectorProps) {
-  const id = useId();
-  const [size, setSize] = useState({ width: 0, height: 0 });
-  const [points, setPoints] = useState({ ax: 0, ay: 0, bx: 0, by: 0 });
-
-  useEffect(() => {
-    const update = () => {
-      if (!containerRef.current || !lightRef.current || !darkRef.current) return;
-      const containerRect = containerRef.current.getBoundingClientRect();
-      const a = lightRef.current.getBoundingClientRect();
-      const b = darkRef.current.getBoundingClientRect();
-
-      setSize({ width: containerRect.width, height: containerRect.height });
-      setPoints({
-        ax: a.left - containerRect.left + a.width / 2,
-        ay: a.top - containerRect.top + a.height / 2,
-        bx: b.left - containerRect.left + b.width / 2,
-        by: b.top - containerRect.top + b.height / 2,
-      });
-    };
-
-    const resizeObserver = new ResizeObserver(update);
-    if (containerRef.current) resizeObserver.observe(containerRef.current);
-    update();
-    // La tipografía custom puede tardar en cargar y correr el layout de las
-    // cards después de esta primera medición; re-medir cuando termine.
-    document.fonts?.ready.then(update);
-
-    return () => resizeObserver.disconnect();
-  }, [containerRef, lightRef, darkRef]);
-
-  const { ax, ay, bx, by } = points;
-  const d =
-    bend === 'h-first' ? `M ${ax},${ay} H ${bx} V ${by}` : `M ${ax},${ay} V ${by} H ${bx}`;
-
-  return (
-    <svg
-      className="pointer-events-none absolute left-0 top-0"
-      width={size.width}
-      height={size.height}
-      viewBox={`0 0 ${size.width} ${size.height}`}
-      fill="none"
-      aria-hidden="true"
-    >
-      <defs>
-        <linearGradient id={id} gradientUnits="userSpaceOnUse" x1={ax} y1={ay} x2={bx} y2={by}>
-          <stop offset="0%" stopColor="rgba(212,212,212,0.9)" />
-          <stop offset="100%" stopColor="rgba(38,38,38,0.35)" />
-        </linearGradient>
-      </defs>
-      <path
-        d={d}
-        stroke={`url(#${id})`}
-        strokeWidth={1.5}
-        strokeDasharray="1 6"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function AnchorPoint({
-  anchorRef,
-  className,
-  style,
-}: {
-  anchorRef: RefObject<HTMLDivElement | null>;
-  className?: string;
-  style?: React.CSSProperties;
-}) {
-  return (
-    <div
-      ref={anchorRef}
-      aria-hidden="true"
-      className={`pointer-events-none absolute h-px w-px ${className ?? ''}`}
-      style={style}
-    />
-  );
-}
-
-// Tooltip que sigue al cursor, visible solo mientras el mouse está dentro
-// de esta sección (no aplica a touch, donde no existe cursor).
-function CursorTooltip({ containerRef }: { containerRef: RefObject<HTMLElement | null> }) {
-  const [visible, setVisible] = useState(false);
-  const rawX = useMotionValue(0);
-  const rawY = useMotionValue(0);
-  const x = useSpring(rawX, { damping: 30, stiffness: 400, mass: 0.5 });
-  const y = useSpring(rawY, { damping: 30, stiffness: 400, mass: 0.5 });
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    // Se mide una sola vez al entrar (y se refresca en resize) en vez de en
-    // cada pointermove, para no forzar un reflow por cada pixel de movimiento.
-    let rect = el.getBoundingClientRect();
-    const refreshRect = () => {
-      rect = el.getBoundingClientRect();
-    };
-
-    const handleEnter = (e: PointerEvent) => {
-      if (e.pointerType !== 'mouse') return;
-      refreshRect();
-      rawX.set(e.clientX - rect.left + 18);
-      rawY.set(e.clientY - rect.top + 18);
-      setVisible(true);
-    };
-    const handleMove = (e: PointerEvent) => {
-      if (e.pointerType !== 'mouse') return;
-      rawX.set(e.clientX - rect.left + 18);
-      rawY.set(e.clientY - rect.top + 18);
-    };
-    const handleLeave = () => setVisible(false);
-
-    el.addEventListener('pointerenter', handleEnter);
-    el.addEventListener('pointermove', handleMove);
-    el.addEventListener('pointerleave', handleLeave);
-    window.addEventListener('resize', refreshRect);
-    return () => {
-      el.removeEventListener('pointerenter', handleEnter);
-      el.removeEventListener('pointermove', handleMove);
-      el.removeEventListener('pointerleave', handleLeave);
-      window.removeEventListener('resize', refreshRect);
-    };
-  }, [containerRef, rawX, rawY]);
-
-  return (
-    <motion.div
-      className="pointer-events-none absolute left-0 top-0 z-20 hidden select-none whitespace-nowrap rounded-full bg-white px-3 py-1.5 text-[12px] font-medium text-black md:block"
-      style={{ x, y }}
-      animate={{ opacity: visible ? 1 : 0, scale: visible ? 1 : 0.9 }}
-      transition={{ duration: 0.15, ease: 'easeOut' }}
-    >
-      Nuestros servicios
-    </motion.div>
-  );
-}
-
-interface ServiceCardProps {
+interface BentoServiceCardProps {
   slug: string;
   title: string;
   description: string;
   icon: LucideIcon;
+  span?: string;
+  featured?: boolean;
 }
 
-// Tamaños de texto según la escala documentada (docs/02-ui-spec.md §2.2):
-// H3 (18px / 1.125rem) para títulos de card, Small (14px / 0.875rem) para
-// descripciones y labels de botón/link.
-function ServiceCard({ slug, title, description, icon: Icon }: ServiceCardProps) {
+function BentoServiceCard({
+  slug,
+  title,
+  description,
+  icon: Icon,
+  span,
+  featured = false,
+}: BentoServiceCardProps) {
   return (
-    <div className="w-full min-w-0 rounded-xl border border-white/15 bg-white/[0.04] p-4 backdrop-blur-sm transition-colors hover:border-white/30 md:w-[220px]">
-      <div className="flex items-center gap-2">
-        <Icon size={20} strokeWidth={1.75} className="shrink-0 text-white/50" aria-hidden="true" />
-        <h3 className="font-display text-[1.125rem] font-medium text-white">{title}</h3>
+    <div
+      className={[
+        'group flex flex-col justify-between rounded-xl border border-black/10 bg-cc-bg p-5 transition-colors hover:border-black/25 hover:shadow-[0_0_0_3px_var(--cc-accent-light)] sm:p-6',
+        featured ? 'bg-cc-accent-light/40 border-black/15 min-h-[200px]' : 'min-h-[160px]',
+        span ?? '',
+      ].join(' ')}
+    >
+      <div>
+        <div
+          className={[
+            'flex items-center justify-center rounded-md bg-cc-accent-light',
+            featured ? 'h-11 w-11' : 'h-9 w-9',
+          ].join(' ')}
+        >
+          <Icon
+            size={featured ? 22 : 18}
+            strokeWidth={1.75}
+            className="text-cc-accent"
+            aria-hidden="true"
+          />
+        </div>
+
+        <h3
+          className={[
+            'font-display font-medium text-cc-text mt-4',
+            featured ? 'text-[1.375rem]' : 'text-[1.125rem]',
+          ].join(' ')}
+        >
+          {title}
+        </h3>
+
+        <p
+          className={[
+            'text-cc-text-body leading-relaxed mt-2',
+            featured ? 'max-w-[440px] text-[14px]' : 'text-[13px]',
+          ].join(' ')}
+        >
+          {description}
+        </p>
       </div>
-      <p className="mt-2 text-[0.875rem] leading-relaxed text-white/60">{description}</p>
+
       <Link
         href={`/servicios/${slug}`}
         aria-label={`Ir al servicio de ${title}`}
-        className="mt-3 inline-flex items-center gap-1.5 text-[0.875rem] font-medium text-white"
+        className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-medium text-cc-text transition-all group-hover:gap-2"
       >
         Ir al servicio
         <ArrowRight size={12} aria-hidden="true" />
@@ -233,140 +105,52 @@ function ServiceCard({ slug, title, description, icon: Icon }: ServiceCardProps)
 }
 
 export default function ServiceHubSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const stageRef = useRef<HTMLDivElement>(null);
-  const wrapRef = useRef<HTMLDivElement>(null);
-
-  // Un punto de anclaje distinto por esquina del modelo (desktop).
-  const cornerAnchorRefs = [
-    useRef<HTMLDivElement>(null),
-    useRef<HTMLDivElement>(null),
-    useRef<HTMLDivElement>(null),
-    useRef<HTMLDivElement>(null),
-  ];
-
-  // Refs estables (uno por servicio) para medir la posición real de cada card.
-  const cardRefs = [
-    useRef<HTMLDivElement>(null),
-    useRef<HTMLDivElement>(null),
-    useRef<HTMLDivElement>(null),
-    useRef<HTMLDivElement>(null),
-  ];
-
-  // Anclas para la línea de mobile: una en la base del modelo y una encima
-  // de la columna única de cards.
-  const mobileModelAnchorRef = useRef<HTMLDivElement>(null);
-  const mobileColAnchorRef = useRef<HTMLDivElement>(null);
-
   return (
-    <section
-      ref={sectionRef}
-      className="relative z-10 w-full overflow-hidden bg-black py-[72px]"
-      data-navbar-theme="dark"
-    >
+    <section id="servicios" className="w-full bg-cc-bg py-[64px]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(SERVICES_JSON_LD) }}
       />
 
-      <DotPattern
-        glow
-        className="text-white/70 [mask-image:radial-gradient(500px_circle_at_center,white,transparent)]"
-      />
+      <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-10 px-7 md:grid-cols-2 md:gap-12">
+        {/* Columna 1 — Fondo dotted glow + título y párrafo, centrado */}
+        <div className="relative flex min-h-[280px] flex-col items-center justify-center rounded-xl px-6 py-10 text-center md:border-r md:border-black/[0.08] md:py-0 md:pr-10">
+          <DotPattern
+            glow
+            className="text-black/60 [mask-image:radial-gradient(380px_circle_at_center,white,transparent)]"
+          />
 
-      <CursorTooltip containerRef={sectionRef} />
-
-      <div className="relative mx-auto max-w-[1280px] px-7">
-        <div className="mx-auto mb-10 max-w-[560px] text-center">
-          <span className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-white">
-            Un ecosistema, cuatro servicios
-          </span>
-          <h2 className="font-display text-[1.75rem] font-medium text-white">
-            Todo conectado a un mismo lugar
-          </h2>
+          <div className="relative z-10 max-w-[380px]">
+            <h2 className="font-display text-[1.75rem] font-medium text-cc-text">
+              Nuestros servicios
+            </h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-cc-text-body">
+              Nuestros servicios están enfocados en proveer soluciones
+              inteligentes y pensadas para ser sostenidas a largo plazo.{' '}
+              <strong className="font-medium text-cc-text">
+                Todos nuestros servicios cuentan con una auditoría previa y
+                gratuita.
+              </strong>
+            </p>
+          </div>
         </div>
 
-        <div ref={wrapRef} className="relative mx-auto max-w-[920px]">
-          {/* Stage: modelo 3D + cards (desktop) */}
-          <div ref={stageRef} className="relative z-10 h-[190px] md:h-[500px]">
-            <div className="absolute inset-0 z-10">
-              <InteractiveModel />
-            </div>
-
-            {/* Anclas de esquina (desktop) */}
-            {CARD_ANCHOR_SIGNS.map(([sx, sy], index) => (
-              <AnchorPoint
-                key={services[index].slug}
-                anchorRef={cornerAnchorRefs[index]}
-                className="left-1/2 top-1/2 hidden md:block"
-                style={{
-                  transform: `translate(${sx * DESKTOP_ANCHOR_OFFSET.x}px, ${sy * DESKTOP_ANCHOR_OFFSET.y}px)`,
-                }}
-              />
-            ))}
-
-            {/* Ancla del modelo para mobile (centrada, cerca de la base) */}
-            <AnchorPoint
-              anchorRef={mobileModelAnchorRef}
-              className="left-1/2 -translate-x-1/2 md:hidden"
-              style={{ top: '132px' }}
-            />
-
-            {/* Líneas: solo desktop, por detrás del modelo (z-10). */}
-            <div className="pointer-events-none absolute inset-0 z-0 hidden md:block">
-              {services.map((service, index) => (
-                <DashedConnector
-                  key={service.slug}
-                  containerRef={stageRef}
-                  lightRef={cardRefs[index]}
-                  darkRef={cornerAnchorRefs[index]}
-                  bend="h-first"
-                />
-              ))}
-            </div>
-
-            {services.map((service, index) => (
-              <div
-                key={service.slug}
-                ref={cardRefs[index]}
-                className={`absolute z-20 hidden md:block ${CARD_POSITION_CLASSES[index]}`}
-              >
-                <ServiceCard
-                  slug={service.slug}
-                  title={service.cardTitle}
-                  description={service.cardDescription}
-                  icon={service.icon}
-                />
-              </div>
-            ))}
-          </div>
-
-          {/* Línea hacia la columna: solo mobile, por detrás del modelo (stage = z-10) */}
-          <div className="pointer-events-none absolute inset-0 z-0 md:hidden">
-            <DashedConnector
-              containerRef={wrapRef}
-              lightRef={mobileColAnchorRef}
-              darkRef={mobileModelAnchorRef}
-              bend="v-first"
-            />
-          </div>
-
-          {/* Mobile: cards apiladas debajo del modelo, en una sola columna */}
-          <div className="relative mt-3 grid grid-cols-1 gap-3 md:hidden">
-            <AnchorPoint
-              anchorRef={mobileColAnchorRef}
-              className="left-1/2 -top-1 -translate-x-1/2"
-            />
-            {services.map((service) => (
-              <ServiceCard
+        {/* Columna 2 — Bento grid de servicios, foco en Desarrollo web & App */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {services.map((service) => {
+            const layout = BENTO_LAYOUT[service.slug];
+            return (
+              <BentoServiceCard
                 key={service.slug}
                 slug={service.slug}
                 title={service.cardTitle}
                 description={service.cardDescription}
                 icon={service.icon}
+                span={layout?.span}
+                featured={layout?.featured}
               />
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
     </section>
