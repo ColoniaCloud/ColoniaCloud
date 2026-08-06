@@ -212,7 +212,7 @@ Escala base de 4px. Todos los espaciados deben ser múltiplos de esta unidad.
 
 | Breakpoint | Max-width |
 |---|---|
-| Móvil (< 768px) | `90vw` |
+| Móvil (< 768px) | `95vw` |
 | Tablet (≥ 768px) | `85vw` |
 | Desktop chico (≥ 1024px) | `75vw` |
 | Desktop grande (≥ 1280px) | `75vw` |

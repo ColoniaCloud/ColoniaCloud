@@ -97,7 +97,7 @@ export default function Navbar() {
     <header
       ref={headerRef}
       className={[
-        'fixed top-4 left-[5vw] w-[90vw] md:left-[7.5vw] md:w-[85vw] lg:left-[12.5vw] lg:w-[75vw] z-50 h-[58px] border rounded-xl transition-all duration-300',
+        'fixed top-4 left-[2.5vw] w-[95vw] md:left-[7.5vw] md:w-[85vw] lg:left-[12.5vw] lg:w-[75vw] z-50 h-[58px] border rounded-xl transition-all duration-300',
         headerBgClass,
         isScrolled ? 'shadow-[0_4px_20px_rgba(0,0,0,0.08)]' : 'shadow-[0_2px_12px_rgba(0,0,0,0.04)]',
       ].join(' ')}
@@ -277,7 +277,7 @@ export default function Navbar() {
             onClick={() => setIsMenuOpen(false)}
             aria-hidden="true"
           />
-          <div className="fixed top-[78px] left-[5vw] w-[90vw] bg-cc-bg z-50 border border-black/[0.08] rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] overflow-hidden max-h-[calc(100vh-100px)] overflow-y-auto">
+          <div className="fixed top-[78px] left-[2.5vw] w-[95vw] bg-cc-bg z-50 border border-black/[0.08] rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] overflow-hidden max-h-[calc(100vh-100px)] overflow-y-auto">
             <ul className="px-6 py-4 flex flex-col gap-1 list-none">
               <li>
                 <Link

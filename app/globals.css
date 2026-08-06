@@ -161,7 +161,7 @@ a {
   }
 
   .max-w-\[1280px\] {
-    max-width: 90vw !important; /* Móvil */
+    max-width: 95vw !important; /* Móvil */
   }
 
   @media (min-width: 768px) {
