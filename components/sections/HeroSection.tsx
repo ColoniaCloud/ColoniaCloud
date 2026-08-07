@@ -10,7 +10,7 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative flex h-[90vh] min-h-[560px] w-full items-center overflow-hidden bg-black"
+      className="relative flex min-h-[max(90dvh,560px)] w-full items-center overflow-hidden bg-black pt-20 md:pt-0"
       data-navbar-theme="dark"
     >
       {/* Imagen de fallback: pintado instantáneo (sin esperar al video) y

@@ -3,7 +3,7 @@ const products = ['Plata.Studio', 'ColonIA', 'MarketDeck'];
 export default function ProductBarSection() {
   return (
     <section
-      className="relative flex h-[10vh] min-h-[56px] w-full items-center overflow-hidden bg-black"
+      className="relative flex min-h-[max(10dvh,56px)] w-full items-center overflow-hidden bg-black"
       data-navbar-theme="dark"
     >
       <div
