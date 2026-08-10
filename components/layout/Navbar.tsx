@@ -11,7 +11,6 @@ import { services } from '@/lib/services';
 const navLinks = [
   { label: 'Inicio', href: '/' },
   { label: 'Nosotros', href: '/nosotros' },
-  { label: 'Blog', href: '/blog' },
   { label: 'Contacto', href: '/contacto' },
 ];
 

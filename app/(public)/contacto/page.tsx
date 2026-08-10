@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/Button';
 export const metadata: Metadata = {
   title: 'Contacto — Colonia Cloud',
   description: 'Contactanos por WhatsApp o formulario. Respondemos en menos de 24 horas.',
+  alternates: { canonical: '/contacto' },
 };
 
 const infoItems = [

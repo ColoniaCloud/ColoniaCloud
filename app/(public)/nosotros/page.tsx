@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: 'Nosotros — Colonia Cloud',
   description:
     'Quiénes somos y por qué trabajamos desde Colonia del Sacramento.',
+  alternates: { canonical: '/nosotros' },
 };
 
 const valores = [

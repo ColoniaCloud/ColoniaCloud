@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: 'Términos y Condiciones — Colonia Cloud',
   description:
     'Condiciones que regulan el uso del sitio colonia.cloud y la contratación de servicios de Colonia Cloud.',
+  alternates: { canonical: '/terminos' },
 };
 
 const h2Class = 'font-display font-medium text-[1.125rem] text-cc-text mt-9 mb-3 first:mt-0';

@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   title: 'Servicios — Colonia Cloud',
   description:
     'Desarrollo web, marketing digital y automatizaciones para negocios en Colonia del Sacramento.',
+  alternates: { canonical: '/servicios' },
 };
 
 // ── Datos ──────────────────────────────────────────────────────────────────
@@ -128,6 +129,21 @@ const faqs = [
   },
 ];
 
+// Marcado FAQPage a partir de las mismas preguntas que se muestran en
+// pantalla, para habilitar el rich result de preguntas frecuentes.
+const FAQ_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: a,
+    },
+  })),
+};
+
 // ── Sub-componentes locales ────────────────────────────────────────────────
 
 function SubHeader({
@@ -210,6 +226,10 @@ function PricingCardEl({ card }: { card: PricingCard }) {
 export default function ServiciosPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
+      />
       <InternalHero
         badge="Servicios"
         title="Lo que podemos hacer por tu negocio"

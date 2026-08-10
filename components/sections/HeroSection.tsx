@@ -66,7 +66,8 @@ export default function HeroSection() {
           </h1>
           <p className="animate-hero-paragraph max-w-[480px] text-[16px] leading-relaxed text-white/70 md:text-[17px]">
             En ColoniaCloud creamos soluciones digitales enfocadas en la
-            logística, administración y marketing de negocios locales.
+            logística, administración y marketing de negocios locales de
+            Colonia del Sacramento, Uruguay.
           </p>
         </div>
       </div>

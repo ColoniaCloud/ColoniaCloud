@@ -26,6 +26,7 @@ export async function generateMetadata({
   return {
     title: `${service.name} — Colonia Cloud`,
     description: service.heroDescription,
+    alternates: { canonical: `/servicios/${slug}` },
   };
 }
 

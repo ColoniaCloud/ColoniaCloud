@@ -73,7 +73,7 @@ export default function ProcesoSection() {
           {/* Columna 1 — Imagen de fondo + título animado */}
           <div className="relative flex min-h-[420px] flex-col justify-center overflow-hidden rounded-xl px-8 py-12 md:min-h-[560px] md:px-10">
             <Image
-              src="/fotos/atardecer.jpg"
+              src="/fotos/atardecer.webp"
               alt=""
               aria-hidden="true"
               fill

@@ -10,7 +10,6 @@ const serviciosLinks = [
 
 const empresaLinks = [
   { label: 'Nosotros', href: '/nosotros' },
-  { label: 'Blog', href: '/blog' },
   { label: 'Contacto', href: '/contacto' },
   { label: 'Privacidad', href: '/privacidad' },
   { label: 'Términos', href: '/terminos' },

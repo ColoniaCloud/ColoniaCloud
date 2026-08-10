@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: 'Política de Privacidad — Colonia Cloud',
   description:
     'Cómo Colonia Cloud recopila, usa y protege los datos personales de quienes visitan el sitio o se ponen en contacto.',
+  alternates: { canonical: '/privacidad' },
 };
 
 const h2Class = 'font-display font-medium text-[1.125rem] text-cc-text mt-9 mb-3 first:mt-0';
