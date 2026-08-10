@@ -64,7 +64,7 @@ export default function HeroSection() {
           <h1 className="animate-hero-title max-w-[560px] font-display text-[2.1rem] font-semibold leading-[1.2] text-white md:text-[2.6rem] lg:text-[3rem]">
             Soluciones digitales hechas acá!
           </h1>
-          <p className="animate-hero-paragraph max-w-[480px] text-[15px] leading-relaxed text-white/70 md:text-[16px]">
+          <p className="animate-hero-paragraph max-w-[480px] text-[16px] leading-relaxed text-white/70 md:text-[17px]">
             En ColoniaCloud creamos soluciones digitales enfocadas en la
             logística, administración y marketing de negocios locales.
           </p>

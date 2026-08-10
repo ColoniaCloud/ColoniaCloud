@@ -48,7 +48,7 @@ export default function ContactModal({
           <Dialog.Title className="font-display font-medium text-[1.375rem] text-cc-text mb-1">
             Hablemos
           </Dialog.Title>
-          <Dialog.Description className="text-[13px] text-cc-text-body mb-5">
+          <Dialog.Description className="text-[14px] text-cc-text-body mb-5">
             Contanos qué necesitás. Respondemos en menos de 24 horas.
           </Dialog.Description>
 

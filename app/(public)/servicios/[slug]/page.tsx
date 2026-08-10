@@ -76,7 +76,7 @@ export default async function ServicioDetallePage({
                 <h3 className="font-display font-medium text-[1.0625rem] text-cc-text mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-[14px] text-cc-text-body leading-relaxed">
+                <p className="text-[15px] text-cc-text-body leading-relaxed">
                   {feature.description}
                 </p>
               </div>
@@ -104,7 +104,7 @@ export default async function ServicioDetallePage({
                   <h3 className="font-display font-medium text-[1.0625rem] text-cc-text mb-2">
                     {sub.name}
                   </h3>
-                  <p className="text-[14px] text-cc-text-body leading-relaxed">
+                  <p className="text-[15px] text-cc-text-body leading-relaxed">
                     {sub.description}
                   </p>
                 </div>
@@ -164,7 +164,7 @@ export default async function ServicioDetallePage({
                 <h3 className="font-display font-medium text-[1rem] text-cc-text mb-1.5">
                   {name}
                 </h3>
-                <p className="text-[13px] text-cc-text-body leading-relaxed mb-4 line-clamp-2">
+                <p className="text-[14px] text-cc-text-body leading-relaxed mb-4 line-clamp-2">
                   {cardDescription}
                 </p>
                 <span className="inline-flex items-center gap-1.5 text-[13px] text-cc-accent font-medium mt-auto">

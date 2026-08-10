@@ -11,7 +11,7 @@ export default function CtaFinalSection() {
         </h2>
 
         {/* Subtítulo */}
-        <p className="text-[15px] text-white/55 max-w-[380px] leading-relaxed">
+        <p className="text-[16px] text-white/55 max-w-[380px] leading-relaxed">
           Contanos qué necesitás. Sin compromiso, sin formularios largos.
         </p>
 
@@ -27,7 +27,7 @@ export default function CtaFinalSection() {
         </a>
 
         {/* Promesa */}
-        <p className="flex items-center gap-1.5 text-[12px] text-white/35">
+        <p className="flex items-center gap-1.5 text-[13px] text-white/35">
           <Clock size={13} aria-hidden="true" />
           Respondemos en menos de 24 horas hábiles
         </p>

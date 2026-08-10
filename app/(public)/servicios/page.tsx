@@ -192,7 +192,7 @@ function PricingCardEl({ card }: { card: PricingCard }) {
       </div>
 
       {/* Descripción */}
-      <p className="text-[13px] text-cc-text-body leading-relaxed mb-5 flex-1">
+      <p className="text-[14px] text-cc-text-body leading-relaxed mb-5 flex-1">
         {card.description}
       </p>
 
@@ -254,7 +254,7 @@ export default function ServiciosPage() {
               <PricingCardEl key={card.name} card={card} />
             ))}
           </div>
-          <p className="mt-4 text-[12px] text-cc-muted flex items-center gap-1.5">
+          <p className="mt-4 text-[13px] text-cc-muted flex items-center gap-1.5">
             <Info size={13} aria-hidden="true" />
             El presupuesto de pauta publicitaria lo abona el cliente directamente a Meta o Google.
           </p>
@@ -287,7 +287,7 @@ export default function ServiciosPage() {
                 <dt className="font-display font-medium text-[1rem] text-cc-text mb-2">
                   {q}
                 </dt>
-                <dd className="text-[14px] text-cc-text-body leading-relaxed">{a}</dd>
+                <dd className="text-[15px] text-cc-text-body leading-relaxed">{a}</dd>
               </div>
             ))}
           </dl>

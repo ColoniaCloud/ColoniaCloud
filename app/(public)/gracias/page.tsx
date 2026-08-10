@@ -24,14 +24,14 @@ export default function GraciasPage() {
         </h1>
 
         {/* Descripción */}
-        <p className="text-[15px] text-cc-text-body leading-relaxed">
+        <p className="text-[16px] text-cc-text-body leading-relaxed">
           Te respondemos en menos de 24 horas hábiles por email o WhatsApp.
         </p>
 
         {/* Promesa */}
         <div className="flex items-center gap-2 bg-cc-surface rounded-lg px-5 py-3">
           <Clock size={16} className="text-cc-accent flex-shrink-0" aria-hidden="true" />
-          <p className="text-[13px] text-cc-text-body">
+          <p className="text-[14px] text-cc-text-body">
             Tiempo promedio de respuesta: menos de 24 horas
           </p>
         </div>

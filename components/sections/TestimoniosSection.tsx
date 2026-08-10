@@ -36,7 +36,7 @@ export default function TestimoniosSection() {
           <h2 className="font-display font-medium text-[1.75rem] text-cc-text mb-3">
             Lo que dicen nuestros clientes
           </h2>
-          <p className="text-[15px] text-cc-text-body max-w-[480px] mx-auto leading-relaxed">
+          <p className="text-[16px] text-cc-text-body max-w-[480px] mx-auto leading-relaxed">
             Negocios de Colonia que ya están creciendo online.
           </p>
         </div>
@@ -62,7 +62,7 @@ export default function TestimoniosSection() {
               </div>
 
               {/* Cita */}
-              <p className="text-[14px] text-cc-text-body leading-relaxed italic mb-5">
+              <p className="text-[15px] text-cc-text-body leading-relaxed italic mb-5">
                 &ldquo;{quote}&rdquo;
               </p>
 

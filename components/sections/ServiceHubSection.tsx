@@ -85,7 +85,7 @@ function BentoServiceCard({
         <p
           className={[
             'text-cc-text-body leading-relaxed mt-2',
-            featured ? 'max-w-[440px] text-[14px]' : 'text-[13px]',
+            featured ? 'max-w-[440px] text-[15px]' : 'text-[14px]',
           ].join(' ')}
         >
           {description}
@@ -114,7 +114,7 @@ export default function ServiceHubSection() {
 
       <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-10 px-7 md:grid-cols-2 md:gap-12">
         {/* Columna 1 — Fondo dotted glow + título y párrafo, centrado */}
-        <div className="relative flex flex-col items-center justify-center rounded-xl px-6 py-10 text-center md:min-h-[280px] md:border-r md:border-black/[0.08] md:py-0 md:pr-10">
+        <div className="relative flex flex-col items-center justify-center rounded-xl px-6 py-10 text-center md:min-h-[280px] md:py-0 md:pr-10">
           <DotPattern
             glow
             className="text-black/60 [mask-image:radial-gradient(380px_circle_at_center,white,transparent)]"
@@ -124,7 +124,7 @@ export default function ServiceHubSection() {
             <h2 className="font-display text-[1.75rem] font-medium text-cc-text">
               Nuestros servicios
             </h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-cc-text-body">
+            <p className="mt-4 text-[16px] leading-relaxed text-cc-text-body">
               Nuestros servicios están enfocados en proveer soluciones
               inteligentes y pensadas para ser sostenidas a largo plazo.{' '}
               <strong className="font-medium text-cc-text">

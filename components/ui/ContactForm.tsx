@@ -78,7 +78,7 @@ export default function ContactForm({ withWhatsApp = false, showHeading = true }
           <h3 className="font-display font-medium text-[1.125rem] text-cc-text mb-1">
             O dejanos tu mensaje
           </h3>
-          <p className="text-[13px] text-cc-text-body mb-4">
+          <p className="text-[14px] text-cc-text-body mb-4">
             Te respondemos por email o WhatsApp.
           </p>
         </div>
@@ -87,7 +87,7 @@ export default function ContactForm({ withWhatsApp = false, showHeading = true }
       {status === 'error' && (
         <div className="bg-[#FCECEA] border border-[#F0AAAA] rounded-md p-3 flex items-center gap-2">
           <CircleAlert size={16} className="text-red-600 flex-shrink-0" aria-hidden="true" />
-          <p className="text-[13px] text-red-700">
+          <p className="text-[14px] text-red-700">
             Hubo un error al enviar. Intentá de nuevo o escribinos por WhatsApp.
           </p>
         </div>
@@ -107,7 +107,7 @@ export default function ContactForm({ withWhatsApp = false, showHeading = true }
             {...register('nombre')}
           />
           {errors.nombre && (
-            <p className="text-[12px] text-red-500 mt-0.5">{errors.nombre.message}</p>
+            <p className="text-[13px] text-red-500 mt-0.5">{errors.nombre.message}</p>
           )}
         </div>
 
@@ -124,7 +124,7 @@ export default function ContactForm({ withWhatsApp = false, showHeading = true }
             {...register('email')}
           />
           {errors.email && (
-            <p className="text-[12px] text-red-500 mt-0.5">{errors.email.message}</p>
+            <p className="text-[13px] text-red-500 mt-0.5">{errors.email.message}</p>
           )}
         </div>
 
@@ -141,7 +141,7 @@ export default function ContactForm({ withWhatsApp = false, showHeading = true }
             {...register('mensaje')}
           />
           {errors.mensaje && (
-            <p className="text-[12px] text-red-500 mt-0.5">{errors.mensaje.message}</p>
+            <p className="text-[13px] text-red-500 mt-0.5">{errors.mensaje.message}</p>
           )}
         </div>
 

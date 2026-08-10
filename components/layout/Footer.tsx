@@ -43,7 +43,7 @@ export default function Footer() {
               />
             </div>
 
-            <p className="text-[13px] text-white/50 mt-3">
+            <p className="text-[14px] text-white/50 mt-3">
               Llevamos tu negocio a la nube
             </p>
 
@@ -90,10 +90,10 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-8 pt-5 border-t border-white/[0.08] flex flex-col md:flex-row items-center justify-between gap-2">
-          <p className="text-[12px] text-white/30">
+          <p className="text-[13px] text-white/30">
             © 2025 Colonia Cloud. Todos los derechos reservados.
           </p>
-          <p className="text-[12px] text-white/30">colonia.cloud</p>
+          <p className="text-[13px] text-white/30">colonia.cloud</p>
         </div>
       </div>
     </footer>

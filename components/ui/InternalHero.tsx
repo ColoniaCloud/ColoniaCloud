@@ -22,7 +22,7 @@ export default function InternalHero({ badge, title, description, icon: Icon }: 
         <h1 className="font-display font-medium text-[1.75rem] md:text-[2.2rem] text-cc-text leading-[1.2]">
           {title}
         </h1>
-        <p className="text-[15px] text-cc-text-body max-w-[480px] leading-relaxed">
+        <p className="text-[16px] text-cc-text-body max-w-[480px] leading-relaxed">
           {description}
         </p>
       </div>

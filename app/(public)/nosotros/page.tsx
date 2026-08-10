@@ -57,13 +57,13 @@ export default function NosotrosPage() {
               <h2 className="font-display font-medium text-[1.5rem] text-cc-text mt-3 mb-4">
                 Que cada negocio de Colonia tenga presencia digital de calidad
               </h2>
-              <p className="text-[15px] text-cc-text-body leading-relaxed mb-4">
+              <p className="text-[16px] text-cc-text-body leading-relaxed mb-4">
                 Colonia Cloud nació de una observación simple: muchos negocios locales
                 excelentes son invisibles online. Restaurantes llenos en temporada que no
                 aparecen en Google. Comercios con productos únicos sin tienda online.
                 Profesionales de primer nivel sin presencia digital.
               </p>
-              <p className="text-[15px] text-cc-text-body leading-relaxed">
+              <p className="text-[16px] text-cc-text-body leading-relaxed">
                 Nuestra misión es cambiar eso. Con tecnología accesible, precios honestos y
                 un proceso claro que no requiere conocimientos técnicos de tu parte.
               </p>
@@ -77,8 +77,8 @@ export default function NosotrosPage() {
                     <Icon size={20} className="text-cc-accent" aria-hidden="true" />
                   </div>
                   <div>
-                    <p className="font-medium text-[15px] text-cc-text">{title}</p>
-                    <p className="text-[13px] text-cc-text-body leading-relaxed mt-0.5">
+                    <p className="font-medium text-[16px] text-cc-text">{title}</p>
+                    <p className="text-[14px] text-cc-text-body leading-relaxed mt-0.5">
                       {description}
                     </p>
                   </div>
@@ -95,7 +95,7 @@ export default function NosotrosPage() {
           <h2 className="font-display font-medium text-[1.5rem] text-cc-text mb-4">
             Por qué desde Colonia del Sacramento
           </h2>
-          <p className="text-[15px] text-cc-text-body max-w-[580px] mx-auto leading-relaxed mb-10">
+          <p className="text-[16px] text-cc-text-body max-w-[580px] mx-auto leading-relaxed mb-10">
             Colonia del Sacramento es una ciudad con identidad propia, turismo internacional
             y una economía local activa. Los negocios que invierten en su presencia digital
             hoy tienen una ventaja real frente a los que esperan.

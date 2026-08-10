@@ -8,8 +8,8 @@ export const metadata: Metadata = {
 };
 
 const h2Class = 'font-display font-medium text-[1.125rem] text-cc-text mt-9 mb-3 first:mt-0';
-const pClass = 'text-[14px] text-cc-text-body leading-relaxed mb-4';
-const liClass = 'text-[14px] text-cc-text-body leading-relaxed';
+const pClass = 'text-[15px] text-cc-text-body leading-relaxed mb-4';
+const liClass = 'text-[15px] text-cc-text-body leading-relaxed';
 
 export default function PrivacidadPage() {
   return (

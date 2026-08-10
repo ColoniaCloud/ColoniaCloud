@@ -182,10 +182,10 @@ export default function Navbar() {
                         <Icon size={17} strokeWidth={1.5} className="text-cc-accent" aria-hidden="true" />
                       </div>
                       <div className="min-w-0">
-                        <p className="font-display font-medium text-[13.5px] text-cc-text group-hover:text-cc-accent transition-colors">
+                        <p className="font-display font-medium text-[14px] text-cc-text group-hover:text-cc-accent transition-colors">
                           {name}
                         </p>
-                        <p className="text-[12px] text-cc-text-body leading-snug line-clamp-2 mt-0.5">
+                        <p className="text-[13px] text-cc-text-body leading-snug line-clamp-2 mt-0.5">
                           {cardDescription}
                         </p>
                       </div>

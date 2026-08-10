@@ -13,7 +13,7 @@ export default function SectionCta({ title, description }: Props) {
         <h3 className="font-display font-medium text-[1.25rem] text-cc-text mb-1">
           {title}
         </h3>
-        <p className="text-[14px] text-cc-text-body">{description}</p>
+        <p className="text-[15px] text-cc-text-body">{description}</p>
       </div>
       <Button
         variant="primary"

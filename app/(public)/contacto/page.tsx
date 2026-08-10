@@ -38,7 +38,7 @@ export default function ContactoPage() {
                 <h2 className="font-display font-medium text-[1.375rem] text-cc-text mt-2 mb-1">
                   Escribinos por WhatsApp
                 </h2>
-                <p className="text-[14px] text-cc-text-body leading-relaxed">
+                <p className="text-[15px] text-cc-text-body leading-relaxed">
                   Es la forma más rápida de hablar con nosotros. Respondemos en menos de 24
                   horas hábiles.
                 </p>
