@@ -26,6 +26,9 @@ export type Service = {
   name: string;
   /** Título tal cual se muestra en la tarjeta del home */
   cardTitle: string;
+  /** Frase de resultado que acompaña al título en la tarjeta del home. El
+   * título nombra la categoría técnica; esto traduce qué gana el cliente. */
+  cardOutcome: string;
   /** Descripción corta de la tarjeta del home */
   cardDescription: string;
   /** Título del hero de la página de detalle */
@@ -52,6 +55,7 @@ export const services: Service[] = [
     badge: 'Web & App',
     name: 'Web & App',
     cardTitle: 'Web & App',
+    cardOutcome: 'Que te encuentren y te compren.',
     cardDescription:
       'Sitios institucionales, tiendas online y aplicaciones a medida, con branding digital y redes sociales incluidos.',
     heroTitle: 'Sitios web y aplicaciones a medida',
@@ -105,6 +109,7 @@ export const services: Service[] = [
     badge: 'Software',
     name: 'Software',
     cardTitle: 'Software',
+    cardOutcome: 'Que tu operación deje de vivir en planillas.',
     cardDescription:
       'Soluciones de gestión a medida para tu negocio, con IA y automatizaciones incluidas para ordenar tu operación de punta a punta.',
     heroTitle: 'Software de gestión, IA y automatizaciones',
@@ -158,6 +163,7 @@ export const services: Service[] = [
     badge: 'Infraestructura',
     name: 'VPS, dominios y base de datos',
     cardTitle: 'VPS, dominios y base de datos',
+    cardOutcome: 'Que no se caiga, y que no lo tengas que mirar vos.',
     cardDescription:
       'Servicio "manejado" de VPS, dominios y bases de datos, con ciberseguridad incluida para proteger tu negocio.',
     heroTitle: 'VPS, dominios y base de datos',
@@ -211,6 +217,7 @@ export const services: Service[] = [
     badge: 'Asesoría',
     name: 'Asesoría',
     cardTitle: 'Asesoría',
+    cardOutcome: 'Que decidas con alguien que ya lo hizo antes.',
     cardDescription:
       'Más que un servicio, es una alianza de intercambio de ideas con el fin de promover la innovación en tu proyecto.',
     heroTitle: 'Asesoría',

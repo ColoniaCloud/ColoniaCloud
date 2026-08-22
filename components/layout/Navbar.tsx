@@ -96,7 +96,7 @@ export default function Navbar() {
     <header
       ref={headerRef}
       className={[
-        'fixed top-4 left-[2.5vw] w-[95vw] md:left-[7.5vw] md:w-[85vw] lg:left-[12.5vw] lg:w-[75vw] z-50 h-[58px] border rounded-xl transition-all duration-300',
+        'fixed top-4 left-1/2 -translate-x-1/2 w-[var(--cc-container)] z-50 h-[58px] border rounded-xl transition-all duration-300',
         headerBgClass,
         isScrolled ? 'shadow-[0_4px_20px_rgba(0,0,0,0.08)]' : 'shadow-[0_2px_12px_rgba(0,0,0,0.04)]',
       ].join(' ')}

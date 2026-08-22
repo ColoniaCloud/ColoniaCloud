@@ -61,8 +61,27 @@
 | `#333333` | Gris oscuro | Elementos sutiles |
 | `#A3A3A3` | Gris medio-claro | Separadores, metadata |
 | `#262626` | Gris muy oscuro | Hover de acento |
+| `#C17A5A` | Terracota | Acento cálido — badges, íconos, detalles |
+| `#8A4A2E` | Terracota oscuro | Texto sobre fondos claros cálidos (contraste AA) |
+| `#F5EAE3` | Terracota claro | Fondo de badges y estados hover |
 
 > **Nota:** El acento (botones, links, CTAs) comparte hex con el texto principal (`#000000`). Ya no existe un color de acento diferenciado por tono — la diferenciación viene de la forma (fondo sólido vs. texto) y el peso tipográfico.
+
+### El acento cálido
+
+La paleta original quedó reducida a una escala de grises: el acento de
+interacción comparte hex con el texto (`#000000`). Eso da una interfaz
+elegante pero fría, y sin ninguna señal de color que distinga un CTA de un
+párrafo. El terracota vuelve como **acento cálido secundario**, no como
+acento de interacción:
+
+- **Sí:** badges, íconos, viñetas, bordes de destacado, hover de tarjetas,
+  el punto que acompaña una etiqueta.
+- **No:** botones primarios — siguen siendo negros (`--cc-accent`), como
+  define este brandbook.
+
+Regla de contraste: `#C17A5A` no se usa para texto sobre fondos claros
+(no llega a AA). Para texto va `#8A4A2E`.
 
 ### Reglas de uso
 

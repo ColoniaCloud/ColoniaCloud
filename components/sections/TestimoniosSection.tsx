@@ -26,14 +26,14 @@ const testimonios = [
 
 export default function TestimoniosSection() {
   return (
-    <section className="bg-cc-bg py-[64px]">
+    <section aria-labelledby="testimonios-titulo" className="bg-cc-bg py-[64px] md:py-[80px]">
       <div className="max-w-[1280px] mx-auto px-7">
         {/* Encabezado */}
         <div className="text-center mb-12">
-          <span className="inline-flex items-center gap-1.5 bg-cc-accent-light text-cc-accent rounded-full px-3 py-1 text-[11px] font-medium uppercase tracking-wide mb-4">
+          <span className="inline-flex items-center gap-1.5 bg-cc-warm-light text-cc-warm-deep rounded-full px-3 py-1 text-[11px] font-medium uppercase tracking-wide mb-4">
             Testimonios
           </span>
-          <h2 className="font-display font-medium text-[1.75rem] text-cc-text mb-3">
+          <h2 id="testimonios-titulo" className="font-display font-medium text-[1.75rem] md:text-[2.25rem] leading-[1.2] text-cc-text mb-3">
             Lo que dicen nuestros clientes
           </h2>
           <p className="text-[16px] text-cc-text-body max-w-[480px] mx-auto leading-relaxed">
@@ -46,7 +46,7 @@ export default function TestimoniosSection() {
           {testimonios.map(({ quote, initial, name, role }) => (
             <div
               key={name}
-              className="bg-cc-surface border-l-[3px] border-l-cc-accent border border-black/[0.07] rounded-tr-lg rounded-br-lg p-6"
+              className="bg-cc-surface border-l-[3px] border-l-cc-warm border border-black/[0.07] rounded-tr-lg rounded-br-lg p-6"
             >
               {/* Estrellas */}
               <div className="flex items-center gap-0.5 mb-4" aria-label="5 estrellas">
@@ -55,7 +55,7 @@ export default function TestimoniosSection() {
                     key={i}
                     size={14}
                     fill="currentColor"
-                    className="text-cc-accent"
+                    className="text-cc-warm"
                     aria-hidden="true"
                   />
                 ))}
@@ -71,8 +71,8 @@ export default function TestimoniosSection() {
 
               {/* Autor */}
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-cc-accent-light flex items-center justify-center flex-shrink-0">
-                  <span className="font-display font-medium text-[14px] text-cc-accent">
+                <div className="w-9 h-9 rounded-full bg-cc-warm-light flex items-center justify-center flex-shrink-0">
+                  <span className="font-display font-medium text-[14px] text-cc-warm-deep">
                     {initial}
                   </span>
                 </div>

@@ -3,10 +3,10 @@ import { WhatsAppIcon } from '@/components/ui/brand-icons';
 
 export default function CtaFinalSection() {
   return (
-    <section className="bg-black py-[72px]" data-navbar-theme="dark">
+    <section aria-labelledby="cta-final-titulo" className="bg-black py-[72px] md:py-[96px]" data-navbar-theme="dark">
       <div className="max-w-[1280px] mx-auto px-7 flex flex-col items-center text-center gap-6">
         {/* Título */}
-        <h2 className="font-display font-medium text-[1.8rem] md:text-[2.2rem] leading-[1.2] text-white max-w-[520px]">
+        <h2 id="cta-final-titulo" className="font-display font-medium text-[1.75rem] md:text-[2.25rem] leading-[1.2] text-white max-w-[520px]">
           ¿Listo para llevar tu negocio a la nube?
         </h2>
 
@@ -20,7 +20,7 @@ export default function CtaFinalSection() {
           href="https://wa.me/59896082266"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-white hover:bg-cc-accent-light text-black rounded-md px-8 py-4 text-[16px] font-medium transition-colors duration-150"
+          className="inline-flex items-center gap-2 bg-white hover:bg-cc-warm-light text-black rounded-md px-8 py-4 text-[16px] font-medium transition-colors duration-150"
         >
           <WhatsAppIcon size={20} aria-hidden="true" />
           Escribinos por WhatsApp

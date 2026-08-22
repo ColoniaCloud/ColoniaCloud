@@ -81,13 +81,21 @@ El sitio se organiza en dos mundos separados: el **sitio público** para atraer 
 | Sección | Contenido y propósito |
 |---|---|
 | **Navbar (fijo)** | Logo + links + botón WhatsApp CTA. Siempre visible. |
-| **01 — Hero** | Titular + subtítulo + CTA WhatsApp primario + CTA secundario "Ver servicios". Above the fold. |
-| **02 — Barra de confianza** | Íconos de sectores atendidos: restaurantes, comercios, profesionales. Sin logos (primera versión). |
-| **03 — Servicios** | 3 cards: Desarrollo web, Marketing digital, Automatizaciones. Ícono + título + descripción + link. |
-| **04 — Cómo trabajamos** | 4 pasos numerados: Consulta → Propuesta → Desarrollo → Soporte. Fondo `--cc-surface`. |
-| **05 — Testimonios** | 2–3 testimonios de negocios locales de Colonia. Nombre, rubro y avatar. |
-| **06 — CTA final** | Fondo negro. "¿Listo para llevar tu negocio a la nube?" + botón WhatsApp grande + promesa menos de 24h. |
+| **01 — Hero** | Badge de ubicación + titular + subtítulo + CTA WhatsApp primario ("Pedí tu auditoría gratis") + CTA secundario "Ver servicios" + promesa de respuesta. Fondo negro con video (solo desktop). Above the fold. |
+| **02 — Barra de confianza** | Rubros atendidos + alcance geográfico (Uruguay, Argentina, Europa). Fondo negro. Sin logos de clientes. |
+| **03 — Servicios** | Bento grid de 4 servicios: ícono ilustrado + título + frase de resultado + descripción. Tarjeta completa clickeable. Badge de auditoría gratuita en la columna de texto. |
+| **04 — Casos** | 3 casos de clientes reales con estructura desafío → qué construimos → resultado. Es la prueba de capacidad para el cliente grande. Fondo `--cc-surface`. |
+| **05 — Cómo trabajamos** | 4 pasos numerados: Auditoría → Propuesta → Desarrollo → Soporte, más CTA de cierre. |
+| **06 — Producto propio** | Fondo negro. Plata.studio, NL360.site y MarketDeck + franja de capacidades técnicas transversales. Segundo bloque dirigido al cliente grande. |
+| **07 — Testimonios** | 2–3 testimonios de negocios locales de Colonia. Nombre, rubro y avatar. |
+| **08 — Preguntas frecuentes** | 6 preguntas sobre precio, plazos, alcance geográfico, post-entrega e IA. Acordeón nativo + JSON-LD `FAQPage`. Fondo `--cc-surface`. |
+| **09 — CTA final** | Fondo negro. "¿Listo para llevar tu negocio a la nube?" + botón WhatsApp grande + promesa menos de 24h. |
 | **Footer** | Links, redes sociales, dominio, copyright. Fondo negro. |
+
+> El home atiende a dos lectores a la vez. Las secciones 01–03, 05 y 07 hablan
+> al comercio local; 04, 06 y 08 son las que sostienen la evaluación de un
+> cliente grande. Alternan a propósito para que ninguno de los dos tenga que
+> leer de corrido lo que no le habla.
 
 ### 4.2 Páginas secundarias
 

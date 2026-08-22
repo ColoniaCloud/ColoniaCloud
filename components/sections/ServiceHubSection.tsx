@@ -1,7 +1,8 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, BadgeCheck } from 'lucide-react';
 import { motion, useReducedMotion, type Variants } from 'motion/react';
 
 import { DotPattern } from '@/components/magicui/dot-pattern';
@@ -50,6 +51,7 @@ const BENTO_LAYOUT: Record<string, { span?: string; featured?: boolean; horizont
 interface BentoServiceCardProps {
   slug: string;
   title: string;
+  outcome: string;
   description: string;
   icon: string;
   span?: string;
@@ -57,9 +59,14 @@ interface BentoServiceCardProps {
   horizontal?: boolean;
 }
 
+// La tarjeta entera es el enlace. Antes solo lo era el texto "Ir al
+// servicio", que en móvil es un blanco de pocos milímetros; como adentro no
+// hay ningún otro control, envolver todo en un Link no genera enlaces
+// anidados ni suma paradas de tabulación.
 function BentoServiceCard({
   slug,
   title,
+  outcome,
   description,
   icon,
   span,
@@ -67,11 +74,16 @@ function BentoServiceCard({
   horizontal = false,
 }: BentoServiceCardProps) {
   return (
-    <div
+    <Link
+      href={`/servicios/${slug}`}
       className={[
-        'group flex flex-col gap-4 rounded-xl border border-black/10 bg-cc-bg p-5 transition-colors hover:border-black/25 hover:shadow-[0_0_0_3px_var(--cc-accent-light)] sm:p-6',
+        'group flex flex-col gap-4 rounded-xl border p-5 transition-all duration-200 sm:p-6',
+        'hover:-translate-y-0.5 hover:border-cc-warm/50 hover:shadow-[0_8px_24px_rgba(0,0,0,0.07)]',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cc-warm focus-visible:ring-offset-2',
         horizontal ? 'sm:flex-row sm:items-center sm:gap-8' : '',
-        featured ? 'bg-cc-accent-light/40 border-black/15 min-h-[200px]' : 'min-h-[160px]',
+        featured
+          ? 'min-h-[200px] border-cc-warm/25 bg-cc-warm-light/45'
+          : 'min-h-[160px] border-black/10 bg-cc-bg',
         span ?? '',
       ].join(' ')}
     >
@@ -80,7 +92,7 @@ function BentoServiceCard({
         alt=""
         aria-hidden="true"
         className={[
-          'flex-shrink-0',
+          'flex-shrink-0 transition-transform duration-300 group-hover:scale-105',
           horizontal ? 'h-14 w-14 sm:h-20 sm:w-20' : 'h-8 w-8',
         ].join(' ')}
       />
@@ -96,9 +108,16 @@ function BentoServiceCard({
             {title}
           </h3>
 
+          {/* Traducción del título técnico a lo que gana el cliente: el
+              dueño de un comercio no busca "VPS", busca no quedarse sin
+              sitio un sábado a la noche. */}
+          <p className="mt-1 text-[13px] font-medium text-cc-warm-deep">
+            {outcome}
+          </p>
+
           <p
             className={[
-              'text-cc-text-body leading-relaxed mt-2',
+              'mt-2.5 leading-relaxed text-cc-text-body',
               featured ? 'max-w-[440px] text-[15px]' : 'text-[14px]',
             ].join(' ')}
           >
@@ -106,16 +125,12 @@ function BentoServiceCard({
           </p>
         </div>
 
-        <Link
-          href={`/servicios/${slug}`}
-          aria-label={`Ir al servicio de ${title}`}
-          className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-medium text-cc-text transition-all group-hover:gap-2"
-        >
+        <span className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-medium text-cc-text transition-all group-hover:gap-2 group-hover:text-cc-warm-deep">
           Ir al servicio
           <ArrowRight size={12} aria-hidden="true" />
-        </Link>
+        </span>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -133,7 +148,11 @@ export default function ServiceHubSection() {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <section id="servicios" className="w-full bg-cc-bg py-[64px]">
+    <section
+      id="servicios"
+      aria-labelledby="servicios-titulo"
+      className="w-full bg-cc-bg py-[72px] md:py-[104px]"
+    >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(SERVICES_JSON_LD) }}
@@ -148,28 +167,45 @@ export default function ServiceHubSection() {
           />
 
           <div className="relative z-10 max-w-[380px]">
-            <motion.img
-              src="/punta-faro.png"
-              alt=""
-              aria-hidden="true"
+            {/* La animación va en el wrapper y no en la imagen: así el faro
+                puede servirse con next/image, que lo entrega como WebP/AVIF
+                al tamaño real en pantalla en vez de mandar el PNG de 2 MB. */}
+            <motion.div
               initial={prefersReducedMotion ? 'visible' : 'hidden'}
               whileInView="visible"
               viewport={{ once: true, amount: 0.6 }}
               variants={faroImageVariants}
-              className="mx-auto -mb-3 h-[220px] w-auto object-contain [mask-image:linear-gradient(to_bottom,black_35%,transparent_85%)]"
-            />
+              className="-mb-3"
+            >
+              <Image
+                src="/punta-faro.png"
+                alt=""
+                aria-hidden="true"
+                width={212}
+                height={220}
+                sizes="212px"
+                className="mx-auto h-[220px] w-auto object-contain [mask-image:linear-gradient(to_bottom,black_35%,transparent_85%)]"
+              />
+            </motion.div>
 
             <div>
-              <h2 className="font-display text-[1.75rem] font-medium text-cc-text">
+              <h2
+                id="servicios-titulo"
+                className="font-display text-[1.75rem] font-medium leading-[1.2] text-cc-text md:text-[2.25rem]"
+              >
                 Nuestros servicios
               </h2>
               <p className="mt-4 text-[16px] leading-relaxed text-cc-text-body">
-                Nuestros servicios están enfocados en proveer soluciones
-                inteligentes y pensadas para ser sostenidas a largo plazo.{' '}
-                <strong className="font-medium text-cc-text">
-                  Todos nuestros servicios cuentan con una auditoría previa y
-                  gratuita.
-                </strong>
+                Soluciones pensadas para sostenerse en el tiempo: te las
+                dejamos andando y te acompañamos después.
+              </p>
+
+              {/* La auditoría gratuita es el argumento que más baja la
+                  barrera para escribir. Antes vivía en negrita adentro del
+                  párrafo; acá es un elemento propio y se ve. */}
+              <p className="mt-5 inline-flex items-center gap-2 rounded-full bg-cc-warm-light px-4 py-2 text-[13px] font-medium text-cc-warm-deep">
+                <BadgeCheck size={15} aria-hidden="true" />
+                Todos empiezan con una auditoría gratuita
               </p>
             </div>
           </div>
@@ -184,6 +220,7 @@ export default function ServiceHubSection() {
                 key={service.slug}
                 slug={service.slug}
                 title={service.cardTitle}
+                outcome={service.cardOutcome}
                 description={service.cardDescription}
                 icon={CARD_ICONS[service.slug]}
                 span={layout?.span}

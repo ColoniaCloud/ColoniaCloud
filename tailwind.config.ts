@@ -9,15 +9,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "cc-bg": "var(--cc-bg)",
-        "cc-text": "var(--cc-text)",
-        "cc-text-body": "var(--cc-text-body)",
-        "cc-text-label": "var(--cc-text-label)",
-        "cc-muted": "var(--cc-muted)",
-        "cc-accent": "var(--cc-accent)",
-        "cc-accent-hover": "var(--cc-accent-hover)",
-        "cc-accent-light": "var(--cc-accent-light)",
-        "cc-surface": "var(--cc-surface)",
+        "cc-bg": "rgb(var(--cc-bg) / <alpha-value>)",
+        "cc-text": "rgb(var(--cc-text) / <alpha-value>)",
+        "cc-text-body": "rgb(var(--cc-text-body) / <alpha-value>)",
+        "cc-text-label": "rgb(var(--cc-text-label) / <alpha-value>)",
+        "cc-muted": "rgb(var(--cc-muted) / <alpha-value>)",
+        "cc-accent": "rgb(var(--cc-accent) / <alpha-value>)",
+        "cc-accent-hover": "rgb(var(--cc-accent-hover) / <alpha-value>)",
+        "cc-accent-light": "rgb(var(--cc-accent-light) / <alpha-value>)",
+        "cc-surface": "rgb(var(--cc-surface) / <alpha-value>)",
+        "cc-warm": "rgb(var(--cc-warm) / <alpha-value>)",
+        "cc-warm-deep": "rgb(var(--cc-warm-deep) / <alpha-value>)",
+        "cc-warm-light": "rgb(var(--cc-warm-light) / <alpha-value>)",
       },
       fontFamily: {
         display: ["var(--cc-font-display)"],
