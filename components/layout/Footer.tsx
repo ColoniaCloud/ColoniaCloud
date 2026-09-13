@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import { InstagramIcon, LinkedinIcon, WhatsAppIcon } from '@/components/ui/brand-icons';
+import { services } from '@/lib/services';
 
+// Un enlace por servicio real, con su nombre como anchor. El footer está en
+// todas las páginas: es el enlace interno más repetido hacia cada servicio.
 const serviciosLinks = [
-  { label: 'Desarrollo web', href: '/servicios' },
-  { label: 'Marketing digital', href: '/servicios' },
-  { label: 'Automatizaciones', href: '/servicios' },
-  { label: 'Hosting y soporte', href: '/servicios' },
+  ...services.map(({ name, slug }) => ({ label: name, href: `/servicios/${slug}` })),
+  { label: 'Todos los servicios', href: '/servicios' },
 ];
 
 const empresaLinks = [

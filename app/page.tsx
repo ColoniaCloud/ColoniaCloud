@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import HeroSection from '@/components/sections/HeroSection';
 import TrustBarSection from '@/components/sections/TrustBarSection';
 import ServiceHubSection from '@/components/sections/ServiceHubSection';
@@ -7,6 +8,12 @@ import ProductosSection from '@/components/sections/ProductosSection';
 import TestimoniosSection from '@/components/sections/TestimoniosSection';
 import FaqSection from '@/components/sections/FaqSection';
 import CtaFinalSection from '@/components/sections/CtaFinalSection';
+
+// Título y descripción se heredan del layout; el canonical va acá y no en el
+// layout para que no lo hereden las rutas noindex ni el 404.
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
 
 /**
  * El home tiene que servir a dos lectores distintos sin partirse en dos.

@@ -8,6 +8,8 @@ import { services, getService } from '@/lib/services';
 
 type Params = { slug: string };
 
+const SITE_URL = 'https://colonia.cloud';
+
 export function generateStaticParams(): Params[] {
   return services.map((service) => ({ slug: service.slug }));
 }
@@ -41,8 +43,24 @@ export default async function ServicioDetallePage({
 
   const otherServices = services.filter((s) => s.slug !== slug);
 
+  // Migas de pan para Google: muestra "Inicio › Servicios › X" en el
+  // resultado en vez de la URL cruda. Refleja el enlace "Volver a servicios".
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Servicios', item: `${SITE_URL}/servicios` },
+      { '@type': 'ListItem', position: 3, name: service.name, item: `${SITE_URL}/servicios/${slug}` },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <InternalHero
         icon={service.icon}
         badge={service.badge}

@@ -17,6 +17,12 @@ const description =
 
 const SITE_URL = 'https://colonia.cloud';
 
+// ISR: cada página estática se regenera como mucho una vez por hora. El CDN
+// de Hostinger cachea el HTML según `s-maxage` y no se purga en el deploy;
+// sin esto Next emite s-maxage de un año y Google sigue leyendo el HTML
+// viejo durante días después de cada push.
+export const revalidate = 3600;
+
 // Datos estructurados (schema.org) de la organización, para búsquedas
 // locales ("agencia digital Colonia del Sacramento") y el panel de
 // conocimiento de Google. Sin PostalAddress/geo porque es un servicio
@@ -47,25 +53,22 @@ const ORGANIZATION_JSON_LD = {
   },
 };
 
+// Acá va solo lo que es del sitio entero. Lo que identifica a UNA página
+// (canonical, og:title, og:url) se declara en esa página: lo que se pone en
+// el layout lo heredan todas las rutas hijas, y así /gracias, /blog y el 404
+// terminaban con canonical al home y og:title del home. Sin título ni
+// descripción en openGraph/twitter, Next los completa con los de cada página.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title,
   description,
-  alternates: {
-    canonical: '/',
-  },
   openGraph: {
-    title,
-    description,
-    url: SITE_URL,
     siteName: 'Colonia Cloud',
     locale: 'es_UY',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title,
-    description,
   },
 };
 
