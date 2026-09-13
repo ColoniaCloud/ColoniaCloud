@@ -6,19 +6,10 @@ const nextConfig = {
   // lo más viejo que puede llegar a Google son dos horas.
   expireTime: 7200,
 
-  // www → apex con 301. Hostinger sirve los dos hosts con el mismo contenido
-  // y solo el canonical los unificaba; el redirect es la señal fuerte y evita
-  // que Google rastree el sitio dos veces.
-  async redirects() {
-    return [
-      {
-        source: '/:path*',
-        has: [{ type: 'host', value: 'www.colonia.cloud' }],
-        destination: 'https://colonia.cloud/:path*',
-        permanent: true,
-      },
-    ];
-  },
+  // El redirect www → apex NO va acá: el proxy de Hostinger reescribe el
+  // `Location` absoluto que emite Next a una ruta relativa y deja a
+  // www.colonia.cloud en bucle (307 → /). Está configurado en hPanel
+  // (Redirects del sitio), que responde en el borde antes de llegar a Next.
 };
 
 export default nextConfig;
