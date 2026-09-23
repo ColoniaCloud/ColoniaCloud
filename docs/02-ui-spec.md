@@ -1,4 +1,5 @@
 # Colonia Cloud — UI Spec
+> Documento histórico de 2025. Para la identidad visual y oferta vigente, ver `../DESIGN-2026.md`.
 **Sistema de Interfaz de Usuario — Etapa 2 · v1.0 · 2025**
 *colonia.cloud — Llevamos tu negocio a la nube*
 

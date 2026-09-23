@@ -1,4 +1,5 @@
 # Colonia Cloud — UX Spec
+> Documento histórico de 2025. Para la estructura y oferta vigente, ver `../DESIGN-2026.md`.
 **Especificaciones de Experiencia de Usuario — Etapa 3 · v1.0 · 2025**
 *colonia.cloud — Llevamos tu negocio a la nube*
 

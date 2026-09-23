@@ -28,7 +28,7 @@ export default function NotFound() {
             <Link
               key={slug}
               href={`/servicios/${slug}`}
-              className="text-[13px] text-cc-text-body border border-black/10 rounded-full px-3 py-1 hover:border-cc-accent hover:text-cc-accent transition-colors"
+              className="text-[13px] text-cc-text-body border border-white/10 rounded-full px-3 py-1 hover:border-cc-accent hover:text-cc-accent transition-colors"
             >
               {name}
             </Link>

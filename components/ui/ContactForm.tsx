@@ -21,9 +21,9 @@ type Status = 'idle' | 'loading' | 'success' | 'error';
 const baseInputClass = [
   'w-full rounded-md text-[14px] text-cc-text bg-cc-bg',
   'px-3 py-[9px]',
-  'border border-black/[0.11]',
+  'border border-white/[0.16]',
   'focus:outline-none focus:border-cc-accent',
-  'focus:shadow-[0_0_0_3px_rgba(0,0,0,0.15)]',
+  'focus:shadow-[0_0_0_3px_rgba(255,171,121,0.18)]',
   'placeholder:text-cc-muted',
   'transition-all duration-150',
 ].join(' ');
@@ -79,7 +79,7 @@ export default function ContactForm({ withWhatsApp = false, showHeading = true }
             O dejanos tu mensaje
           </h3>
           <p className="text-[14px] text-cc-text-body mb-4">
-            Te respondemos por email o WhatsApp.
+            Te respondemos al email que nos dejes.
           </p>
         </div>
       )}
@@ -154,7 +154,7 @@ export default function ContactForm({ withWhatsApp = false, showHeading = true }
           {status === 'loading' ? (
             <>
               <div
-                className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"
+                className="animate-spin w-4 h-4 border-2 border-[#161116] border-t-transparent rounded-full"
                 aria-hidden="true"
               />
               Enviando...

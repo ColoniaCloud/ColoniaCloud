@@ -6,6 +6,15 @@ const nextConfig = {
   // lo más viejo que puede llegar a Google son dos horas.
   expireTime: 7200,
 
+  async redirects() {
+    return [
+      { source: '/servicios/web-app', destination: '/servicios/diseno-web', permanent: true },
+      { source: '/servicios/software', destination: '/servicios/ia-automatizaciones', permanent: true },
+      { source: '/servicios/infraestructura-vps', destination: '/servicios/infraestructura-cloud', permanent: true },
+      { source: '/servicios/asesoria', destination: '/servicios', permanent: true },
+    ];
+  },
+
   // El redirect www → apex NO va acá: el proxy de Hostinger reescribe el
   // `Location` absoluto que emite Next a una ruta relativa y deja a
   // www.colonia.cloud en bucle (307 → /). Está configurado en hPanel

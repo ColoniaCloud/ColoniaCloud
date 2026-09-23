@@ -1,36 +1,14 @@
-import { Clock } from 'lucide-react';
-import { WhatsAppIcon } from '@/components/ui/brand-icons';
+import { ArrowUpRight } from 'lucide-react';
+import { whatsappHref } from '@/lib/contact';
 
 export default function CtaFinalSection() {
   return (
-    <section aria-labelledby="cta-final-titulo" className="bg-black py-[72px] md:py-[96px]" data-navbar-theme="dark">
-      <div className="max-w-[1280px] mx-auto px-7 flex flex-col items-center text-center gap-6">
-        {/* Título */}
-        <h2 id="cta-final-titulo" className="font-display font-medium text-[1.75rem] md:text-[2.25rem] leading-[1.2] text-white max-w-[520px]">
-          ¿Listo para llevar tu negocio a la nube?
-        </h2>
-
-        {/* Subtítulo */}
-        <p className="text-[16px] text-white/55 max-w-[380px] leading-relaxed">
-          Contanos qué necesitás. Sin compromiso, sin formularios largos.
-        </p>
-
-        {/* CTA */}
-        <a
-          href="https://wa.me/59896082266"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-white hover:bg-cc-warm-light text-black rounded-md px-8 py-4 text-[16px] font-medium transition-colors duration-150"
-        >
-          <WhatsAppIcon size={20} aria-hidden="true" />
-          Escribinos por WhatsApp
-        </a>
-
-        {/* Promesa */}
-        <p className="flex items-center gap-1.5 text-[13px] text-white/35">
-          <Clock size={13} aria-hidden="true" />
-          Respondemos en menos de 24 horas hábiles
-        </p>
+    <section className="final-cta" aria-labelledby="final-title">
+      <div className="site-container">
+        <span className="eyebrow">El próximo paso empieza con una charla</span>
+        <h2 id="final-title" className="display">¿Y si lo hacemos<br />realidad?</h2>
+        <p>Contanos qué querés construir. Te ayudamos a encontrar la combinación de diseño y tecnología que tiene sentido para tu negocio.</p>
+        <a className="btn-primary" href={whatsappHref('Hola, quiero conversar sobre un proyecto con Colonia Cloud.')} target="_blank" rel="noopener noreferrer">Hablemos por WhatsApp <ArrowUpRight size={18} aria-hidden="true" /></a>
       </div>
     </section>
   );

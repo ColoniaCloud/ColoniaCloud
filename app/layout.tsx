@@ -11,9 +11,9 @@ const dmSans = DM_Sans({
   display: 'swap',
 });
 
-const title = 'Colonia Cloud — Llevamos tu negocio a la nube';
+const title = 'Colonia Cloud — Diseño y tecnología desde Colonia';
 const description =
-  'Web & App, Software, VPS/dominios/bases de datos y Asesoría: el ecosistema digital completo para negocios en Colonia del Sacramento, Uruguay.';
+  'Diseño web, marketing digital, infraestructura cloud e IA aplicada para negocios que quieren avanzar. Desde Colonia del Sacramento, Uruguay.';
 
 const SITE_URL = 'https://colonia.cloud';
 
@@ -33,7 +33,7 @@ const ORGANIZATION_JSON_LD = {
   name: 'Colonia Cloud',
   url: SITE_URL,
   logo: `${SITE_URL}/brand/logo.svg`,
-  image: `${SITE_URL}/hero-poster.webp`,
+  image: `${SITE_URL}/atardecer%20colonia.webp`,
   description,
   areaServed: {
     '@type': 'City',

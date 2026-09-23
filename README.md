@@ -2,7 +2,7 @@
   <img src="https://colonia-cloud-eight.vercel.app/brand/logo.svg" alt="Colonia Cloud Logo" width="220"/>
 </p>
 
-<h3 align="center">☁️ Llevamos tu negocio a la nube ☁️</h3>
+<h3 align="center">Diseño y tecnología desde Colonia</h3>
 
 <p align="center">
   <a href="https://colonia.cloud/">Sitio web</a> •
@@ -11,25 +11,31 @@
 
 ## 🌐 Sobre Colonia Cloud
 
-**Colonia Cloud** es una agencia digital con base en Colonia del Sacramento, Uruguay, enfocada en llevar a pequeños y medianos negocios al mundo online.
+**Colonia Cloud** es un estudio de diseño y tecnología con base en Colonia del Sacramento, Uruguay.
 
-Ayudamos a nuestros clientes a crecer a través de:
-- 💻 Desarrollo web y aplicaciones a medida
-- 📈 Marketing digital
-- 🤖 Automatizaciones e inteligencia artificial aplicada al negocio
+Trabajamos en cuatro áreas conectadas:
+- Diseño web
+- Marketing digital
+- Infraestructura cloud
+- IA y automatizaciones
 
 ─────────────────────────────────────────────
 
 ## 🛠️ Nuestros Servicios
 
-### 💻 Desarrollo Web y Apps
-Sitios web, e-commerce y aplicaciones a medida, pensadas para hacer crecer tu negocio.
+### Diseño web
+Dos planes mensuales (web y web + e-commerce) y proyectos a medida.
 
-### 📈 Marketing Digital
-Estrategias de contenido, redes sociales y presencia online para conectar con más clientes.
+### Marketing digital
+Investigación, Google Ads, Meta Ads y contenido visual.
 
-### 🤖 Automatizaciones
-Soluciones con IA que optimizan procesos y ahorran tiempo en tu día a día.
+### Infraestructura cloud
+Storage, bases de datos, VPS y soporte para proveedores cloud.
+
+### IA y automatizaciones
+Procesos con o sin IA, infraestructura local y atención al cliente.
+
+Los productos propios son **Plata Studio** y **MarketDeck**. La oferta y la dirección visual vigentes están documentadas en [DESIGN-2026.md](DESIGN-2026.md).
 
 ─────────────────────────────────────────────
 

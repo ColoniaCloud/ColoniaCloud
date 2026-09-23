@@ -1,262 +1,110 @@
-import {
-  Code,
-  LayoutDashboard,
-  Server,
-  Lightbulb,
-  type LucideIcon,
-} from 'lucide-react';
+import { Globe2, Megaphone, Cloud, Sparkles, type LucideIcon } from 'lucide-react';
 
-export type ServiceFeature = {
-  title: string;
-  description: string;
-};
-
-export type SubService = {
+export type ServiceFeature = { title: string; description: string };
+export type ServicePlan = {
   name: string;
+  price: number;
+  period: 'mes';
   description: string;
+  items: string[];
+  note?: string;
+  featured?: boolean;
 };
-
 export type Service = {
-  /** Segmento de URL: /servicios/<slug> */
   slug: string;
+  number: string;
   icon: LucideIcon;
-  /** Etiqueta corta para el badge del hero interno */
-  badge: string;
-  /** Nombre corto para navegación y metadatos */
   name: string;
-  /** Título tal cual se muestra en la tarjeta del home */
+  badge: string;
   cardTitle: string;
-  /** Frase de resultado que acompaña al título en la tarjeta del home. El
-   * título nombra la categoría técnica; esto traduce qué gana el cliente. */
   cardOutcome: string;
-  /** Descripción corta de la tarjeta del home */
   cardDescription: string;
-  /** Título del hero de la página de detalle */
   heroTitle: string;
-  /** Bajada del hero / descripción para SEO */
   heroDescription: string;
-  /** Párrafo introductorio de la página de detalle */
   intro: string;
-  /** Bloques de "En qué consiste" */
   features: ServiceFeature[];
-  /** Subservicios incluidos dentro de este servicio principal */
-  subServices?: SubService[];
-  /** Checklist de "Qué incluye" */
   deliverables: string[];
+  plans?: ServicePlan[];
+  customOption?: string;
   ctaTitle: string;
   ctaDescription: string;
 };
 
-// El orden define el orden en el grid del home (índice 0 = tarjeta destacada).
+// Una sola fuente para la home, el catálogo, las fichas y la navegación.
 export const services: Service[] = [
   {
-    slug: 'web-app',
-    icon: Code,
-    badge: 'Web & App',
-    name: 'Web & App',
-    cardTitle: 'Web & App',
-    cardOutcome: 'Que te encuentren y te compren.',
-    cardDescription:
-      'Sitios institucionales, tiendas online y aplicaciones a medida, con branding digital y redes sociales incluidos.',
-    heroTitle: 'Sitios web y aplicaciones a medida',
-    heroDescription:
-      'Sitios institucionales, tiendas online y aplicaciones diseñadas a medida. Rápidas, seguras y optimizadas para móviles.',
-    intro:
-      'Tu sitio web es la primera impresión de tu negocio online. Creamos desde páginas institucionales hasta e-commerce y aplicaciones complejas, siempre con diseño propio, buen rendimiento y foco en convertir visitas en clientes. Además, sumamos branding digital y gestión de redes sociales para que tu presencia online sea consistente de punta a punta.',
+    slug: 'diseno-web', number: '01', icon: Globe2, name: 'Diseño web', badge: 'Diseño web',
+    cardTitle: 'Diseño web', cardOutcome: 'Tu negocio tiene una nueva puerta de entrada.',
+    cardDescription: 'Sitios propios, rápidos y preparados para convertir visitas en conversaciones o ventas.',
+    heroTitle: 'Una web que abre oportunidades.',
+    heroDescription: 'Diseño web con criterio de marca, experiencia clara y tecnología preparada para crecer.',
+    intro: 'Tu sitio tiene que mostrar quién sos, ayudar a tus clientes a encontrar lo que buscan y funcionar impecablemente en cada pantalla. Diseñamos esa experiencia alrededor de tu negocio, con opciones mensuales claras y un camino a medida cuando el proyecto lo pide.',
     features: [
-      {
-        title: 'Sitios institucionales',
-        description:
-          'Presencia profesional con diseño responsive, formularios de contacto y SEO desde el primer día.',
-      },
-      {
-        title: 'Tiendas online',
-        description:
-          'E-commerce completo con catálogo, carrito, gestión de stock y medios de pago integrados.',
-      },
-      {
-        title: 'Aplicaciones a medida',
-        description:
-          'Web apps y aplicaciones móviles con funcionalidades específicas para tu operativa.',
-      },
-      {
-        title: 'Diseño UI/UX exclusivo',
-        description:
-          'Nada de plantillas genéricas: diseñamos una identidad visual que te representa.',
-      },
+      { title: 'Diseño con identidad', description: 'Una presencia digital coherente con tu marca y tu público.' },
+      { title: 'Experiencia responsive', description: 'Una navegación cómoda y clara en celular, tablet y escritorio.' },
+      { title: 'E-commerce', description: 'Un canal de venta online para mostrar productos y recibir pedidos.' },
+      { title: 'IA cuando aporta valor', description: 'Créditos de IA incluidos para casos aplicables, como chatbots y automatizaciones web.' },
     ],
-    subServices: [
-      {
-        name: 'Digital Branding & RRSS',
-        description:
-          'Gestión de comunidad, reputación online (ORM), campañas de pauta en Meta y Google Ads, y estrategia de contenidos para tus redes sociales.',
-      },
+    deliverables: ['Diseño y desarrollo web', 'Adaptación a dispositivos', 'Canales de contacto integrados', 'Créditos de IA para casos aplicables'],
+    plans: [
+      { name: 'Portón', price: 50, period: 'mes', description: 'La puerta de entrada digital para tu negocio.', items: ['Sitio web', 'Diseño adaptable', 'Canales de contacto', 'Créditos de IA para casos aplicables'], note: 'El alcance de los créditos de IA se define en la propuesta.' },
+      { name: 'Mercado', price: 80, period: 'mes', description: 'Tu presencia online con un canal para vender.', items: ['Sitio web + e-commerce', 'Diseño adaptable', 'Canales de contacto', 'Créditos de IA para casos aplicables'], note: 'El alcance de los créditos de IA se define en la propuesta.', featured: true },
     ],
-    deliverables: [
-      'Diseño responsive optimizado para móviles',
-      'SEO técnico y buenas prácticas de performance',
-      'Formularios y medios de contacto integrados',
-      'Hosting, dominio y SSL (opcional)',
-      '30 días de garantía post-entrega',
-    ],
-    ctaTitle: '¿Tenés un proyecto web en mente?',
-    ctaDescription:
-      'Contanos tu idea y te enviamos una propuesta sin compromiso.',
+    customOption: 'Para funcionalidades, integraciones o experiencias que necesitan un alcance propio, preparamos un presupuesto a medida.',
+    ctaTitle: 'Abramos tu próxima puerta digital.', ctaDescription: 'Contanos qué querés construir y encontramos el formato adecuado.',
   },
   {
-    slug: 'software',
-    icon: LayoutDashboard,
-    badge: 'Software',
-    name: 'Software',
-    cardTitle: 'Software',
-    cardOutcome: 'Que tu operación deje de vivir en planillas.',
-    cardDescription:
-      'Soluciones de gestión a medida para tu negocio, con IA y automatizaciones incluidas para ordenar tu operación de punta a punta.',
-    heroTitle: 'Software de gestión, IA y automatizaciones',
-    heroDescription:
-      'Paneles y herramientas a medida para tu operación, potenciados con inteligencia artificial y automatización de procesos.',
-    intro:
-      'Cuando las planillas y los mensajes sueltos ya no alcanzan, un sistema a medida ordena tu operación. Desarrollamos paneles y herramientas internas que se adaptan a cómo trabajás, no al revés. Además, incorporamos inteligencia artificial y automatización para que las tareas repetitivas se hagan solas.',
+    slug: 'marketing-digital', number: '02', icon: Megaphone, name: 'Marketing digital', badge: 'Marketing digital',
+    cardTitle: 'Marketing digital', cardOutcome: 'Una marca visible, con una dirección clara.',
+    cardDescription: 'Investigación, pauta y contenido para llegar a las personas correctas.',
+    heroTitle: 'Que te encuentren por las razones correctas.',
+    heroDescription: 'Marketing digital con investigación de mercado, estrategia de pauta y contenido visual.',
+    intro: 'Antes de invertir en anuncios, estudiamos el mercado, la competencia y las oportunidades. Después conectamos Google Ads, Meta Ads y contenido con un plan que tenga sentido para tu marca.',
     features: [
-      {
-        title: 'Paneles a medida',
-        description:
-          'Dashboards con la información que importa para tu negocio, en tiempo real.',
-      },
-      {
-        title: 'Gestión logística',
-        description:
-          'Control de inventario, pedidos, entregas y recursos desde un solo lugar.',
-      },
-      {
-        title: 'Comunicación centralizada',
-        description:
-          'Toda la información del proyecto y del equipo, ordenada y accesible.',
-      },
-      {
-        title: 'Decisiones con datos',
-        description:
-          'Métricas y reportes que te ayudan a decidir con información, no con intuición.',
-      },
+      { title: 'Investigación exhaustiva', description: 'Mercado, competencia y oportunidades reales de pauta.' },
+      { title: 'Google Ads', description: 'Campañas de búsqueda orientadas a intención y resultados.' },
+      { title: 'Meta Ads', description: 'Campañas en los canales de Meta para ampliar el alcance.' },
+      { title: 'Contenido y recursos gráficos', description: 'Piezas visuales alineadas con la estrategia de cada campaña.' },
     ],
-    subServices: [
-      {
-        name: 'IA y automatizaciones',
-        description:
-          'Agentes de atención 24/7, automatización de flujos entre tus herramientas e integración de modelos de lenguaje en tus procesos productivos.',
-      },
+    deliverables: ['Investigación de mercado y competencia', 'Estrategia de pauta', 'Contenido y recursos gráficos', 'Seguimiento de campañas'],
+    plans: [
+      { name: 'Faro', price: 70, period: 'mes', description: 'Hacé visible tu marca cuando te están buscando.', items: ['Google Ads', 'Contenido y recursos gráficos', 'Investigación de mercado y competencia'], note: 'La inversión publicitaria en Google se paga por separado.' },
+      { name: 'Horizonte', price: 150, period: 'mes', description: 'Más canales para ampliar tu alcance con criterio.', items: ['Google Ads + Meta Ads', 'Contenido y recursos gráficos', 'Investigación de mercado y competencia'], note: 'La inversión publicitaria en Google y Meta se paga por separado.', featured: true },
     ],
-    deliverables: [
-      'Relevamiento de tu operativa actual',
-      'Diseño funcional y de interfaz',
-      'Desarrollo e integración con tus datos',
-      'Capacitación del equipo',
-      'Mantenimiento y evolución continua',
-    ],
-    ctaTitle: '¿Tu operación necesita orden?',
-    ctaDescription:
-      'Contanos cómo trabajás hoy y diseñamos la herramienta que te falta.',
+    customOption: 'Para campañas o equipos con necesidades particulares, diseñamos una estrategia y un presupuesto a medida.',
+    ctaTitle: 'Démosle dirección a tu crecimiento.', ctaDescription: 'Hablemos de tu mercado y de las oportunidades que todavía no estás aprovechando.',
   },
   {
-    slug: 'infraestructura-vps',
-    icon: Server,
-    badge: 'Infraestructura',
-    name: 'VPS, dominios y base de datos',
-    cardTitle: 'VPS, dominios y base de datos',
-    cardOutcome: 'Que no se caiga, y que no lo tengas que mirar vos.',
-    cardDescription:
-      'Servicio "manejado" de VPS, dominios y bases de datos, con ciberseguridad incluida para proteger tu negocio.',
-    heroTitle: 'VPS, dominios y base de datos',
-    heroDescription:
-      'El servicio "manejado" para que no te preocupes por la infraestructura: configuración, mantenimiento, monitoreo y seguridad.',
-    intro:
-      'Un servidor mal configurado es una bomba de tiempo. Nos hacemos cargo de tu infraestructura de punta a punta —servidores, dominios y bases de datos— para que vos te dediques a tu negocio. Sumamos también ciberseguridad para proteger tu operación y los datos de tus clientes.',
+    slug: 'infraestructura-cloud', number: '03', icon: Cloud, name: 'Infraestructura cloud', badge: 'Infraestructura cloud',
+    cardTitle: 'Infraestructura cloud', cardOutcome: 'La base que sostiene todo lo demás.',
+    cardDescription: 'Storage, bases de datos, VPS y soporte en las principales nubes empresariales.',
+    heroTitle: 'Una base sólida para lo que viene.',
+    heroDescription: 'Cloud storage, bases de datos, VPS y soporte para Azure, AWS, Google Cloud y Oracle.',
+    intro: 'Diseñamos y acompañamos la infraestructura que necesita tu operación. Desde un servidor virtual hasta una arquitectura distribuida, cada decisión responde a tus datos, tu escala y tus objetivos.',
     features: [
-      {
-        title: 'VPS manejado',
-        description:
-          'Configuración, actualizaciones y mantenimiento de tu servidor sin que tengas que tocar nada.',
-      },
-      {
-        title: 'Dominios y DNS',
-        description:
-          'Gestión de dominios .com y .uy, certificados SSL y registros DNS.',
-      },
-      {
-        title: 'Bases de datos',
-        description:
-          'Diseño, optimización y administración de tus bases de datos.',
-      },
-      {
-        title: 'Monitoreo y backups',
-        description:
-          'Copias de seguridad automáticas y vigilancia para evitar caídas.',
-      },
+      { title: 'Cloud storage', description: 'Almacenamiento para archivos y activos digitales.' },
+      { title: 'Bases de datos', description: 'Soluciones relacionales y no relacionales según el uso de tus datos.' },
+      { title: 'Servidores VPS', description: 'Servidores virtuales configurados para tu proyecto.' },
+      { title: 'Nube empresarial', description: 'Soporte para Azure, AWS, Google Cloud y Oracle Cloud.' },
     ],
-    subServices: [
-      {
-        name: 'Ciberseguridad',
-        description:
-          'Auditorías de seguridad, mitigación de urgencias y consultoría para proteger tu negocio y los datos de tus clientes.',
-      },
-    ],
-    deliverables: [
-      'Configuración inicial del servidor',
-      'Migración de tus sistemas (si aplica)',
-      'Certificados SSL y gestión de dominios',
-      'Backups automáticos y monitoreo',
-      'Mantenimiento y soporte continuo',
-    ],
-    ctaTitle: '¿Cansado de pelear con servidores?',
-    ctaDescription:
-      'Dejanos tu infraestructura a nosotros y ganá tranquilidad.',
+    deliverables: ['Arquitectura según el proyecto', 'Implementación y configuración', 'Soporte técnico', 'Documentación del entorno'],
+    ctaTitle: 'Dale una base sólida a tu operación.', ctaDescription: 'Contanos qué sistemas necesitás sostener y diseñamos la infraestructura.',
   },
   {
-    slug: 'asesoria',
-    icon: Lightbulb,
-    badge: 'Asesoría',
-    name: 'Asesoría',
-    cardTitle: 'Asesoría',
-    cardOutcome: 'Que decidas con alguien que ya lo hizo antes.',
-    cardDescription:
-      'Más que un servicio, es una alianza de intercambio de ideas con el fin de promover la innovación en tu proyecto.',
-    heroTitle: 'Asesoría',
-    heroDescription:
-      'Más que un servicio, una alianza de ideas para promover la innovación en tu proyecto.',
-    intro:
-      'A veces lo que necesitás no es un producto cerrado, sino un socio tecnológico que piense con vos. Asesoría es un espacio de intercambio de ideas para explorar oportunidades, resolver problemas complejos y llevar la innovación a tu negocio.',
+    slug: 'ia-automatizaciones', number: '04', icon: Sparkles, name: 'IA y automatizaciones', badge: 'IA y automatizaciones',
+    cardTitle: 'IA y automatizaciones', cardOutcome: 'Menos tareas repetidas. Más tiempo para decidir.',
+    cardDescription: 'Procesos automatizados, IA local y atención al cliente pensada para tu operación.',
+    heroTitle: 'La IA tiene que resolver algo concreto.',
+    heroDescription: 'Automatización con o sin IA, infraestructura local orientada a la seguridad de datos y agentes para atención y soporte.',
+    intro: 'Empezamos por el proceso, no por la herramienta. Identificamos dónde se pierde tiempo, qué se puede automatizar y cuándo la inteligencia artificial aporta valor real.',
     features: [
-      {
-        title: 'Consultoría de innovación',
-        description:
-          'Analizamos tu negocio y detectamos oportunidades donde la tecnología marca la diferencia.',
-      },
-      {
-        title: 'Ideación y prototipado',
-        description:
-          'Convertimos ideas en prototipos rápidos para validar antes de invertir.',
-      },
-      {
-        title: 'Acompañamiento estratégico',
-        description:
-          'Te acompañamos en las decisiones tecnológicas de tu proyecto.',
-      },
-      {
-        title: 'Proyectos a medida',
-        description:
-          'Cuando la idea toma forma, la llevamos a la realidad con el equipo adecuado.',
-      },
+      { title: 'Procesos automatizados', description: 'Flujos de trabajo con o sin inteligencia artificial.' },
+      { title: 'IA local', description: 'Infraestructura sin nube, orientada al control y la seguridad de los datos.' },
+      { title: 'Atención al cliente', description: 'Agentes para responder, organizar y derivar consultas.' },
+      { title: 'Soporte', description: 'Herramientas para acelerar respuestas y dar continuidad a cada caso.' },
     ],
-    deliverables: [
-      'Sesiones de trabajo e ideación',
-      'Análisis de oportunidades',
-      'Prototipos y pruebas de concepto',
-      'Hoja de ruta tecnológica',
-      'Acompañamiento en la implementación',
-    ],
-    ctaTitle: '¿Tenés una idea para explorar?',
-    ctaDescription:
-      'Sentémonos a conversar y veamos hasta dónde puede llegar.',
+    deliverables: ['Relevamiento del proceso', 'Diseño del flujo', 'Implementación e integración', 'Documentación y capacitación'],
+    ctaTitle: 'Hagamos espacio para el trabajo importante.', ctaDescription: 'Mostranos tu proceso y encontramos dónde automatizar aporta valor.',
   },
 ];
 

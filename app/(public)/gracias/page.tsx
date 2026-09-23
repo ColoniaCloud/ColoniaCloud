@@ -25,7 +25,7 @@ export default function GraciasPage() {
 
         {/* Descripción */}
         <p className="text-[16px] text-cc-text-body leading-relaxed">
-          Te respondemos en menos de 24 horas hábiles por email o WhatsApp.
+          Te respondemos por email en menos de 24 horas hábiles.
         </p>
 
         {/* Promesa */}

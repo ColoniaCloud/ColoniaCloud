@@ -14,16 +14,16 @@ export default async function OpengraphImage() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#000000',
+          backgroundColor: '#11131d',
           backgroundImage:
-            'linear-gradient(to bottom, #000000 0%, #000000 65%, #0D0D0D 100%)',
+            'radial-gradient(circle at 52% 110%, #a4533c 0%, #442b38 39%, #111b35 88%)',
         }}
       >
         <div
           style={{
             fontSize: 76,
             fontWeight: 600,
-            color: '#FFFFFF',
+            color: '#fff7f0',
             letterSpacing: '-0.02em',
           }}
         >
@@ -36,7 +36,7 @@ export default async function OpengraphImage() {
             color: 'rgba(255,255,255,0.55)',
           }}
         >
-          Llevamos tu negocio a la nube
+          Diseño y tecnología desde Colonia
         </div>
       </div>
     ),

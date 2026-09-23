@@ -1,129 +1,29 @@
 import type { Metadata } from 'next';
-import { ShieldCheck, MapPin, Users } from 'lucide-react';
+import Image from 'next/image';
+import { MapPin, MessageSquareText, ShieldCheck } from 'lucide-react';
 import InternalHero from '@/components/ui/InternalHero';
 import SectionCta from '@/components/ui/SectionCta';
 
 export const metadata: Metadata = {
   title: 'Nosotros — Colonia Cloud',
-  description:
-    'Quiénes somos y por qué trabajamos desde Colonia del Sacramento.',
+  description: 'Diseño y tecnología desde Colonia del Sacramento, Uruguay. Conocé la forma en que trabajamos.',
   alternates: { canonical: '/nosotros' },
 };
 
-const valores = [
-  {
-    icon: ShieldCheck,
-    title: 'Claridad ante todo',
-    description:
-      'Propuestas sin letra chica. Precios directos. Proceso explicado paso a paso.',
-  },
-  {
-    icon: MapPin,
-    title: 'Conocemos el mercado local',
-    description:
-      'Trabajamos desde Colonia. Entendemos la estacionalidad, el cliente y el ritmo del negocio local.',
-  },
-  {
-    icon: Users,
-    title: 'Relación directa',
-    description:
-      'Sin intermediarios ni cuentas ejecutivas. Hablás directo con quien hace el trabajo.',
-  },
-];
-
-const stats = [
-  { value: '100%', label: 'Servicio digital — sin fronteras' },
-  { value: '24hs', label: 'Tiempo máximo de respuesta' },
-  { value: '30 días', label: 'Garantía post-entrega' },
+const principles = [
+  { icon: MapPin, title: 'Una mirada con origen', text: 'Trabajamos desde Colonia del Sacramento y llevamos esa cercanía a proyectos dentro y fuera de Uruguay.' },
+  { icon: MessageSquareText, title: 'Conversaciones claras', text: 'Explicamos lo que proponemos, por qué lo proponemos y qué necesita el negocio para avanzar.' },
+  { icon: ShieldCheck, title: 'Pensado para sostenerse', text: 'Diseño y tecnología que se pueden operar, cuidar y mejorar después del lanzamiento.' },
 ];
 
 export default function NosotrosPage() {
-  return (
-    <>
-      <InternalHero
-        badge="Nosotros"
-        title="Un equipo local que entiende tu negocio"
-        description="Somos de Colonia del Sacramento. Conocemos el mercado, los negocios y las personas."
-      />
-
-      {/* Misión */}
-      <section className="py-[64px] bg-cc-bg">
-        <div className="max-w-[1280px] mx-auto px-7">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            {/* Texto */}
-            <div>
-              <span className="inline-flex items-center gap-1.5 bg-cc-accent-light text-cc-accent rounded-full px-3 py-1 text-[11px] font-medium uppercase tracking-wide">
-                Nuestra misión
-              </span>
-              <h2 className="font-display font-medium text-[1.5rem] text-cc-text mt-3 mb-4">
-                Que cada negocio de Colonia tenga presencia digital de calidad
-              </h2>
-              <p className="text-[16px] text-cc-text-body leading-relaxed mb-4">
-                Colonia Cloud nació de una observación simple: muchos negocios locales
-                excelentes son invisibles online. Restaurantes llenos en temporada que no
-                aparecen en Google. Comercios con productos únicos sin tienda online.
-                Profesionales de primer nivel sin presencia digital.
-              </p>
-              <p className="text-[16px] text-cc-text-body leading-relaxed">
-                Nuestra misión es cambiar eso. Con tecnología accesible, precios honestos y
-                un proceso claro que no requiere conocimientos técnicos de tu parte.
-              </p>
-            </div>
-
-            {/* Valores */}
-            <div className="flex flex-col gap-4">
-              {valores.map(({ icon: Icon, title, description }) => (
-                <div key={title} className="flex items-start gap-3">
-                  <div className="w-9 h-9 bg-cc-accent-light rounded-md flex items-center justify-center flex-shrink-0">
-                    <Icon size={20} className="text-cc-accent" aria-hidden="true" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-[16px] text-cc-text">{title}</p>
-                    <p className="text-[14px] text-cc-text-body leading-relaxed mt-0.5">
-                      {description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Por qué Colonia */}
-      <section className="py-[64px] bg-cc-surface">
-        <div className="max-w-[1280px] mx-auto px-7 text-center">
-          <h2 className="font-display font-medium text-[1.5rem] text-cc-text mb-4">
-            Por qué desde Colonia del Sacramento
-          </h2>
-          <p className="text-[16px] text-cc-text-body max-w-[580px] mx-auto leading-relaxed mb-10">
-            Colonia del Sacramento es una ciudad con identidad propia, turismo internacional
-            y una economía local activa. Los negocios que invierten en su presencia digital
-            hoy tienen una ventaja real frente a los que esperan.
-          </p>
-
-          <dl className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-[700px] mx-auto">
-            {stats.map(({ value, label }) => (
-              <div key={label} className="text-center">
-                <dt className="font-display font-medium text-[2rem] text-cc-accent">
-                  {value}
-                </dt>
-                <dd className="text-[13px] text-cc-muted mt-1">{label}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
-
-      {/* CTA final */}
-      <section className="py-[64px] bg-cc-bg">
-        <div className="max-w-[1280px] mx-auto px-7">
-          <SectionCta
-            title="¿Querés trabajar con nosotros?"
-            description="Contanos tu proyecto y te respondemos en menos de 24 horas."
-          />
-        </div>
-      </section>
-    </>
-  );
+  return <>
+    <InternalHero badge="Nosotros" title="Una forma cercana de hacer tecnología." description="Con base en Colonia del Sacramento y la mirada puesta en lo que viene." />
+    <section className="interior-section"><div className="site-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,360px),1fr))', gap: 55, alignItems: 'center' }}>
+      <div><span className="eyebrow">Nuestro punto de partida</span><h2 className="interior-title" style={{ marginTop: 15 }}>La tecnología cobra sentido cuando entiende a las personas.</h2><p className="body-copy" style={{ marginTop: 24, fontSize: 16 }}>Colonia Cloud nace de una idea simple: cada negocio merece herramientas digitales que respondan a su realidad. Escuchamos primero. Después combinamos diseño, marketing, cloud e inteligencia artificial para resolver lo que importa.</p><p className="body-copy" style={{ marginTop: 15, fontSize: 16 }}>El trabajo puede suceder en distintos países. La forma de trabajar sigue siendo directa, humana y clara.</p></div>
+      <figure style={{ position: 'relative', minHeight: 440, overflow: 'hidden', borderRadius: 20, border: '1px solid rgba(255,255,255,.12)' }}><Image src="/fotos/aerea-centro.jpg" alt="Vista aérea del centro histórico de Colonia del Sacramento" fill sizes="(max-width: 700px) 100vw, 45vw" style={{ objectFit: 'cover' }} /><figcaption style={{ position: 'absolute', bottom: 17, right: 17, padding: '8px 11px', borderRadius: 8, background: 'rgba(10,12,18,.8)', color: '#f5eee8', fontSize: 11, letterSpacing: '.1em' }}>COLONIA DEL SACRAMENTO</figcaption></figure>
+    </div></section>
+    <section className="interior-section interior-alt"><div className="site-container"><span className="eyebrow">Lo que nos guía</span><h2 className="interior-title" style={{ marginTop: 15 }}>Tres principios. Una misma forma de trabajar.</h2><div className="feature-grid">{principles.map(({ icon: Icon, title, text }) => <article className="feature-tile" key={title}><Icon size={22} color="#ffb88a" aria-hidden="true" /><h3 style={{ marginTop: 22 }}>{title}</h3><p>{text}</p></article>)}</div></div></section>
+    <section className="interior-section"><div className="site-container"><SectionCta title="Conozcamos tu proyecto." description="Una buena solución empieza por entender qué querés cambiar." /></div></section>
+  </>;
 }

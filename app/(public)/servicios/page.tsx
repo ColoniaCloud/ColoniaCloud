@@ -1,328 +1,41 @@
 import type { Metadata } from 'next';
-import {
-  Code,
-  ChartBar,
-  Bolt,
-  Server,
-  Info,
-  type LucideIcon,
-} from 'lucide-react';
+import Link from 'next/link';
+import { ArrowUpRight } from 'lucide-react';
 import InternalHero from '@/components/ui/InternalHero';
 import SectionCta from '@/components/ui/SectionCta';
+import PlanGrid from '@/components/ui/PlanGrid';
+import { services } from '@/lib/services';
 
 export const metadata: Metadata = {
   title: 'Servicios — Colonia Cloud',
-  description:
-    'Desarrollo web, marketing digital y automatizaciones para negocios en Colonia del Sacramento.',
+  description: 'Diseño web, marketing digital, infraestructura cloud e IA y automatizaciones desde Colonia del Sacramento.',
   alternates: { canonical: '/servicios' },
 };
 
-// ── Datos ──────────────────────────────────────────────────────────────────
-
-type PricingCard = {
-  name: string;
-  badge: string;
-  price: string;
-  description: string;
-  tipo: string;
-  featured?: boolean;
-};
-
-const webCards: PricingCard[] = [
-  {
-    name: 'Sitio esencial',
-    badge: 'WordPress',
-    price: 'Desde USD 250',
-    description:
-      'Presencia online institucional hasta 5 páginas. Diseño responsive, formulario de contacto y SEO básico incluidos.',
-    tipo: 'Pago único',
-  },
-  {
-    name: 'Tienda online',
-    badge: 'WooCommerce',
-    price: 'Desde USD 400',
-    description:
-      'E-commerce completo con catálogo, carrito, gestión de stock y medios de pago integrados.',
-    tipo: 'Pago único',
-  },
-  {
-    name: 'Sitio premium',
-    badge: 'Desarrollo propio',
-    price: 'Desde USD 600',
-    description:
-      'Diseño UI/UX exclusivo, funcionalidades a medida e integraciones con sistemas externos.',
-    tipo: 'Pago único',
-    featured: true,
-  },
-  {
-    name: 'Tienda online premium',
-    badge: 'Desarrollo propio',
-    price: 'Desde USD 800',
-    description:
-      'E-commerce robusto sin dependencia de WordPress. Mayor velocidad, control total del código y escalabilidad.',
-    tipo: 'Pago único',
-  },
-  {
-    name: 'App móvil',
-    badge: 'iOS / Android',
-    price: 'Cotización',
-    description:
-      'Aplicación nativa, híbrida o multiplataforma según las necesidades del proyecto. Stack a medida.',
-    tipo: 'Por proyecto',
-  },
-];
-
-const mktCards: PricingCard[] = [
-  {
-    name: 'Presencia activa',
-    badge: 'Mensual',
-    price: 'Desde USD 100/mes',
-    description:
-      'Gestión de Instagram y/o Facebook. 8–12 publicaciones mensuales con diseño gráfico, respuesta a comentarios y reporte mensual.',
-    tipo: 'Mensual',
-  },
-  {
-    name: 'Crecimiento',
-    badge: 'Mensual',
-    price: 'Cotización',
-    description:
-      'Todo lo del plan Presencia activa + campañas Meta Ads con segmentación geográfica, Google Business y estrategia de contenido mensual.',
-    tipo: 'Mensual',
-  },
-];
-
-const autoCards: PricingCard[] = [
-  {
-    name: 'Flujo simple',
-    badge: 'Por proyecto',
-    price: 'Desde USD 400',
-    description:
-      'Relevamiento, diseño e implementación de una automatización puntual. Documentación y capacitación incluidas.',
-    tipo: 'Por proyecto',
-  },
-  {
-    name: 'Sistema integrado',
-    badge: 'Por proyecto',
-    price: 'Cotización',
-    description:
-      'Múltiples flujos conectados, integración de herramientas del negocio (CRM, reservas, pagos) e incorporación de IA. Soporte post-implementación 30 días.',
-    tipo: 'Por proyecto',
-  },
-];
-
-const faqs = [
-  {
-    q: '¿Cómo es el proceso de pago?',
-    a: 'Se trabaja con una señal del 50% antes de iniciar el proyecto y el saldo restante antes de la entrega final. Aceptamos transferencia bancaria, criptomonedas (USDT/BTC/ETH) y efectivo en Colonia del Sacramento.',
-  },
-  {
-    q: '¿Cuánto tarda un proyecto?',
-    a: 'Depende del alcance. Un sitio esencial puede estar listo en 1–2 semanas. Un sitio premium con funcionalidades a medida puede tomar 4–6 semanas. Lo definimos juntos en la propuesta.',
-  },
-  {
-    q: '¿Qué pasa si necesito cambios después de la entrega?',
-    a: 'Todos los desarrollos incluyen 30 días de garantía post-entrega para corrección de errores. Los cambios de alcance o nuevas funcionalidades se cotizan por separado.',
-  },
-  {
-    q: '¿Trabajan con clientes fuera de Colonia del Sacramento?',
-    a: 'Sí. Nuestro servicio es 100% digital y trabajamos con clientes en todo Uruguay y el exterior. La comunicación es por WhatsApp y email.',
-  },
-];
-
-// Marcado FAQPage a partir de las mismas preguntas que se muestran en
-// pantalla, para habilitar el rich result de preguntas frecuentes.
-const FAQ_JSON_LD = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map(({ q, a }) => ({
-    '@type': 'Question',
-    name: q,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: a,
-    },
-  })),
-};
-
-// ── Sub-componentes locales ────────────────────────────────────────────────
-
-function SubHeader({
-  icon: Icon,
-  title,
-}: {
-  icon: LucideIcon;
-  title: string;
-}) {
-  return (
-    <div className="flex items-center gap-2 mb-8">
-      <div className="w-9 h-9 bg-cc-accent-light rounded-md flex items-center justify-center">
-        <Icon size={18} className="text-cc-accent" aria-hidden="true" />
-      </div>
-      <h2 className="font-display font-medium text-[1.375rem] text-cc-text">{title}</h2>
-    </div>
-  );
-}
-
-function PricingCardEl({ card }: { card: PricingCard }) {
-  const isPriceCotizacion = card.price === 'Cotización';
-  return (
-    <div
-      className={[
-        'border rounded-xl p-6 bg-cc-bg flex flex-col h-full',
-        card.featured
-          ? 'border-[1.5px] border-cc-accent bg-[#EDEDED]/40'
-          : 'border-black/10',
-      ].join(' ')}
-    >
-      {/* Header */}
-      <div className="flex items-start justify-between mb-1 gap-2">
-        <span className="font-display font-medium text-[1rem] text-cc-text">
-          {card.name}
-        </span>
-        <div className="flex items-center gap-1.5 flex-shrink-0 flex-wrap justify-end">
-          {card.featured && (
-            <span className="text-[11px] bg-cc-accent-light text-cc-accent rounded-sm px-2 py-0.5 font-medium">
-              Más popular
-            </span>
-          )}
-          <span className="text-[11px] bg-cc-surface text-cc-text-label rounded-sm px-2 py-0.5 font-medium">
-            {card.badge}
-          </span>
-        </div>
-      </div>
-
-      {/* Precio */}
-      <div className="mt-3 mb-4">
-        {isPriceCotizacion ? (
-          <span className="font-display font-medium text-[1.25rem] text-cc-accent">
-            Cotización
-          </span>
-        ) : (
-          <div className="flex items-baseline gap-1">
-            <span className="text-[12px] text-cc-muted">Desde</span>
-            <span className="font-display font-medium text-[1.5rem] text-cc-accent leading-none">
-              {card.price.replace('Desde ', '')}
-            </span>
-          </div>
-        )}
-      </div>
-
-      {/* Descripción */}
-      <p className="text-[14px] text-cc-text-body leading-relaxed mb-5 flex-1">
-        {card.description}
-      </p>
-
-      {/* Tipo */}
-      <div className="mt-auto pt-4 border-t border-black/[0.06] flex items-center gap-1 text-[12px] text-cc-muted">
-        <Info size={13} aria-hidden="true" />
-        {card.tipo}
-      </div>
-    </div>
-  );
-}
-
-// ── Página ─────────────────────────────────────────────────────────────────
-
 export default function ServiciosPage() {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
-      />
-      <InternalHero
-        badge="Servicios"
-        title="Lo que podemos hacer por tu negocio"
-        description="Tres líneas de servicio pensadas para negocios locales que quieren crecer online."
-      />
+  return <>
+    <InternalHero badge="Servicios" title="Cada avance necesita una buena base." description="Cuatro disciplinas conectadas para resolver lo que tu negocio necesita hoy y preparar lo que viene." />
+    <section className="interior-section" aria-labelledby="all-services-title">
+      <div className="site-container">
+        <span className="eyebrow">Nuestra oferta / 01—04</span>
+        <h2 id="all-services-title" className="interior-title" style={{ marginTop: 16, marginBottom: 37 }}>Elegí por dónde empezar.</h2>
+        {services.map((service) => <article className="service-overview" key={service.slug}>
+          <span className="number">{service.number}</span>
+          <div><h2>{service.name}</h2><p>{service.cardDescription}</p></div>
+          <Link href={`/servicios/${service.slug}`}>Ver servicio <ArrowUpRight size={16} aria-hidden="true" /></Link>
+        </article>)}
+      </div>
+    </section>
 
-      {/* Desarrollo web & App */}
-      <section className="py-[64px] bg-cc-bg">
-        <div className="max-w-[1280px] mx-auto px-7">
-          <SubHeader icon={Code} title="Desarrollo web & App" />
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {webCards.map((card) => (
-              <PricingCardEl key={card.name} card={card} />
-            ))}
-            {/* Add-on */}
-            <div className="col-span-full bg-cc-surface border border-black/10 rounded-xl p-5 flex flex-col md:flex-row items-start md:items-center gap-4">
-              <Server
-                size={20}
-                className="text-cc-accent flex-shrink-0"
-                aria-hidden="true"
-              />
-              <div className="flex flex-col">
-                <span className="font-display font-medium text-[1rem] text-cc-text">
-                  Hosting, dominio y soporte anual
-                </span>
-                <span className="text-[13px] text-cc-text-body mt-0.5">
-                  Hosting + dominio .com o .uy + SSL + soporte técnico y actualizaciones.
-                  Desde USD 200/año.
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    {services.filter((service) => service.plans).map((service) => <section className="interior-section interior-alt" key={service.slug} aria-labelledby={`${service.slug}-plans`}>
+      <div className="site-container">
+        <span className="eyebrow">{service.number} / {service.name}</span>
+        <h2 id={`${service.slug}-plans`} className="interior-title" style={{ marginTop: 15 }}>Planes para empezar con claridad.</h2>
+        <p className="body-copy" style={{ maxWidth: 680, marginTop: 18 }}>{service.intro}</p>
+        <PlanGrid plans={service.plans!} serviceName={service.name} customOption={service.customOption} />
+      </div>
+    </section>)}
 
-      {/* Marketing digital */}
-      <section className="py-[64px] bg-cc-surface">
-        <div className="max-w-[1280px] mx-auto px-7">
-          <SubHeader icon={ChartBar} title="Marketing digital" />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[800px]">
-            {mktCards.map((card) => (
-              <PricingCardEl key={card.name} card={card} />
-            ))}
-          </div>
-          <p className="mt-4 text-[13px] text-cc-muted flex items-center gap-1.5">
-            <Info size={13} aria-hidden="true" />
-            El presupuesto de pauta publicitaria lo abona el cliente directamente a Meta o Google.
-          </p>
-        </div>
-      </section>
-
-      {/* Automatizaciones */}
-      <section className="py-[64px] bg-cc-bg">
-        <div className="max-w-[1280px] mx-auto px-7">
-          <SubHeader icon={Bolt} title="Automatizaciones" />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[800px]">
-            {autoCards.map((card) => (
-              <PricingCardEl key={card.name} card={card} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="py-[64px] bg-cc-surface">
-        <div className="max-w-[1280px] mx-auto px-7">
-          <div className="text-center mb-10">
-            <h2 className="font-display font-medium text-[1.75rem] text-cc-text">
-              Preguntas frecuentes
-            </h2>
-          </div>
-          <dl className="max-w-[680px] mx-auto flex flex-col divide-y divide-black/[0.06]">
-            {faqs.map(({ q, a }) => (
-              <div key={q} className="py-5">
-                <dt className="font-display font-medium text-[1rem] text-cc-text mb-2">
-                  {q}
-                </dt>
-                <dd className="text-[15px] text-cc-text-body leading-relaxed">{a}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
-
-      {/* CTA final */}
-      <section className="py-[64px] bg-cc-bg">
-        <div className="max-w-[1280px] mx-auto px-7">
-          <SectionCta
-            title="¿No encontrás lo que buscás?"
-            description="Contanos tu caso y armamos una propuesta a medida."
-          />
-        </div>
-      </section>
-    </>
-  );
+    <section className="interior-section"><div className="site-container"><SectionCta title="La solución correcta empieza con una conversación." description="Contanos en qué etapa está tu negocio y armamos el camino juntos." /></div></section>
+  </>;
 }

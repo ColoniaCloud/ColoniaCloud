@@ -1,4 +1,5 @@
 # Colonia Cloud — Productos y Servicios
+> Documento histórico de 2025. Para los servicios, productos y precios vigentes, ver `../DESIGN-2026.md`.
 **Catálogo completo — Etapa 4 · v1.0 · 2025**
 *colonia.cloud — Llevamos tu negocio a la nube*
 

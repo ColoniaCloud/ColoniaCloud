@@ -1,4 +1,5 @@
 # Colonia Cloud — Brand Guidelines
+> Documento histórico de 2025. Para la identidad visual y oferta vigente, ver `../DESIGN-2026.md`.
 **Etapa 1 — Branding · 2025**
 *colonia.cloud — Llevamos tu negocio a la nube*
 
