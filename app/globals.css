@@ -290,11 +290,28 @@ button, input, textarea { font: inherit; }
    Dos familias, a propósito separadas:
 
    [data-enter]  Se dispara al cargar la página, con CSS puro y sin JS.
-                 Es la única apta arriba del fold: el LCP del home es el
-                 <h1> del hero, y Chrome no cuenta un elemento como
-                 pintado mientras esté en opacity 0. Lo que arruina la
-                 métrica es el `animation-delay`, no la duración, así que
-                 acá los delays van cortos (≤150ms).
+                 Es la única apta arriba del fold: pasar el hero por un
+                 observer lo dejaría esperando a la hidratación.
+
+                 OJO con el elemento LCP (en el home es el <h1> del hero).
+                 Medido sobre este sitio con CPU 4x lenta y red 5Mbps,
+                 mediana de 5 corridas, contra una base de 772ms:
+
+                   rise (solo transform) ....  768ms   sin costo
+                   fade-up (fundido .5s) ... 1148ms   +376ms
+                   line-rise (máscara) ..... 1176ms   +404ms
+
+                 O sea: Chrome registra el LCP cerca del FINAL del fundido,
+                 no en el primer frame con opacidad > 0, así que un fade
+                 sobre el elemento LCP cuesta casi su duración entera — y
+                 acortar el delay no lo salva. Y line-rise es todavía peor
+                 porque la máscara con overflow hidden deja el texto sin
+                 pintar en ningún lado visible: Chrome lo descarta como
+                 candidato y el LCP cae en el siguiente elemento grande.
+
+                 Por eso el <h1> usa `rise`, que desplaza sin tocar la
+                 opacidad. El resto del hero sí puede fundirse: no compite
+                 por ser el elemento LCP.
 
    [data-reveal] Se dispara al entrar en viewport, vía el observer de
                  components/ui/Reveal.tsx. Solo para lo que está abajo
@@ -319,6 +336,10 @@ button, input, textarea { font: inherit; }
   from { opacity: 0; transform: translate3d(0, 14px, 0); filter: blur(8px); }
   to { opacity: 1; transform: none; filter: blur(0); }
 }
+@keyframes cc-rise {
+  from { opacity: 1; transform: translate3d(0, 18px, 0); }
+  to { opacity: 1; transform: none; }
+}
 @keyframes cc-card-lift {
   from { opacity: 0; transform: translate3d(0, 24px, 0); }
   to { opacity: 1; transform: none; }
@@ -340,6 +361,7 @@ button, input, textarea { font: inherit; }
    aplica el fotograma inicial durante el delay, antes de arrancar. */
 [data-enter='fade-up'], [data-reveal='fade-up'][data-reveal-visible] { animation: cc-fade-up .5s var(--cc-ease-out) var(--cc-d, 0s) both; }
 [data-enter='blur-in'], [data-reveal='blur-in'][data-reveal-visible] { animation: cc-blur-in .6s var(--cc-ease-out) var(--cc-d, 0s) both; }
+[data-enter='rise'], [data-reveal='rise'][data-reveal-visible] { animation: cc-rise .55s var(--cc-ease-out) var(--cc-d, 0s) both; }
 [data-enter='card-lift'], [data-reveal='card-lift'][data-reveal-visible] { animation: cc-card-lift .8s var(--cc-ease-out) var(--cc-d, 0s) both; }
 [data-enter='image-scale'], [data-reveal='image-scale'][data-reveal-visible] { animation: cc-image-scale 1.2s var(--cc-ease-out) var(--cc-d, 0s) both; }
 [data-enter='clip-up'], [data-reveal='clip-up'][data-reveal-visible] { animation: cc-clip-up .9s var(--cc-ease-clip) var(--cc-d, 0s) both; }
@@ -362,8 +384,13 @@ button, input, textarea { font: inherit; }
   [data-reveal]:not([data-reveal-visible]) { opacity: 0; }
 }
 
-/* line-rise necesita que algo recorte la línea mientras sube. */
-.line-mask { display: block; overflow: hidden; }
+/* line-rise necesita que algo recorte la línea mientras sube. El hijo va en
+   block para que su translateY(100%) valga exactamente el alto de la línea.
+   El padding vertical compensado con margen negativo le da aire a colas y
+   tildes ("Tecnología que acompaña" tiene g, q y ñ): sin eso el overflow
+   hidden las recorta, y al ir compensado no mueve el layout ni suma CLS. */
+.line-mask { display: block; overflow: hidden; padding-block: .14em; margin-block: -.14em; }
+.line-mask > * { display: block; }
 
 /* El bloque general de reduced-motion de más arriba ya deja las animaciones
    en .01ms, y como terminan en su fotograma final el contenido igual queda
