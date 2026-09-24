@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import type { CSSProperties, ElementType, ReactNode, Ref } from 'react';
+import type { ComponentPropsWithoutRef, CSSProperties, ElementType, Ref } from 'react';
 
 // Variantes definidas en app/globals.css (sección "Animaciones de entrada").
 // Para lo que está arriba del fold no se usa este componente sino el atributo
@@ -9,34 +9,40 @@ import type { CSSProperties, ElementType, ReactNode, Ref } from 'react';
 // el LCP hasta después de la hidratación.
 export type RevealVariant =
   | 'fade-up'
+  | 'rise'
   | 'blur-in'
   | 'card-lift'
   | 'image-scale'
   | 'clip-up'
   | 'line-rise';
 
-type Props = {
-  children: ReactNode;
-  /** Etiqueta a renderizar. Por defecto `div`; usar `figure`, `li`, etc. según el caso. */
-  as?: ElementType;
+type OwnProps<T extends ElementType> = {
+  /** Etiqueta o componente a renderizar. Por defecto `div`. */
+  as?: T;
   variant?: RevealVariant;
-  /** Retardo en ms. Para grillas escalonadas: 0, 80, 160… */
+  /** Retardo en ms. Para escalonar una grilla entera conviene la clase
+   *  `.stagger` en el contenedor, que además se apaga sola en móvil. */
   delay?: number;
   /** Porción del elemento que tiene que verse para disparar la entrada. */
   threshold?: number;
-  className?: string;
-  style?: CSSProperties;
 };
 
-export default function Reveal({
-  children,
-  as: Tag = 'div',
-  variant = 'fade-up',
-  delay = 0,
-  threshold = 0.15,
-  className,
-  style,
-}: Props) {
+// Polimórfico y con reenvío de props para poder envolver un `Link` o un
+// `figure` sin agregar un nodo extra: si metiéramos un wrapper, selectores
+// como `.service-card:nth-child(2)` dejarían de encontrar a sus elementos.
+type Props<T extends ElementType> = OwnProps<T> &
+  Omit<ComponentPropsWithoutRef<T>, keyof OwnProps<T>>;
+
+export default function Reveal<T extends ElementType = 'div'>(props: Props<T>) {
+  const {
+    as,
+    variant = 'fade-up',
+    delay = 0,
+    threshold = 0.15,
+    ...rest
+  } = props as OwnProps<T> & { style?: CSSProperties; [key: string]: unknown };
+
+  const Tag = (as ?? 'div') as ElementType;
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -71,14 +77,9 @@ export default function Reveal({
     return () => observer.disconnect();
   }, [threshold]);
 
-  return (
-    <Tag
-      ref={ref as Ref<HTMLElement>}
-      data-reveal={variant}
-      className={className}
-      style={delay ? ({ ...style, '--cc-d': `${delay}ms` } as CSSProperties) : style}
-    >
-      {children}
-    </Tag>
-  );
+  const style = delay
+    ? ({ ...rest.style, '--cc-d': `${delay}ms` } as CSSProperties)
+    : rest.style;
+
+  return <Tag {...rest} ref={ref as Ref<HTMLElement>} data-reveal={variant} style={style} />;
 }

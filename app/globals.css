@@ -384,6 +384,23 @@ button, input, textarea { font: inherit; }
   [data-reveal]:not([data-reveal-visible]) { opacity: 0; }
 }
 
+/* Escalonado de una grilla o lista: en vez de pasarle un delay inline a cada
+   hijo, el contenedor lleva `.stagger`.
+
+   Solo aplica de 701px para arriba, y eso es deliberado. Cada hijo tiene su
+   propio observer, así que el retardo se cuenta desde que ESE hijo entra en
+   viewport, no desde que entra la grilla. En desktop los elementos entran
+   juntos y el escalonado se lee como una cascada; en móvil, donde la grilla
+   colapsa a una columna y cada card entra sola, ese mismo retardo sería un
+   tironeo de hasta 240ms antes de que aparezca cada una. */
+@media (min-width: 701px) {
+  .stagger > *:nth-child(2) { --cc-d: 80ms; }
+  .stagger > *:nth-child(3) { --cc-d: 160ms; }
+  .stagger > *:nth-child(4) { --cc-d: 240ms; }
+  .stagger > *:nth-child(5) { --cc-d: 320ms; }
+  .stagger > *:nth-child(6) { --cc-d: 400ms; }
+}
+
 /* line-rise necesita que algo recorte la línea mientras sube. El hijo va en
    block para que su translateY(100%) valga exactamente el alto de la línea.
    El padding vertical compensado con margen negativo le da aire a colas y

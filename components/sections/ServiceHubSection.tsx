@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { services } from '@/lib/services';
+import Reveal from '@/components/ui/Reveal';
 
 export default function ServiceHubSection() {
   return (
@@ -8,15 +9,20 @@ export default function ServiceHubSection() {
       <div className="site-container">
         <div className="section-topline">
           <div className="section-intro">
-            <span className="eyebrow">Lo que hacemos / 01—04</span>
-            <h2 id="services-title" className="display">Cuatro formas<br />de avanzar.</h2>
-            <p className="body-copy">Cada negocio tiene su propio momento. Encontramos el servicio adecuado y lo hacemos trabajar junto a los demás.</p>
+            <Reveal as="span" className="eyebrow">Lo que hacemos / 01—04</Reveal>
+            {/* blur-in solo en el titular: sobre texto de 14px el desenfoque
+                se ve sucio y cuesta GPU de más en móvil. */}
+            <Reveal as="h2" variant="blur-in" id="services-title" className="display" delay={60}>Cuatro formas<br />de avanzar.</Reveal>
+            <Reveal as="p" className="body-copy" delay={140}>Cada negocio tiene su propio momento. Encontramos el servicio adecuado y lo hacemos trabajar junto a los demás.</Reveal>
           </div>
-          <Link href="/servicios" className="section-link">Ver todos los servicios <ArrowUpRight size={16} aria-hidden="true" /></Link>
+          <Reveal as={Link} href="/servicios" className="section-link" delay={200}>Ver todos los servicios <ArrowUpRight size={16} aria-hidden="true" /></Reveal>
         </div>
-        <div className="service-grid">
+        {/* El Reveal renderiza el propio <Link>, sin nodo intermedio: la grilla
+            tiene que seguir viendo a las cards como hijas directas para que
+            .service-card:nth-child(n)::before le dé a cada una su glow. */}
+        <div className="service-grid stagger">
           {services.map(({ slug, number, icon: Icon, cardTitle, cardOutcome, cardDescription }) => (
-            <Link className="service-card" href={`/servicios/${slug}`} key={slug}>
+            <Reveal as={Link} className="service-card" href={`/servicios/${slug}`} key={slug}>
               <div className="service-card-top"><span className="service-card-number">{number} / SERVICIO</span><span className="service-card-icon"><Icon size={22} strokeWidth={1.7} aria-hidden="true" /></span></div>
               <div className="service-card-content">
                 <h3>{cardTitle}</h3>
@@ -24,7 +30,7 @@ export default function ServiceHubSection() {
                 <p className="service-card-description">{cardDescription}</p>
                 <span className="service-card-bottom">Conocer el servicio <ArrowRight size={18} aria-hidden="true" /></span>
               </div>
-            </Link>
+            </Reveal>
           ))}
         </div>
       </div>
