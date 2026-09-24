@@ -283,3 +283,97 @@ button, input, textarea { font: inherit; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* ============================================================
+   Animaciones de entrada — spec en docs/03-ux-spec.md §5.4
+
+   Dos familias, a propósito separadas:
+
+   [data-enter]  Se dispara al cargar la página, con CSS puro y sin JS.
+                 Es la única apta arriba del fold: el LCP del home es el
+                 <h1> del hero, y Chrome no cuenta un elemento como
+                 pintado mientras esté en opacity 0. Lo que arruina la
+                 métrica es el `animation-delay`, no la duración, así que
+                 acá los delays van cortos (≤150ms).
+
+   [data-reveal] Se dispara al entrar en viewport, vía el observer de
+                 components/ui/Reveal.tsx. Solo para lo que está abajo
+                 del fold.
+
+   Se animan únicamente propiedades compositadas (opacity, transform,
+   filter, clip-path): nada que toque el layout, así el CLS queda en 0.
+   Por eso no hay variante de letter-spacing — animarlo cambia el ancho
+   del texto, corre a los vecinos y suma CLS.
+   ============================================================ */
+
+:root {
+  --cc-ease-out: cubic-bezier(.2, .8, .2, 1);
+  --cc-ease-clip: cubic-bezier(.65, 0, .35, 1);
+}
+
+@keyframes cc-fade-up {
+  from { opacity: 0; transform: translate3d(0, 16px, 0); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes cc-blur-in {
+  from { opacity: 0; transform: translate3d(0, 14px, 0); filter: blur(8px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+@keyframes cc-card-lift {
+  from { opacity: 0; transform: translate3d(0, 24px, 0); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes cc-image-scale {
+  from { opacity: 0; transform: scale(1.08); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes cc-clip-up {
+  from { opacity: 1; clip-path: inset(0 0 100% 0); }
+  to { opacity: 1; clip-path: inset(0 0 0 0); }
+}
+@keyframes cc-line-rise {
+  from { opacity: 1; transform: translate3d(0, 100%, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+/* `both` como fill-mode es lo que hace que [data-enter] funcione sin JS:
+   aplica el fotograma inicial durante el delay, antes de arrancar. */
+[data-enter='fade-up'], [data-reveal='fade-up'][data-reveal-visible] { animation: cc-fade-up .5s var(--cc-ease-out) var(--cc-d, 0s) both; }
+[data-enter='blur-in'], [data-reveal='blur-in'][data-reveal-visible] { animation: cc-blur-in .6s var(--cc-ease-out) var(--cc-d, 0s) both; }
+[data-enter='card-lift'], [data-reveal='card-lift'][data-reveal-visible] { animation: cc-card-lift .8s var(--cc-ease-out) var(--cc-d, 0s) both; }
+[data-enter='image-scale'], [data-reveal='image-scale'][data-reveal-visible] { animation: cc-image-scale 1.2s var(--cc-ease-out) var(--cc-d, 0s) both; }
+[data-enter='clip-up'], [data-reveal='clip-up'][data-reveal-visible] { animation: cc-clip-up .9s var(--cc-ease-clip) var(--cc-d, 0s) both; }
+[data-enter='line-rise'], [data-reveal='line-rise'][data-reveal-visible] { animation: cc-line-rise .9s var(--cc-ease-out) var(--cc-d, 0s) both; }
+
+/* Estado oculto de los reveals por scroll, antes de que el observer los
+   marque. Va dentro de `scripting: enabled` para que sin JS el contenido
+   se vea siempre: preferimos texto quieto antes que texto invisible.
+
+   Es SOLO opacidad, y eso no es una simplificación: es la condición para
+   que el observer funcione. IntersectionObserver calcula el área del
+   elemento ya recortada y transformada, así que un estado oculto con
+   `clip-path: inset(0 0 100% 0)` da ratio 0 y otro con
+   `transform: translateY(100%)` da ratio 0.1 — con threshold .15 ninguno
+   dispara nunca y el contenido queda invisible para siempre. La opacidad
+   es la única propiedad que el observer ignora (ratio 1 aun en 0).
+   Por eso el desplazamiento, el recorte y el blur viven en el fotograma
+   `from` de cada animación y no acá. */
+@media (scripting: enabled) {
+  [data-reveal]:not([data-reveal-visible]) { opacity: 0; }
+}
+
+/* line-rise necesita que algo recorte la línea mientras sube. */
+.line-mask { display: block; overflow: hidden; }
+
+/* El bloque general de reduced-motion de más arriba ya deja las animaciones
+   en .01ms, y como terminan en su fotograma final el contenido igual queda
+   visible. Esto no depende de ese efecto colateral: lo apaga explícito. */
+@media (prefers-reduced-motion: reduce) {
+  [data-enter], [data-reveal] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    clip-path: none !important;
+  }
+}
