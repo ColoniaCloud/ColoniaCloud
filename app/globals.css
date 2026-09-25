@@ -271,10 +271,6 @@ button, input, textarea { font: inherit; }
   .service-grid, .case-grid, .product-grid, .process-grid, .feature-grid, .plan-grid { grid-template-columns: 1fr; }
   .service-grid { margin-top: 37px; }
   .service-card { min-height: 320px; padding: 27px; }
-  /* En una card de una columna el texto ocupa todo el ancho, así que acá la
-     ilustración no puede ir centrada ni grande: se apoya en la esquina de
-     abajo, por encima de la línea del enlace, y baja la opacidad para no
-     comerle contraste a la descripción. */
   /* Más chica y pegada al padding de 27px, para que siga alineada con el
      número del servicio y no empuje al titular. */
   .service-card-art { max-width: 72px; max-height: 72px; }
@@ -308,7 +304,7 @@ button, input, textarea { font: inherit; }
 }
 
 /* ============================================================
-   Animaciones de entrada — spec en docs/03-ux-spec.md §5.4
+   Animaciones de entrada — spec en SISTEMA-VISUAL-2026.md §5
 
    Dos familias, a propósito separadas:
 

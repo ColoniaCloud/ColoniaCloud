@@ -2,6 +2,8 @@
 
 **Septiembre de 2026.** Este documento reemplaza las decisiones de interfaz y catálogo de `01-brandbook.md` a `04-productos-servicios.md` cuando haya diferencias.
 
+Acá van la dirección y la oferta. La implementación —tokens, tipografía, grilla, anatomía de componentes y el sistema de animaciones— está en [`SISTEMA-VISUAL-2026.md`](SISTEMA-VISUAL-2026.md).
+
 ## Dirección visual
 
 - Interfaz oscura con una atmósfera de atardecer: azul profundo, carbón y luz cálida.
