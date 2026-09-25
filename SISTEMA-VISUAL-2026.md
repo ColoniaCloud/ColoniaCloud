@@ -131,9 +131,13 @@ El orden de la página es: Hero → barra de disciplinas → Servicios → Casos
 - Fondo por capas: `::before` con tres gradientes radiales, `::after` con un halo naranja difuminado, y `.hero-grain` con una textura SVG de ruido al 11%
 - Coreografía de entrada: kicker 0ms, H1 0ms, bajada 80ms, botones 140ms, caption 180ms
 
-La **card del hero** (`.hero-feature`) es una pieza aparte: `min-height: 300px`, grilla de `1.1fr .9fr`, con la foto de Colonia al fondo y un degradado lateral que protege la copia. Su margen inferior negativo (−38px) la monta sobre la sección siguiente a propósito.
+La **ventana del hero** (`.hero-window`) simula una ventana de iOS: barra de estado con la hora y los íconos de señal, wifi y batería; la foto de Colonia como pantalla; una hoja de vidrio con `backdrop-filter` sobre ella; y la barra de inicio abajo. La hora es 9:41, la que Apple usa en sus maquetas desde la primera presentación del iPhone.
 
-Usa `min-height` y no `height` fija: con altura fija el contenido interno se recortaba si crecía, y la foto quedaba en una franja apaisada donde se perdían el cielo y el atardecer.
+Dos cosas que conviene no revertir:
+
+**No lleva margen inferior negativo.** La card anterior lo tenía para montarse sobre la sección siguiente, y era lo que la hacía verse cortada en recto, sin esquinas redondeadas y sin la línea de ubicación. Primero porque `.hero` recortaba con `overflow: hidden`; al sacarlo, porque las cajas quedaban solapadas 38px y quién se pinta encima lo decide el orden de pintado —en Chromium gana la ventana, pero es un empate que otro motor puede resolver al revés—. Medido con el margen y sin él, el borde se ve idéntico.
+
+**`.hero` ya no lleva `overflow: hidden`.** Tampoco sirve cambiarlo por `overflow-x: hidden` para contener el halo de `::after`, que se extiende un 20% a cada lado: en cuanto un eje deja de ser `visible`, el otro pasa a `auto` y vuelve a recortar en vertical. El desborde horizontal ya lo contienen `html` y `body`.
 
 ### 4.2 Cards de servicio
 
@@ -187,6 +191,7 @@ Easing por defecto `cubic-bezier(.2, .8, .2, 1)`; `clip-up` usa `cubic-bezier(.6
 | `fade-up` | .5s | opacidad 0, `translateY(16px)` |
 | `blur-in` | .6s | opacidad 0, `translateY(14px)`, `blur(8px)` |
 | `rise` | .55s | `translateY(18px)`, **sin tocar la opacidad** |
+| `rise-blur` | .75s | `translateY(20px)` + `blur(10px)`, **sin tocar la opacidad** |
 | `card-lift` | .8s | opacidad 0, `translateY(24px)` |
 | `image-scale` | 1.2s | opacidad 0, `scale(1.08)` |
 | `clip-up` | .9s | `clip-path: inset(0 0 100% 0)` |
@@ -207,7 +212,18 @@ Solo se animan propiedades compositadas: opacidad, transform, filter y clip-path
 
 Chrome registra el LCP cerca del **final** del fundido, no en el primer fotograma con opacidad mayor a cero: un fade sobre el elemento LCP cuesta casi su duración entera, y acortar el delay no lo salva. `line-rise` es peor todavía porque la máscara con `overflow: hidden` deja el texto sin pintar en ningún lado visible, Chrome lo descarta como candidato y el LCP cae en el siguiente elemento grande.
 
-Con el H1 actual —más chico que el de aquella medición— la base es **604ms**. Al cambiar variantes sobre el LCP, volver a medir.
+Con el H1 actual —más chico que el de aquella medición— la base era **604ms**.
+
+**Hoy el elemento LCP no es el H1 sino la ventana del hero**, que al crecer pasó a ser lo más grande del primer print. Eso volvió a poner a prueba la misma regla, y la respuesta está medida:
+
+| Cómo entra la ventana | LCP |
+|---|---|
+| Por observer, con `blur-in` | 1408ms |
+| Con `data-enter` y `rise-blur` | ~780ms |
+
+Los 1408ms salen de sumar dos cosas: detrás del observer queda en `opacity: 0` hasta la hidratación, y encima Chrome registra el LCP recién al final del fundido. Por eso la ventana entra con `data-enter` —se pinta al cargar, sin esperar JavaScript— y con una variante que mueve y desenfoca pero nunca baja la opacidad.
+
+Al tocar el tamaño o la entrada de cualquier elemento grande del hero, volver a medir: el elemento LCP puede cambiar de identidad sin aviso.
 
 ### 5.5 Escalonado
 

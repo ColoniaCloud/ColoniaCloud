@@ -10,6 +10,7 @@ import type { ComponentPropsWithoutRef, CSSProperties, ElementType, Ref } from '
 export type RevealVariant =
   | 'fade-up'
   | 'rise'
+  | 'rise-blur'
   | 'blur-in'
   | 'card-lift'
   | 'image-scale'

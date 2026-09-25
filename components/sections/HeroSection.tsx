@@ -1,9 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { CSSProperties } from 'react';
-import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, BatteryFull, SignalHigh, Wifi } from 'lucide-react';
 import { whatsappHref } from '@/lib/contact';
-import Reveal from '@/components/ui/Reveal';
 
 // Coreografía de entrada del hero. Va toda con `data-enter` (CSS puro, sin
 // observer) porque está arriba del fold: pasarla por IntersectionObserver la
@@ -34,25 +33,36 @@ export default function HeroSection() {
         </div>
         <p className="hero-caption" data-enter="fade-up" style={d(180)}>Una conversación clara para empezar. Sin compromiso.</p>
 
-        {/* La tarjeta sigue cayendo debajo del fold en casi todas las
-            pantallas, así que acá conviene el observer: con `data-enter` la
-            animación se gastaría fuera de cuadro y nadie la vería.
+        {/* Va con `data-enter` y no por observer, y con una variante que no
+            toca la opacidad. Las dos cosas por lo mismo: esta ventana es el
+            elemento más grande del primer print, así que es la que marca el
+            LCP. Medido con CPU 4x y 5Mbps, mediana de 5: detrás del observer
+            y con `blur-in` encima daba 1408ms, porque queda en opacidad 0
+            hasta la hidratación y Chrome registra el LCP recién al final del
+            fundido. Pintándola de una y animando solo transform y blur, el
+            LCP vuelve a marcarlo el <h1>.
 
-            Desde que el hero se achicó entra entera en 1920x990, y ahí el
-            observer le cuesta 244ms de espera desde el primer pintado (CPU 4x,
-            5Mbps, mediana de 5). Se queda igual: el LCP lo sigue marcando el
-            <h1>, y pasarla a `data-enter` arriesga que la foto —más grande que
-            el título— se vuelva el elemento LCP con un fundido de .8s encima. */}
-        <Reveal variant="card-lift" className="hero-feature">
-          <div className="hero-feature-photo" aria-hidden="true">
+            La hora es 9:41, la que Apple usa en sus maquetas desde la
+            primera presentación del iPhone. */}
+        <div className="hero-window" data-enter="rise-blur" style={d(220)}>
+          <div className="hero-window-bar" aria-hidden="true">
+            <span className="hero-window-time">9:41</span>
+            <span className="hero-window-status">
+              <SignalHigh size={15} strokeWidth={2.4} />
+              <Wifi size={15} strokeWidth={2.4} />
+              <BatteryFull size={19} strokeWidth={2} />
+            </span>
+          </div>
+          <div className="hero-window-screen">
             <Image src="/atardecer colonia.webp" alt="" fill priority sizes="(max-width: 700px) 100vw, 1050px" />
+            <div className="hero-window-sheet">
+              <span className="eyebrow">Un punto de partida distinto</span>
+              <strong>Hecho en Colonia.<br />Pensado para ir más allá.</strong>
+              <span className="hero-window-place">Colonia del Sacramento · Uruguay</span>
+            </div>
           </div>
-          <div className="hero-feature-copy">
-            <span className="eyebrow">Un punto de partida distinto</span>
-            <strong>Hecho en Colonia.<br />Pensado para ir más allá.</strong>
-          </div>
-          <span className="hero-feature-meta">Colonia del Sacramento · Uruguay</span>
-        </Reveal>
+          <span className="hero-window-indicator" aria-hidden="true" />
+        </div>
       </div>
     </section>
   );
