@@ -111,14 +111,22 @@ button, input, textarea { font: inherit; }
 .service-card:hover { border-color: rgba(255,188,140,.5); background: #1e212c; transform: translateY(-4px); }
 .service-card-top { display: flex; justify-content: space-between; align-items: start; }
 .service-card-number { color: #ffb787; font-size: 11px; font-weight: 700; letter-spacing: .16em; }
-/* Las ilustraciones son de Colonia —el Portón de Campo, el faro, el caracol,
-   la plaza de toros— y están dibujadas con detalle: en el recuadro de 45px que
-   había antes se leían como manchas. Van grandes, contra el borde derecho y
-   por detrás del texto, con la máscara apagando el lado que toca la columna
-   de lectura. `max-height` y `max-width` juntos porque las proporciones son
-   muy distintas: el Portón es vertical y la Plaza casi un panorama, y solo
-   con una de las dos medidas una quedaría enorme al lado de la otra. */
-.service-card-art { position: absolute; z-index: 0; right: 8px; top: 50%; width: auto; height: auto; max-width: 44%; max-height: 225px; transform: translateY(-50%); opacity: .2; pointer-events: none; -webkit-mask-image: linear-gradient(90deg, transparent, #000 42%); mask-image: linear-gradient(90deg, transparent, #000 42%); }
+/* Las ilustraciones son de Colonia: el Portón de Campo, el faro, el caracol y
+   la plaza de toros. Van en la esquina de arriba, alineadas con el número del
+   servicio, a color pleno y en su propia zona de la card.
+
+   Esa es la razón de que puedan ir a opacidad 1. Probamos antes dejarlas de
+   fondo por detrás del texto, y ahí el brillo competía con la legibilidad:
+   medido sobre los rectángulos reales de los glifos, la card de IA quedaba en
+   4.11:1 contra el mínimo AA de 4.5, y subirles brillo la hundía a 1.83:1.
+   Fuera de la columna de lectura el conflicto no existe y las cuatro cards
+   miden 7.61:1, que es el fondo puro.
+
+   `max-height` y `max-width` actúan juntos porque las proporciones no se
+   parecen: el Portón es vertical (638x831) y la Plaza casi un panorama
+   (433x209). Con una sola de las dos medidas, una quedaría enorme al lado de
+   la otra; así las cuatro entran en el mismo cuadrado y pesan parejo. */
+.service-card-art { width: auto; height: auto; max-width: 104px; max-height: 104px; margin-top: -6px; pointer-events: none; }
 .service-card-top, .service-card-content { position: relative; z-index: 1; }
 .service-card-content { margin-top: auto; }
 .service-card h3 { margin-top: 12px; font: 500 clamp(28px,3vw,42px)/1.05 var(--cc-font-display); letter-spacing: -.035em; }
@@ -267,10 +275,9 @@ button, input, textarea { font: inherit; }
      ilustración no puede ir centrada ni grande: se apoya en la esquina de
      abajo, por encima de la línea del enlace, y baja la opacidad para no
      comerle contraste a la descripción. */
-  /* Sin máscara: en una card de 330px cualquier degradado lateral se come una
-     columna del arco y la ilustración se lee partida. La opacidad sola ya la
-     mantiene por detrás del texto. */
-  .service-card-art { top: auto; bottom: 76px; right: 10px; max-width: 42%; max-height: 132px; transform: none; opacity: .15; -webkit-mask-image: none; mask-image: none; }
+  /* Más chica y pegada al padding de 27px, para que siga alineada con el
+     número del servicio y no empuje al titular. */
+  .service-card-art { max-width: 72px; max-height: 72px; }
   .case-grid { margin-top: 36px; }
   .case-card, .case-card:first-child { grid-column: auto; min-height: 365px; }
   .case-card h3 { margin-top: 30px; }
@@ -411,6 +418,16 @@ button, input, textarea { font: inherit; }
    juntos y el escalonado se lee como una cascada; en móvil, donde la grilla
    colapsa a una columna y cada card entra sola, ese mismo retardo sería un
    tironeo de hasta 240ms antes de que aparezca cada una. */
+/* Entre 701 y 900px la grilla todavía es de dos columnas, así que las cards
+   quedan tan angostas como en móvil pero con el ícono en su tamaño grande.
+   El rango va acotado por los dos lados a propósito: escrito como
+   `max-width: 900px` a secas también alcanzaría a los teléfonos, y como este
+   bloque está más abajo en el archivo le ganaría por orden al tamaño de
+   móvil, que quedaría sin efecto. */
+@media (min-width: 701px) and (max-width: 900px) {
+  .service-card-art { max-width: 84px; max-height: 84px; }
+}
+
 @media (min-width: 701px) {
   .stagger > *:nth-child(2) { --cc-d: 80ms; }
   .stagger > *:nth-child(3) { --cc-d: 160ms; }
@@ -447,4 +464,10 @@ button, input, textarea { font: inherit; }
     filter: none !important;
     clip-path: none !important;
   }
+}
+
+/* En 360px el titular más largo ("IA y automatizaciones") parte en dos líneas
+   y la primera alcanza el ícono. */
+@media (max-width: 380px) {
+  .service-card-art { max-width: 62px; max-height: 62px; }
 }

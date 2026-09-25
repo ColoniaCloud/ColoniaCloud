@@ -24,21 +24,31 @@ export default function ServiceHubSection() {
         <div className="service-grid stagger">
           {services.map(({ slug, number, illustration, cardTitle, cardOutcome, cardDescription }) => (
             <Reveal as={Link} className="service-card" href={`/servicios/${slug}`} key={slug}>
-              {/* Decorativa: el nombre del servicio ya está en el <h3>, así que
-                  va con alt vacío para que el lector de pantalla no lo repita.
+              {/* La ilustración va DENTRO de la fila de arriba, no posicionada
+                  encima: como el bloque de texto lleva `margin-top: auto`, al
+                  ocupar lugar en el flujo lo empuja hacia abajo y no hay ancho
+                  de pantalla en el que puedan pisarse. Flotándola, entre 700 y
+                  900px —donde la grilla sigue en dos columnas y las cards se
+                  angostan— el titular subía y se le metía debajo.
+
+                  El alt va vacío aunque la ilustración se vea: nombra el mismo
+                  servicio que el <h3> de abajo, y describirla otra vez le haría
+                  leer dos veces lo mismo a un lector de pantalla.
                   `unoptimized` porque el optimizador de Next no procesa SVG, y
                   diferida porque la sección cae debajo del fold. */}
-              <Image
-                className="service-card-art"
-                src={illustration.src}
-                width={illustration.width}
-                height={illustration.height}
-                alt=""
-                aria-hidden="true"
-                loading="lazy"
-                unoptimized
-              />
-              <div className="service-card-top"><span className="service-card-number">{number} / SERVICIO</span></div>
+              <div className="service-card-top">
+                <span className="service-card-number">{number} / SERVICIO</span>
+                <Image
+                  className="service-card-art"
+                  src={illustration.src}
+                  width={illustration.width}
+                  height={illustration.height}
+                  alt=""
+                  aria-hidden="true"
+                  loading="lazy"
+                  unoptimized
+                />
+              </div>
               <div className="service-card-content">
                 <h3>{cardTitle}</h3>
                 <p className="service-card-outcome">{cardOutcome}</p>
