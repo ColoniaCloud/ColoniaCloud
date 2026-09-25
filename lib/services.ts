@@ -1,4 +1,9 @@
-import { Globe2, Megaphone, Cloud, Sparkles, type LucideIcon } from 'lucide-react';
+
+/** Ilustración de un hito de Colonia que identifica al servicio en la home.
+ *  Se guardan los tamaños intrínsecos porque cada archivo tiene su propia
+ *  proporción —el Portón es vertical, la Plaza casi un panorama— y sin ellos
+ *  el navegador no puede reservar la caja antes de bajar el SVG. */
+export type ServiceIllustration = { src: string; width: number; height: number };
 
 export type ServiceFeature = { title: string; description: string };
 export type ServicePlan = {
@@ -13,7 +18,7 @@ export type ServicePlan = {
 export type Service = {
   slug: string;
   number: string;
-  icon: LucideIcon;
+  illustration: ServiceIllustration;
   name: string;
   badge: string;
   cardTitle: string;
@@ -33,7 +38,7 @@ export type Service = {
 // Una sola fuente para la home, el catálogo, las fichas y la navegación.
 export const services: Service[] = [
   {
-    slug: 'diseno-web', number: '01', icon: Globe2, name: 'Diseño web', badge: 'Diseño web',
+    slug: 'diseno-web', number: '01', illustration: { src: '/iconos/Porton.svg', width: 638, height: 831 }, name: 'Diseño web', badge: 'Diseño web',
     cardTitle: 'Diseño web', cardOutcome: 'Tu negocio tiene una nueva puerta de entrada.',
     cardDescription: 'Sitios propios, rápidos y preparados para convertir visitas en conversaciones o ventas.',
     heroTitle: 'Una web que abre oportunidades.',
@@ -54,7 +59,7 @@ export const services: Service[] = [
     ctaTitle: 'Abramos tu próxima puerta digital.', ctaDescription: 'Contanos qué querés construir y encontramos el formato adecuado.',
   },
   {
-    slug: 'marketing-digital', number: '02', icon: Megaphone, name: 'Marketing digital', badge: 'Marketing digital',
+    slug: 'marketing-digital', number: '02', illustration: { src: '/iconos/Faro.svg', width: 444, height: 662 }, name: 'Marketing digital', badge: 'Marketing digital',
     cardTitle: 'Marketing digital', cardOutcome: 'Una marca visible, con una dirección clara.',
     cardDescription: 'Investigación, pauta y contenido para llegar a las personas correctas.',
     heroTitle: 'Que te encuentren por las razones correctas.',
@@ -75,7 +80,7 @@ export const services: Service[] = [
     ctaTitle: 'Démosle dirección a tu crecimiento.', ctaDescription: 'Hablemos de tu mercado y de las oportunidades que todavía no estás aprovechando.',
   },
   {
-    slug: 'infraestructura-cloud', number: '03', icon: Cloud, name: 'Infraestructura cloud', badge: 'Infraestructura cloud',
+    slug: 'infraestructura-cloud', number: '03', illustration: { src: '/iconos/Fibonacci.svg', width: 262, height: 161 }, name: 'Infraestructura cloud', badge: 'Infraestructura cloud',
     cardTitle: 'Infraestructura cloud', cardOutcome: 'La base que sostiene todo lo demás.',
     cardDescription: 'Storage, bases de datos, VPS y soporte en las principales nubes empresariales.',
     heroTitle: 'Una base sólida para lo que viene.',
@@ -91,7 +96,7 @@ export const services: Service[] = [
     ctaTitle: 'Dale una base sólida a tu operación.', ctaDescription: 'Contanos qué sistemas necesitás sostener y diseñamos la infraestructura.',
   },
   {
-    slug: 'ia-automatizaciones', number: '04', icon: Sparkles, name: 'IA y automatizaciones', badge: 'IA y automatizaciones',
+    slug: 'ia-automatizaciones', number: '04', illustration: { src: '/iconos/Plaza.svg', width: 433, height: 209 }, name: 'IA y automatizaciones', badge: 'IA y automatizaciones',
     cardTitle: 'IA y automatizaciones', cardOutcome: 'Menos tareas repetidas. Más tiempo para decidir.',
     cardDescription: 'Procesos automatizados, IA local y atención al cliente pensada para tu operación.',
     heroTitle: 'La IA tiene que resolver algo concreto.',

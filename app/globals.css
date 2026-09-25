@@ -111,7 +111,15 @@ button, input, textarea { font: inherit; }
 .service-card:hover { border-color: rgba(255,188,140,.5); background: #1e212c; transform: translateY(-4px); }
 .service-card-top { display: flex; justify-content: space-between; align-items: start; }
 .service-card-number { color: #ffb787; font-size: 11px; font-weight: 700; letter-spacing: .16em; }
-.service-card-icon { width: 45px; height: 45px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.14); border-radius: 12px; color: #ffc194; }
+/* Las ilustraciones son de Colonia —el Portón de Campo, el faro, el caracol,
+   la plaza de toros— y están dibujadas con detalle: en el recuadro de 45px que
+   había antes se leían como manchas. Van grandes, contra el borde derecho y
+   por detrás del texto, con la máscara apagando el lado que toca la columna
+   de lectura. `max-height` y `max-width` juntos porque las proporciones son
+   muy distintas: el Portón es vertical y la Plaza casi un panorama, y solo
+   con una de las dos medidas una quedaría enorme al lado de la otra. */
+.service-card-art { position: absolute; z-index: 0; right: 8px; top: 50%; width: auto; height: auto; max-width: 44%; max-height: 225px; transform: translateY(-50%); opacity: .2; pointer-events: none; -webkit-mask-image: linear-gradient(90deg, transparent, #000 42%); mask-image: linear-gradient(90deg, transparent, #000 42%); }
+.service-card-top, .service-card-content { position: relative; z-index: 1; }
 .service-card-content { margin-top: auto; }
 .service-card h3 { margin-top: 12px; font: 500 clamp(28px,3vw,42px)/1.05 var(--cc-font-display); letter-spacing: -.035em; }
 .service-card-outcome { margin-top: 12px; color: #efc5ad; font-size: 14px; font-weight: 600; }
@@ -255,6 +263,14 @@ button, input, textarea { font: inherit; }
   .service-grid, .case-grid, .product-grid, .process-grid, .feature-grid, .plan-grid { grid-template-columns: 1fr; }
   .service-grid { margin-top: 37px; }
   .service-card { min-height: 320px; padding: 27px; }
+  /* En una card de una columna el texto ocupa todo el ancho, así que acá la
+     ilustración no puede ir centrada ni grande: se apoya en la esquina de
+     abajo, por encima de la línea del enlace, y baja la opacidad para no
+     comerle contraste a la descripción. */
+  /* Sin máscara: en una card de 330px cualquier degradado lateral se come una
+     columna del arco y la ilustración se lee partida. La opacidad sola ya la
+     mantiene por detrás del texto. */
+  .service-card-art { top: auto; bottom: 76px; right: 10px; max-width: 42%; max-height: 132px; transform: none; opacity: .15; -webkit-mask-image: none; mask-image: none; }
   .case-grid { margin-top: 36px; }
   .case-card, .case-card:first-child { grid-column: auto; min-height: 365px; }
   .case-card h3 { margin-top: 30px; }

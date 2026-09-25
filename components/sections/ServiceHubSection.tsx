@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { services } from '@/lib/services';
@@ -21,9 +22,23 @@ export default function ServiceHubSection() {
             tiene que seguir viendo a las cards como hijas directas para que
             .service-card:nth-child(n)::before le dé a cada una su glow. */}
         <div className="service-grid stagger">
-          {services.map(({ slug, number, icon: Icon, cardTitle, cardOutcome, cardDescription }) => (
+          {services.map(({ slug, number, illustration, cardTitle, cardOutcome, cardDescription }) => (
             <Reveal as={Link} className="service-card" href={`/servicios/${slug}`} key={slug}>
-              <div className="service-card-top"><span className="service-card-number">{number} / SERVICIO</span><span className="service-card-icon"><Icon size={22} strokeWidth={1.7} aria-hidden="true" /></span></div>
+              {/* Decorativa: el nombre del servicio ya está en el <h3>, así que
+                  va con alt vacío para que el lector de pantalla no lo repita.
+                  `unoptimized` porque el optimizador de Next no procesa SVG, y
+                  diferida porque la sección cae debajo del fold. */}
+              <Image
+                className="service-card-art"
+                src={illustration.src}
+                width={illustration.width}
+                height={illustration.height}
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+                unoptimized
+              />
+              <div className="service-card-top"><span className="service-card-number">{number} / SERVICIO</span></div>
               <div className="service-card-content">
                 <h3>{cardTitle}</h3>
                 <p className="service-card-outcome">{cardOutcome}</p>
