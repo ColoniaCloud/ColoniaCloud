@@ -34,9 +34,15 @@ export default function HeroSection() {
         </div>
         <p className="hero-caption" data-enter="fade-up" style={d(180)}>Una conversación clara para empezar. Sin compromiso.</p>
 
-        {/* Esta tarjeta cae debajo del fold en la mayoría de las pantallas, así
-            que acá sí conviene el observer: si entrara al cargar, la animación
-            se gastaría fuera de cuadro y nadie la vería. */}
+        {/* La tarjeta sigue cayendo debajo del fold en casi todas las
+            pantallas, así que acá conviene el observer: con `data-enter` la
+            animación se gastaría fuera de cuadro y nadie la vería.
+
+            Desde que el hero se achicó entra entera en 1920x990, y ahí el
+            observer le cuesta 244ms de espera desde el primer pintado (CPU 4x,
+            5Mbps, mediana de 5). Se queda igual: el LCP lo sigue marcando el
+            <h1>, y pasarla a `data-enter` arriesga que la foto —más grande que
+            el título— se vuelva el elemento LCP con un fundido de .8s encima. */}
         <Reveal variant="card-lift" className="hero-feature">
           <div className="hero-feature-photo" aria-hidden="true">
             <Image src="/atardecer colonia.webp" alt="" fill priority sizes="(max-width: 700px) 100vw, 1050px" />
