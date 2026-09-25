@@ -401,6 +401,15 @@ button, input, textarea { font: inherit; }
   .stagger > *:nth-child(6) { --cc-d: 400ms; }
 }
 
+/* Un elemento inline ignora `transform`, así que el desplazamiento de
+   cc-fade-up no llega a verse: el eyebrow entraría solo con fundido,
+   quieto, mientras todo lo que lo rodea sube. inline-block le da una caja
+   que sí se puede transformar y no cambia cómo se ve: la caja se sigue
+   ajustando al contenido y el texto largo ("Caso 01 / Marca alemana ·
+   Operación en Buenos Aires") sigue quebrando dentro de la card.
+   Va apuntado a los que animan para no tocar el resto del sitio. */
+.eyebrow[data-enter], .eyebrow[data-reveal] { display: inline-block; }
+
 /* line-rise necesita que algo recorte la línea mientras sube. El hijo va en
    block para que su translateY(100%) valga exactamente el alto de la línea.
    El padding vertical compensado con margen negativo le da aire a colas y
