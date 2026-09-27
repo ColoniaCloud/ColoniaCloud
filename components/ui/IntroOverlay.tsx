@@ -19,10 +19,13 @@ const EMPIEZAN_LETRAS = 360;
 const TERMINAN_LETRAS = EMPIEZAN_LETRAS + (FRASE.length - 1) * PASO_LETRA + DURA_LETRA;
 const T = {
   letras: EMPIEZAN_LETRAS,
-  // Casi medio segundo con la frase entera quieta, para poder leerla.
-  vuela: TERMINAN_LETRAS + 480,
-  abre: TERMINAN_LETRAS + 920,
-  fin: TERMINAN_LETRAS + 1740,
+  // Un cuarto de segundo con la frase entera quieta, para poder leerla.
+  vuela: TERMINAN_LETRAS + 260,
+  // Ventanas de 380ms para el vuelo y 500ms para el círculo. Tienen que
+  // coincidir con las duraciones del CSS: si acá fueran más cortas, la fase
+  // cambiaría antes de que la animación anterior termine.
+  abre: TERMINAN_LETRAS + 640,
+  fin: TERMINAN_LETRAS + 1140,
 };
 
 /* Se parte en palabras y recién adentro en letras. Partiendo solo en letras,

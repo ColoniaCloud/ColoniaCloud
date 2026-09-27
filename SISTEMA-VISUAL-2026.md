@@ -252,10 +252,12 @@ Solo aplica **de 701px para arriba**, y es deliberado: cada hijo tiene su propio
 
 | Momento | ms desde la navegación |
 |---|---|
-| Aparece el telón | ~290 |
-| El logo vuela al header | ~2110 |
-| Se abre el círculo | ~2530 |
-| El sitio queda a la vista | ~3360 |
+| Aparece el telón | ~340 |
+| El logo vuela al header | ~1910 |
+| Se abre el círculo | ~2310 |
+| El sitio queda a la vista | ~2790 |
+
+Las ventanas de cada fase en `IntroOverlay.tsx` tienen que coincidir con las duraciones del CSS —380ms el vuelo, 500ms el círculo—: si la fase cambiara antes, la animación anterior se cortaría a mitad.
 
 **Se muestra una vez por pestaña** (`sessionStorage`). Al navegar entre páginas no se repite: una intro en cada carga cansa. Con `prefers-reduced-motion` no se monta, y sin JavaScript tampoco existe — el sitio se ve directo en los dos casos. Un clic o una tecla la saltan.
 
@@ -269,7 +271,7 @@ Tres cosas que costaron y conviene no deshacer:
 
 La frase se parte en palabras y recién adentro en letras. Partiendo solo en letras, cada una es una caja independiente y el navegador corta el renglón donde quiere: salía como "pensado pa / ra ir más allá".
 
-**El LCP no se mueve**: 764ms con el telón, contra ~780ms sin él. Chrome no descuenta lo que queda tapado, así que el hero sigue contando como pintado. La métrica no cambia, pero la persona igual espera ~3,4s antes de ver el sitio: eso es una decisión de marca, no un número que se pueda optimizar.
+**El LCP no se mueve**: 764ms con el telón, contra ~780ms sin él. Chrome no descuenta lo que queda tapado, así que el hero sigue contando como pintado. La métrica no cambia, pero la persona igual espera ~2,8s antes de ver el sitio: eso es una decisión de marca, no un número que se pueda optimizar.
 
 ---
 

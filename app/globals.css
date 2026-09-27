@@ -552,12 +552,12 @@ button, input, textarea { font: inherit; }
 }
 
 /* El vuelo del logo y la salida de la frase ocurren juntos. */
-.intro-volando .intro-frase, .intro-abriendo .intro-frase { opacity: 0; transform: translate3d(0, -8px, 0); transition: opacity .32s var(--cc-ease-out), transform .32s var(--cc-ease-out); }
+.intro-volando .intro-frase, .intro-abriendo .intro-frase { opacity: 0; transform: translate3d(0, -8px, 0); transition: opacity .26s var(--cc-ease-out), transform .26s var(--cc-ease-out); }
 .intro-volando .intro-frase span, .intro-abriendo .intro-frase span { animation: none; }
 .intro-volando .intro-logo, .intro-abriendo .intro-logo {
   animation: none;
   transform: translate3d(var(--cc-intro-dx, 0), var(--cc-intro-dy, 0), 0) scale(var(--cc-intro-escala, 1));
-  transition: transform .72s cubic-bezier(.7, 0, .2, 1);
+  transition: transform .38s cubic-bezier(.7, 0, .2, 1);
 }
 
 /* La apertura circular. Va con máscara y no con clip-path porque acá hace
@@ -578,7 +578,7 @@ button, input, textarea { font: inherit; }
 .intro-abriendo {
   -webkit-mask-image: radial-gradient(circle at var(--cc-intro-x, 50%) var(--cc-intro-y, 50%), transparent var(--cc-intro-r), #000 calc(var(--cc-intro-r) + 1.5%));
   mask-image: radial-gradient(circle at var(--cc-intro-x, 50%) var(--cc-intro-y, 50%), transparent var(--cc-intro-r), #000 calc(var(--cc-intro-r) + 1.5%));
-  animation: cc-intro-abre .82s cubic-bezier(.5, 0, .2, 1) both;
+  animation: cc-intro-abre .5s cubic-bezier(.5, 0, .2, 1) both;
 }
 @keyframes cc-intro-abre {
   from { --cc-intro-r: 0%; }
