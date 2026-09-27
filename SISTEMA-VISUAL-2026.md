@@ -131,7 +131,7 @@ El orden de la página es: Hero → barra de disciplinas → Servicios → Casos
 - Fondo por capas: `::before` con tres gradientes radiales, `::after` con un halo naranja difuminado, y `.hero-grain` con una textura SVG de ruido al 11%
 - Coreografía de entrada: kicker 0ms, H1 0ms, bajada 80ms, botones 140ms, caption 180ms
 
-La **ventana del hero** (`.hero-window`) simula una ventana de iOS: barra de estado con la hora y los íconos de señal, wifi y batería; la foto de Colonia como pantalla; una hoja de vidrio con `backdrop-filter` sobre ella; y la barra de inicio abajo. La hora es 9:41, la que Apple usa en sus maquetas desde la primera presentación del iPhone.
+La **ventana del hero** (`.hero-window`) simula una ventana de **macOS Desktop**: cabecera translúcida con botones de semáforo (cerrar, minimizar, maximizar) a la izquierda y barra de dirección SSL con la URL `colonia.cloud` al centro; la foto de Colonia del Sacramento como pantalla; y una hoja de vidrio con `backdrop-filter` sobre ella.
 
 Dos cosas que conviene no revertir:
 

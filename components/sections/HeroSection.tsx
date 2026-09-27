@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { CSSProperties } from 'react';
-import { ArrowDown, ArrowUpRight, BatteryFull, SignalHigh, Wifi } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Lock } from 'lucide-react';
 import { whatsappHref } from '@/lib/contact';
 
 // Coreografía de entrada del hero. Va toda con `data-enter` (CSS puro, sin
@@ -42,16 +42,19 @@ export default function HeroSection() {
             fundido. Pintándola de una y animando solo transform y blur, el
             LCP vuelve a marcarlo el <h1>.
 
-            La hora es 9:41, la que Apple usa en sus maquetas desde la
-            primera presentación del iPhone. */}
+            Ventana de macOS Desktop con controles de semáforo y URL colonia.cloud */}
         <div className="hero-window" data-enter="rise-blur" style={d(220)}>
           <div className="hero-window-bar" aria-hidden="true">
-            <span className="hero-window-time">9:41</span>
-            <span className="hero-window-status">
-              <SignalHigh size={15} strokeWidth={2.4} />
-              <Wifi size={15} strokeWidth={2.4} />
-              <BatteryFull size={19} strokeWidth={2} />
-            </span>
+            <div className="hero-window-controls">
+              <span className="mac-dot mac-dot-close" />
+              <span className="mac-dot mac-dot-minimize" />
+              <span className="mac-dot mac-dot-maximize" />
+            </div>
+            <div className="hero-window-url">
+              <Lock size={12} className="hero-window-lock" />
+              <span>colonia.cloud</span>
+            </div>
+            <div className="hero-window-actions" />
           </div>
           <div className="hero-window-screen">
             <Image src="/atardecer colonia.webp" alt="" fill priority sizes="(max-width: 700px) 100vw, 1050px" />
@@ -61,7 +64,6 @@ export default function HeroSection() {
               <span className="hero-window-place">Colonia del Sacramento · Uruguay</span>
             </div>
           </div>
-          <span className="hero-window-indicator" aria-hidden="true" />
         </div>
       </div>
     </section>
