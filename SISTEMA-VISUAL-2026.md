@@ -246,6 +246,31 @@ Solo aplica **de 701px para arriba**, y es deliberado: cada hijo tiene su propio
 - **`prefers-reduced-motion: reduce`**: apaga explícitamente `[data-enter]` y `[data-reveal]`, además del bloque general que deja todo en .01ms. Verificado: 47 elementos, ninguno animando, ninguno oculto.
 - **Sin JavaScript**: el estado oculto vive dentro de `@media (scripting: enabled)`, así que el contenido se ve siempre. Preferimos texto quieto antes que texto invisible.
 
+### 5.7 Telón de entrada
+
+`components/ui/IntroOverlay.tsx` cubre el sitio al entrar, muestra el logo con la frase letra por letra, manda el logo a su lugar en el header y abre un círculo que descubre el contenido. En desktop la frase va al lado del logo; en móvil, abajo.
+
+| Momento | ms desde la navegación |
+|---|---|
+| Aparece el telón | ~290 |
+| El logo vuela al header | ~2110 |
+| Se abre el círculo | ~2530 |
+| El sitio queda a la vista | ~3360 |
+
+**Se muestra una vez por pestaña** (`sessionStorage`). Al navegar entre páginas no se repite: una intro en cada carga cansa. Con `prefers-reduced-motion` no se monta, y sin JavaScript tampoco existe — el sitio se ve directo en los dos casos. Un clic o una tecla la saltan.
+
+Tres cosas que costaron y conviene no deshacer:
+
+**El logo viaja con FLIP, no con coordenadas a mano.** Al llegar el momento se mide el rectángulo del logo del header y se anima hasta esa diferencia. Aterriza con 0px de desvío en los dos ejes, medido, y sigue cuadrando si cambia el tamaño del header.
+
+**El logo real del header se enciende cuando arranca el círculo**, no al final. Para entonces el del telón ya aterrizó exactamente encima, así que cuando la máscara se lo come, abajo hay otro idéntico en el mismo lugar. Sin eso, el logo se ve partirse mientras el círculo lo atraviesa.
+
+**La apertura anima el radio del degradado, no `mask-size`.** El primer intento hacía crecer `mask-size`, y estaba mal: fuera de la caja de la máscara el telón se vuelve transparente, así que en vez de un círculo abriéndose se veía un rectángulo oscuro con un agujero y el resto del sitio ya destapado. Con el degradado cubriendo el elemento entero, afuera del círculo queda opaco. El radio se interpola porque `--cc-intro-r` está registrada con `@property`.
+
+La frase se parte en palabras y recién adentro en letras. Partiendo solo en letras, cada una es una caja independiente y el navegador corta el renglón donde quiere: salía como "pensado pa / ra ir más allá".
+
+**El LCP no se mueve**: 764ms con el telón, contra ~780ms sin él. Chrome no descuenta lo que queda tapado, así que el hero sigue contando como pintado. La métrica no cambia, pero la persona igual espera ~3,4s antes de ver el sitio: eso es una decisión de marca, no un número que se pueda optimizar.
+
 ---
 
 ## 6. Accesibilidad

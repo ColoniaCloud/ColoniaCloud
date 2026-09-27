@@ -516,3 +516,89 @@ button, input, textarea { font: inherit; }
 @media (max-width: 380px) {
   .service-card-art { max-width: 62px; max-height: 62px; }
 }
+
+/* ============================================================
+   Telón de entrada — components/ui/IntroOverlay.tsx
+
+   Cubre el sitio, muestra el logo y la frase letra por letra, manda el logo
+   a su lugar en el header y abre un círculo que descubre el contenido.
+
+   Se monta solo desde JavaScript y una vez por pestaña. Sin JS no existe, y
+   con `prefers-reduced-motion` tampoco: el sitio se ve directo. Por eso el
+   contenido de abajo nunca depende del telón para ser visible.
+   ============================================================ */
+.intro { position: fixed; z-index: 999; inset: 0; display: grid; place-items: center; background: #0b0e19; cursor: pointer; }
+.intro-escena { display: flex; align-items: center; gap: 26px; padding-inline: 28px; }
+/* El SVG del logo es negro; el header y el footer lo pasan a blanco con el
+   mismo filtro. Sin esto queda negro sobre negro y no se ve. */
+.intro-logo img { width: 210px; height: auto; filter: brightness(0) invert(1); }
+
+/* El logo entra primero y solo: la frase llega después, cuando ya hay dónde
+   apoyarla. */
+.intro-logo { animation: cc-intro-logo .62s var(--cc-ease-out) both; }
+@keyframes cc-intro-logo {
+  from { opacity: 0; transform: translate3d(0, 14px, 0) scale(.96); filter: blur(9px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+
+.intro-frase { max-width: 24ch; margin: 0; font: 500 clamp(19px, 2.1vw, 30px)/1.25 var(--cc-font-display); letter-spacing: -.02em; color: #f2ece6; }
+/* Cada letra lleva su propio retardo en `--cc-d`, puesto desde el componente.
+   Van en inline-block porque una caja inline ignora `transform`. */
+.intro-palabra { display: inline-block; white-space: nowrap; }
+.intro-frase span span { display: inline-block; animation: cc-intro-letra .34s var(--cc-ease-out) var(--cc-d, 0s) both; }
+@keyframes cc-intro-letra {
+  from { opacity: 0; transform: translate3d(0, .32em, 0); filter: blur(5px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+
+/* El vuelo del logo y la salida de la frase ocurren juntos. */
+.intro-volando .intro-frase, .intro-abriendo .intro-frase { opacity: 0; transform: translate3d(0, -8px, 0); transition: opacity .32s var(--cc-ease-out), transform .32s var(--cc-ease-out); }
+.intro-volando .intro-frase span, .intro-abriendo .intro-frase span { animation: none; }
+.intro-volando .intro-logo, .intro-abriendo .intro-logo {
+  animation: none;
+  transform: translate3d(var(--cc-intro-dx, 0), var(--cc-intro-dy, 0), 0) scale(var(--cc-intro-escala, 1));
+  transition: transform .72s cubic-bezier(.7, 0, .2, 1);
+}
+
+/* La apertura circular. Va con máscara y no con clip-path porque acá hace
+   falta un agujero que crece dentro del telón, y `clip-path` recorta lo que
+   queda fuera de la forma, que es justo al revés.
+
+   El radio se anima como custom property registrada. El primer intento fue
+   hacer crecer `mask-size`, y estaba mal: fuera de la caja de la máscara el
+   telón se vuelve transparente, así que en vez de un círculo abriéndose se
+   veía un rectángulo oscuro con un agujero y el resto del sitio ya destapado.
+   Con el degradado cubriendo el elemento entero, afuera del círculo queda
+   negro opaco, que es el telón. */
+@property --cc-intro-r {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+.intro-abriendo {
+  -webkit-mask-image: radial-gradient(circle at var(--cc-intro-x, 50%) var(--cc-intro-y, 50%), transparent var(--cc-intro-r), #000 calc(var(--cc-intro-r) + 1.5%));
+  mask-image: radial-gradient(circle at var(--cc-intro-x, 50%) var(--cc-intro-y, 50%), transparent var(--cc-intro-r), #000 calc(var(--cc-intro-r) + 1.5%));
+  animation: cc-intro-abre .82s cubic-bezier(.5, 0, .2, 1) both;
+}
+@keyframes cc-intro-abre {
+  from { --cc-intro-r: 0%; }
+  to { --cc-intro-r: 165%; }
+}
+
+/* Mientras el telón está arriba: nada de scroll, y el logo del header
+   esperando apagado para que no se vean dos a la vez. El del telón aterriza
+   justo encima y recién ahí aparece el real. */
+.intro-activa { overflow: hidden; }
+.intro-activa:not(.intro-revelando) .site-logo img { opacity: 0; }
+
+@media (max-width: 700px) {
+  /* La frase va abajo del logo, no al lado: al lado no entra sin partirse en
+     tiras de dos palabras. */
+  .intro-escena { flex-direction: column; gap: 22px; text-align: center; }
+  .intro-logo img { width: 158px; }
+  .intro-frase { max-width: 17ch; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro { display: none; }
+}
