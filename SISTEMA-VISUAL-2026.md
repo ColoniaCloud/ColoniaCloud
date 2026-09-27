@@ -250,12 +250,17 @@ Solo aplica **de 701px para arriba**, y es deliberado: cada hijo tiene su propio
 
 `components/ui/IntroOverlay.tsx` cubre el sitio al entrar, muestra el logo con la frase letra por letra, manda el logo a su lugar en el header y abre un círculo que descubre el contenido. En desktop la frase va al lado del logo; en móvil, abajo.
 
-| Momento | ms desde la navegación |
+| Momento | ms desde que aparece el telón |
 |---|---|
-| Aparece el telón | ~340 |
-| El logo vuela al header | ~1910 |
-| Se abre el círculo | ~2310 |
-| El sitio queda a la vista | ~2790 |
+| Entran las letras | 360 → 1356 |
+| Pausa con la frase entera quieta | 640 |
+| El logo vuela al header | 1996 |
+| Se abre el círculo | 2376 |
+| El sitio queda a la vista | 2876 |
+
+Los tiempos van desde que el telón aparece y no desde la navegación, porque lo segundo incluye la hidratación y varía entre 300 y 500ms según la carga.
+
+La pausa con la frase quieta estuvo en 260ms y era demasiado poco: no se leía como una pausa sino como que la frase seguía de largo. Abajo de medio segundo no registra como un alto.
 
 Las ventanas de cada fase en `IntroOverlay.tsx` tienen que coincidir con las duraciones del CSS —380ms el vuelo, 500ms el círculo—: si la fase cambiara antes, la animación anterior se cortaría a mitad.
 
@@ -271,7 +276,7 @@ Tres cosas que costaron y conviene no deshacer:
 
 La frase se parte en palabras y recién adentro en letras. Partiendo solo en letras, cada una es una caja independiente y el navegador corta el renglón donde quiere: salía como "pensado pa / ra ir más allá".
 
-**El LCP no se mueve**: 764ms con el telón, contra ~780ms sin él. Chrome no descuenta lo que queda tapado, así que el hero sigue contando como pintado. La métrica no cambia, pero la persona igual espera ~2,8s antes de ver el sitio: eso es una decisión de marca, no un número que se pueda optimizar.
+**El LCP no se mueve**: 764ms con el telón, contra ~780ms sin él. Chrome no descuenta lo que queda tapado, así que el hero sigue contando como pintado. La métrica no cambia, pero la persona igual espera unos 3,2s antes de ver el sitio: eso es una decisión de marca, no un número que se pueda optimizar.
 
 ---
 
