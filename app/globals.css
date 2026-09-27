@@ -218,6 +218,13 @@ button, input, textarea { font: inherit; }
 .inner-hero { position: relative; overflow: hidden; padding: 183px 0 95px; border-bottom: 1px solid rgba(255,255,255,.09); background: radial-gradient(ellipse 70% 95% at 70% 120%,rgba(180,94,80,.25),transparent 70%),radial-gradient(ellipse 46% 70% at 17% 5%,rgba(70,81,151,.25),transparent 70%),#11131d; }
 .inner-hero h1 { max-width: 850px; margin-top: 20px; font-size: clamp(3.2rem,6.3vw,6.5rem); }
 .inner-hero p { max-width: 640px; margin-top: 25px; color: #bdbdc7; font-size: 17px; line-height: 1.65; }
+/* El titular del hero interior está topeado en 850px de los 1200 del
+   contenedor, así que a la derecha sobra lugar. Ahí va la ilustración del
+   servicio, en su propia columna de la grilla y no flotando encima: el texto
+   no puede quedar debajo por más que crezca. */
+.inner-hero-con-arte .site-container { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 50px; align-items: center; }
+.inner-hero-art { width: auto; height: auto; max-width: 210px; max-height: 210px; }
+
 .interior-section { padding-block: 86px; }
 .interior-alt { background: #141720; }
 .interior-title { font: 500 clamp(2.2rem,4vw,4rem)/1.08 var(--cc-font-display); letter-spacing: -.04em; }
@@ -316,6 +323,11 @@ button, input, textarea { font: inherit; }
   .final-cta .site-container { padding-block: 85px; }
   .inner-hero { padding: 150px 0 70px; }
   .inner-hero h1 { font-size: clamp(3rem, 11vw, 4.5rem); }
+  /* En una columna la ilustración va arriba, como emblema de la página, y no
+     de fondo detrás del texto: medido en las cards del home, una ilustración
+     en la columna de lectura cuesta contraste y no hay ancho para repartir. */
+  .inner-hero-con-arte .site-container { grid-template-columns: 1fr; gap: 26px; justify-items: start; }
+  .inner-hero-art { order: -1; max-width: 118px; max-height: 118px; }
   .interior-section { padding-block: 65px; }
   .custom-plan, .service-cta-box { display: block; padding: 27px; }
   .custom-plan a, .service-cta-box a { margin-top: 22px; }

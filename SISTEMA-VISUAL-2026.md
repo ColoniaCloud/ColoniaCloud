@@ -164,6 +164,16 @@ Dos decisiones que conviene no revertir sin volver a medir:
 | FAQ | `<details>` nativos, lista de 850px centrada |
 | CTA final | Centrado, 118px de padding vertical, con halo naranja |
 
+### 4.4 Hero de las fichas de servicio
+
+`InternalHero` lo comparten seis páginas, pero solo las cuatro fichas de servicio le pasan `illustration`. Con ella el contenedor pasa a una grilla de dos columnas y la ilustración ocupa el espacio que deja el titular, topeado en 850px de los 1200 del contenedor.
+
+Va en su propia columna y no flotando encima: el texto no puede quedar debajo por más que crezca. En móvil la grilla colapsa y la ilustración sube al principio con `order: -1`, como emblema de la página.
+
+Se evaluó ponerla de fondo en móvil, con transparencia. Medido sobre los glifos reales, ahí sí daba: 8.80:1 al 20% de opacidad, contra 8.68:1 del emblema —el titular de estas páginas es casi blanco y enorme, así que el presupuesto de contraste es mucho más holgado que en las cards del home, donde el mismo recurso fallaba AA—. Se eligió el emblema por consistencia: en el home estas ilustraciones son íconos presentes a color pleno, y de fondo al 20% dejan de reconocerse.
+
+Entra con `rise-blur` y `data-enter`, no por observer: está arriba del fold.
+
 ---
 
 ## 5. Animaciones de entrada

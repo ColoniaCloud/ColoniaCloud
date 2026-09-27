@@ -33,7 +33,7 @@ export default async function ServicioDetallePage({ params }: { params: Promise<
 
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-    <InternalHero badge={service.badge} title={service.heroTitle} description={service.heroDescription} />
+    <InternalHero badge={service.badge} title={service.heroTitle} description={service.heroDescription} illustration={service.illustration} />
     <section className="interior-section">
       <div className="site-container">
         <Link href="/servicios" className="section-link"><ArrowLeft size={15} aria-hidden="true" /> Todos los servicios</Link>
