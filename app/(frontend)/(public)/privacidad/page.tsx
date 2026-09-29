@@ -73,7 +73,8 @@ export default function PrivacidadPage() {
             Los mensajes enviados a través del formulario de contacto se procesan mediante{' '}
             <strong>Resend</strong>, un proveedor de envío de emails transaccionales, únicamente para
             hacer llegar el mensaje a nuestra casilla de correo. El sitio está alojado en{' '}
-            <strong>Vercel</strong>. Ninguno de estos proveedores utiliza los datos con fines propios
+            <strong>Hostinger</strong>. El contenido editorial se gestiona con Payload CMS, instalado
+            en el mismo entorno. Ninguno de estos proveedores utiliza los datos con fines propios
             distintos a la prestación técnica del servicio.
           </p>
           <p className={pClass}>

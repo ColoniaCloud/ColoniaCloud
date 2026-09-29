@@ -1,5 +1,10 @@
+import { withPayload } from '@payloadcms/next/withPayload';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  turbopack: {
+    root: process.cwd(),
+  },
   // Con `revalidate` en el layout Next emite `s-maxage=3600` y agrega
   // `stale-while-revalidate` hasta este tope. Sin fijarlo, el tope es un año
   // y el CDN podría seguir sirviendo HTML viejo mientras revalida. Con 7200,
@@ -21,4 +26,4 @@ const nextConfig = {
   // (Redirects del sitio), que responde en el borde antes de llegar a Next.
 };
 
-export default nextConfig;
+export default withPayload(nextConfig);

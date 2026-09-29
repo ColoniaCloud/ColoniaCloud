@@ -1,4 +1,6 @@
 import type { MetadataRoute } from 'next';
+import { getPayload } from 'payload';
+import config from '@payload-config';
 import { services } from '@/lib/services';
 
 const BASE_URL = 'https://colonia.cloud';
@@ -8,12 +10,15 @@ const BASE_URL = 'https://colonia.cloud';
 // hace falta precisión por URL, reemplazar por fechas manuales.
 const lastModified = new Date();
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export const dynamic = 'force-dynamic';
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: BASE_URL, lastModified, changeFrequency: 'weekly', priority: 1 },
     { url: `${BASE_URL}/nosotros`, lastModified, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE_URL}/servicios`, lastModified, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${BASE_URL}/contacto`, lastModified, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${BASE_URL}/blog`, lastModified, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE_URL}/privacidad`, lastModified, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${BASE_URL}/terminos`, lastModified, changeFrequency: 'yearly', priority: 0.3 },
   ];
@@ -25,5 +30,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...serviceRoutes];
+  const payload = await getPayload({ config });
+  const { docs } = await payload.find({
+    collection: 'posts',
+    where: { status: { equals: 'published' } },
+    limit: 1000,
+    select: { slug: true, updatedAt: true },
+  });
+  const blogRoutes: MetadataRoute.Sitemap = docs.map(({ slug, updatedAt }) => ({
+    url: `${BASE_URL}/blog/${slug}`,
+    lastModified: updatedAt ? new Date(String(updatedAt)) : lastModified,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...serviceRoutes, ...blogRoutes];
 }

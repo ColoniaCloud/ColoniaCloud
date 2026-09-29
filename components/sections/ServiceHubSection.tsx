@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { services } from '@/lib/services';
 import Reveal from '@/components/ui/Reveal';
@@ -16,14 +15,14 @@ export default function ServiceHubSection() {
             <Reveal as="h2" variant="blur-in" id="services-title" className="display" delay={60}>Cuatro formas<br />de avanzar.</Reveal>
             <Reveal as="p" className="body-copy" delay={140}>Cada negocio tiene su propio momento. Encontramos el servicio adecuado y lo hacemos trabajar junto a los demás.</Reveal>
           </div>
-          <Reveal as={Link} href="/servicios" className="section-link" delay={200}>Ver todos los servicios <ArrowUpRight size={16} aria-hidden="true" /></Reveal>
+          <Reveal as="a" href="/servicios" className="section-link" delay={200}>Ver todos los servicios <ArrowUpRight size={16} aria-hidden="true" /></Reveal>
         </div>
-        {/* El Reveal renderiza el propio <Link>, sin nodo intermedio: la grilla
+        {/* El Reveal renderiza el propio <a>, sin nodo intermedio: la grilla
             tiene que seguir viendo a las cards como hijas directas para que
             .service-card:nth-child(n)::before le dé a cada una su glow. */}
         <div className="service-grid stagger">
           {services.map(({ slug, number, illustration, cardTitle, cardOutcome, cardDescription }) => (
-            <Reveal as={Link} className="service-card" href={`/servicios/${slug}`} key={slug}>
+            <Reveal as="a" className="service-card" href={`/servicios/${slug}`} key={slug}>
               {/* La ilustración va DENTRO de la fila de arriba, no posicionada
                   encima: como el bloque de texto lleva `margin-top: auto`, al
                   ocupar lugar en el flujo lo empuja hacia abajo y no hay ancho
