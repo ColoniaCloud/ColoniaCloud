@@ -16,6 +16,7 @@
 # production
 /build
 /data
+app/(payload)/admin/importMap.js
 
 # misc
 .DS_Store

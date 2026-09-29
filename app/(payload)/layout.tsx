@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { RootLayout, handleServerFunctions } from '@payloadcms/next/layouts';
 import config from '@payload-config';
-import { importMap } from './admin/importMap';
+import { importMap } from './admin/importMap.js';
 import '@payloadcms/next/css';
 
 export const metadata: Metadata = {

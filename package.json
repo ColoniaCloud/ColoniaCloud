@@ -4,10 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build --webpack",
+    "dev": "payload generate:importmap && next dev",
+    "build": "payload generate:importmap && next build --webpack",
     "start": "payload migrate && next start",
     "payload": "payload",
+    "payload:importmap": "payload generate:importmap",
     "payload:types": "payload generate:types",
     "lint": "eslint ."
   },
