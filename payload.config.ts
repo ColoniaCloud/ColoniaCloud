@@ -8,6 +8,7 @@ import { buildConfig } from 'payload';
 import { Media } from './collections/Media';
 import { Posts } from './collections/Posts';
 import { Users } from './collections/Users';
+import { migrations } from './migrations';
 
 const dataDir = process.env.PAYLOAD_DATA_DIR || path.join(process.cwd(), 'data');
 mkdirSync(path.join(dataDir, 'media'), { recursive: true });
@@ -22,6 +23,7 @@ export default buildConfig({
       url: pathToFileURL(path.join(dataDir, 'payload.sqlite')).href,
     },
     migrationDir: path.join(process.cwd(), 'migrations'),
+    prodMigrations: migrations,
   }),
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

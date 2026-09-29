@@ -63,7 +63,7 @@ El formulario de contacto envía los mensajes por [Resend](https://resend.com); 
 
 El panel editorial está en `/admin`. En el primer acceso, creá el usuario administrador; luego gestioná artículos y sus imágenes desde el panel. Los artículos se publican en `/blog` y `/blog/[slug]`.
 
-Payload usa SQLite y guarda la base y los archivos en `PAYLOAD_DATA_DIR` (por defecto `./data`). En Hostinger Cloud Startup, configurá `PAYLOAD_SECRET` y apuntá `PAYLOAD_DATA_DIR` a una carpeta escribible que persista entre despliegues. El comando de inicio ejecuta las migraciones pendientes antes de levantar Next.js. Hacé copias de seguridad periódicas de esa carpeta.
+Payload usa SQLite y guarda la base y los archivos en `PAYLOAD_DATA_DIR` (por defecto `./data`). En Hostinger Cloud Startup, configurá `PAYLOAD_SECRET` y apuntá `PAYLOAD_DATA_DIR` a una carpeta escribible que persista entre despliegues. Payload aplica las migraciones pendientes al inicializarse en producción; el script `start` también las ejecuta antes de levantar Next.js cuando la plataforma lo respeta. Hacé copias de seguridad periódicas de esa carpeta.
 
 La aplicación requiere Node.js 20.9 o posterior; confirmá la versión seleccionada para el proceso Node.js en hPanel.
 
