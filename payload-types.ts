@@ -171,8 +171,21 @@ export interface Post {
     };
     [k: string]: unknown;
   };
+  author?: (number | null) | User;
   status: 'draft' | 'published';
   publishedAt: string;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    /**
+     * El artículo sigue visible en el sitio, pero sale del sitemap y pide a Google que no lo indexe.
+     */
+    noindex?: boolean | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -195,6 +208,14 @@ export interface Media {
   focalX?: number | null;
   focalY?: number | null;
   sizes?: {
+    og?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
     card?: {
       url?: string | null;
       width?: number | null;
@@ -325,8 +346,17 @@ export interface PostsSelect<T extends boolean = true> {
   excerpt?: T;
   coverImage?: T;
   content?: T;
+  author?: T;
   status?: T;
   publishedAt?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        noindex?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -350,6 +380,16 @@ export interface MediaSelect<T extends boolean = true> {
   sizes?:
     | T
     | {
+        og?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
         card?:
           | T
           | {

@@ -10,7 +10,9 @@ export const metadata: Metadata = {
   alternates: { canonical: '/blog' },
 };
 
-export const dynamic = 'force-dynamic';
+// ISR: el listado se regenera como mucho cada 5 minutos y los hooks
+// `afterChange` de la colección lo refrescan al publicar o borrar.
+export const revalidate = 300;
 
 export default async function BlogPage() {
   const payload = await getPayload({ config });

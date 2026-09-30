@@ -74,6 +74,21 @@ export const Posts: CollectionConfig = {
       required: true,
     },
     {
+      name: 'author',
+      type: 'relationship',
+      relationTo: 'users',
+      // Google y el schema `BlogPosting` piden un autor identificable, pero el
+      // campo no es `required`: SQLite no acepta agregar una columna NOT NULL
+      // sin default a una tabla que ya existe, y marcarlo obligatorio rompía
+      // la migración. En la práctica siempre viene cargado porque toma por
+      // defecto al usuario que crea el artículo; si faltara, el schema y el
+      // metadata caen a "Colonia Cloud".
+      defaultValue: ({ user }) => user?.id,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'status',
       type: 'select',
       required: true,

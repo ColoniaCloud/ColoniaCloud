@@ -3,12 +3,15 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { sqliteAdapter } from '@payloadcms/db-sqlite';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
+import { seoPlugin } from '@payloadcms/plugin-seo';
+import type { GenerateTitle, GenerateDescription, GenerateURL } from '@payloadcms/plugin-seo/types';
 import sharp from 'sharp';
 import { buildConfig } from 'payload';
 import { Media } from './collections/Media';
 import { Posts } from './collections/Posts';
 import { Users } from './collections/Users';
 import { migrations } from './migrations';
+import type { Post } from './payload-types';
 
 // SQLite y las imágenes viven en disco, así que el directorio tiene que
 // sobrevivir al despliegue. Hostinger reemplaza el directorio de la app en
@@ -31,6 +34,20 @@ if (process.env.NODE_ENV === 'production') {
   }
 }
 
+const SITE_URL = 'https://colonia.cloud';
+
+// Valores por defecto de la pestaña SEO. El editor los puede pisar; sirven
+// para que un artículo sin trabajo de SEO igual salga con algo razonable.
+// El title suma la marca (queda ~60 caracteres con un título normal) y la
+// description arranca del excerpt, que es lo único que ya está escrito.
+const generateTitle: GenerateTitle<Post> = ({ doc }) =>
+  doc?.title ? `${doc.title} — Colonia Cloud` : 'Colonia Cloud';
+
+const generateDescription: GenerateDescription<Post> = ({ doc }) => doc?.excerpt || '';
+
+const generateURL: GenerateURL<Post> = ({ doc }) =>
+  doc?.slug ? `${SITE_URL}/blog/${doc.slug}` : SITE_URL;
+
 export default buildConfig({
   admin: {
     user: 'users',
@@ -44,6 +61,33 @@ export default buildConfig({
     prodMigrations: migrations,
   }),
   editor: lexicalEditor(),
+  plugins: [
+    seoPlugin({
+      collections: ['posts'],
+      uploadsCollection: 'media',
+      tabbedUI: true,
+      generateTitle,
+      generateDescription,
+      generateURL,
+      // `noindex` vive con el resto del SEO en vez de en la barra lateral:
+      // es una decisión de indexación, no de publicación. Un artículo puede
+      // estar publicado y visible pero fuera de Google (una landing de
+      // campaña, un texto legal, una versión vieja que todavía se linkea).
+      fields: ({ defaultFields }) => [
+        ...defaultFields,
+        {
+          name: 'noindex',
+          type: 'checkbox',
+          label: 'Excluir de los buscadores (noindex)',
+          defaultValue: false,
+          admin: {
+            description:
+              'El artículo sigue visible en el sitio, pero sale del sitemap y pide a Google que no lo indexe.',
+          },
+        },
+      ],
+    }),
+  ],
   secret: process.env.PAYLOAD_SECRET || '',
   sharp,
   typescript: {

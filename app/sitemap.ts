@@ -31,9 +31,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const payload = await getPayload({ config });
+  // Los artículos marcados como `noindex` en la pestaña SEO no entran: pedirle
+  // a Google que no indexe una URL y listarla en el sitemap es contradictorio.
   const { docs } = await payload.find({
     collection: 'posts',
-    where: { status: { equals: 'published' } },
+    where: {
+      and: [
+        { status: { equals: 'published' } },
+        { 'meta.noindex': { not_equals: true } },
+      ],
+    },
     limit: 1000,
     select: { slug: true, updatedAt: true },
   });

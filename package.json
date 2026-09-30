@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "payload generate:importmap && next dev",
-    "build": "payload generate:importmap && next build --webpack",
+    "build": "payload generate:importmap && payload migrate && next build --webpack",
     "start": "payload migrate && next start",
     "payload": "payload",
     "payload:importmap": "payload generate:importmap",
@@ -16,6 +16,7 @@
     "@hookform/resolvers": "^5.4.0",
     "@payloadcms/db-sqlite": "3.90.2",
     "@payloadcms/next": "3.90.2",
+    "@payloadcms/plugin-seo": "3.90.2",
     "@payloadcms/richtext-lexical": "3.90.2",
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-dropdown-menu": "^2.1.16",
