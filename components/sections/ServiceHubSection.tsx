@@ -13,7 +13,7 @@ export default function ServiceHubSection() {
             {/* blur-in solo en el titular: sobre texto de 14px el desenfoque
                 se ve sucio y cuesta GPU de más en móvil. */}
             <Reveal as="h2" variant="blur-in" id="services-title" className="display" delay={60}>Cuatro formas<br />de avanzar.</Reveal>
-            <Reveal as="p" className="body-copy" delay={140}>Cada negocio tiene su propio momento. Encontramos el servicio adecuado y lo hacemos trabajar junto a los demás.</Reveal>
+            <Reveal as="p" className="body-copy" delay={140}>Cada negocio tiene su propio momento. Encontramos el servicio adecuado y lo hacemos trabajar junto a los demás, con infraestructura eficiente y sin desperdicio de recursos.</Reveal>
           </div>
           <Reveal as="a" href="/servicios" className="section-link" delay={200}>Ver todos los servicios <ArrowUpRight size={16} aria-hidden="true" /></Reveal>
         </div>

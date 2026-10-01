@@ -23,7 +23,7 @@ export default function HeroSection() {
         <span className="hero-kicker" data-enter="fade-up"><i aria-hidden="true" /> Desde Colonia del Sacramento</span>
         <h1 id="hero-title" className="display" data-enter="rise">Ideas que avanzan.<br /><em>Tecnología que acompaña.</em></h1>
         <p className="hero-lede" data-enter="fade-up" style={d(80)}>
-          Diseño web, marketing, infraestructura cloud e IA aplicada. Unimos lo creativo y lo técnico para que tu negocio llegue más lejos.
+          Diseño web, marketing, infraestructura cloud e IA aplicada, con un uso consciente de los recursos digitales. Unimos lo creativo y lo técnico para que tu negocio llegue más lejos.
         </p>
         <div className="hero-actions" data-enter="fade-up" style={d(140)}>
           <a className="btn-primary" href={whatsappHref('Hola, quiero hablar de un proyecto con Colonia Cloud.')} target="_blank" rel="noopener noreferrer">

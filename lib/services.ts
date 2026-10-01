@@ -91,6 +91,7 @@ export const services: Service[] = [
       { title: 'Bases de datos', description: 'Soluciones relacionales y no relacionales según el uso de tus datos.' },
       { title: 'Servidores VPS', description: 'Servidores virtuales configurados para tu proyecto.' },
       { title: 'Nube empresarial', description: 'Soporte para Azure, AWS, Google Cloud y Oracle Cloud.' },
+      { title: 'Eficiencia energética', description: 'Arquitectura dimensionada a tu uso real, sin sobreprovisionar recursos ni consumo.' },
     ],
     deliverables: ['Arquitectura según el proyecto', 'Implementación y configuración', 'Soporte técnico', 'Documentación del entorno'],
     ctaTitle: 'Dale una base sólida a tu operación.', ctaDescription: 'Contanos qué sistemas necesitás sostener y diseñamos la infraestructura.',
