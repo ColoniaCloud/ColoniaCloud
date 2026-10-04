@@ -18,7 +18,20 @@ export default function CasosSection() {
           {casos.map((caso, index) => (
             <Reveal as="article" key={caso.cliente} className="case-card">
               <span className="eyebrow">Caso 0{index + 1} / {caso.mercado}</span>
-              <h3>{caso.cliente}</h3>
+              {/* El logo hace de titular. La altura sale de la proporción del
+                  archivo (área visual constante): un logo apaisado queda más
+                  bajo y uno compacto más alto, y los tres pesan lo mismo. */}
+              <h3 className="case-logo">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={caso.logo.src}
+                  alt={caso.cliente}
+                  width={caso.logo.ancho}
+                  height={caso.logo.alto}
+                  loading="lazy"
+                  style={{ height: Math.round(78 / Math.sqrt(caso.logo.ancho / caso.logo.alto)) }}
+                />
+              </h3>
               {caso.dominio && <a className="case-domain" href={`https://${caso.dominio}`} target="_blank" rel="noopener noreferrer">{caso.dominio} <ArrowUpRight size={14} aria-hidden="true" /></a>}
               <p style={{ marginTop: 18 }}>{caso.desafio}</p>
               <div className="case-result"><strong>Lo que construimos</strong><p>{caso.entregables.slice(0, 3).join(' · ')}</p></div>

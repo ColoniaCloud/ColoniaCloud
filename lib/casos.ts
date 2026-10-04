@@ -21,6 +21,12 @@ export type Caso = {
   entregables: string[];
   /** En qué terminó. Sin números inventados: solo lo verificable. */
   resultado: string;
+  /**
+   * Logo del cliente en versión blanca sobre transparente (las cards son
+   * oscuras). `ancho` y `alto` son las proporciones del archivo: la card las
+   * usa para igualar el peso visual entre logos anchos y compactos.
+   */
+  logo: { src: string; ancho: number; alto: number };
 };
 
 export const casos: Caso[] = [
@@ -40,21 +46,24 @@ export const casos: Caso[] = [
     ],
     resultado:
       'Ecommerce, mostrador y equipo comercial trabajando sobre un mismo sistema, con el área tecnológica del local administrada por nosotros de punta a punta.',
+    logo: { src: '/casos/kristallfilm.svg', ancho: 1305, alto: 215 },
   },
   {
-    cliente: 'ATR Poker',
-    rubro: 'Plataforma de juego y formación online',
-    mercado: 'Producto digital multiplataforma',
+    cliente: 'Abraxas Joyería',
+    dominio: 'joyasabraxas.com',
+    rubro: 'Joyería artesanal',
+    mercado: 'Montevideo · Envíos a todo Uruguay',
     desafio:
-      'Un producto 100% digital que dependía de captar tráfico por buscadores y de formar a sus usuarios dentro de la propia plataforma.',
+      'Una joyería artesanal que necesitaba vender en todo el país con una tienda a la altura de sus piezas, sin perder la atención personalizada.',
     entregables: [
-      'Sitio web de la plataforma',
-      'Aplicación móvil multiplataforma',
-      'Gestión integral avanzada de SEO',
-      'Sistema de e-learning a medida',
+      'Tienda online headless con WooCommerce y Next.js',
+      'Catálogo por colecciones con pagos por MercadoPago',
+      'Blog, newsletter y atención por WhatsApp',
+      'SEO técnico y datos estructurados de joyería',
     ],
     resultado:
-      'Web y app sobre una misma base, con la captación orgánica gestionada de forma continua y la formación de usuarios resuelta dentro del producto.',
+      'Una tienda rápida y cuidada que vende a todo Uruguay, con el catálogo administrado por la marca desde WordPress.',
+    logo: { src: '/casos/abraxas.png', ancho: 374, alto: 86 },
   },
   {
     cliente: 'Ceromarket',
@@ -70,5 +79,6 @@ export const casos: Caso[] = [
     ],
     resultado:
       'El negocio se hizo conocido en poco tiempo desde la apertura, apoyado en el posicionamiento orgánico del sitio y en la campaña en redes.',
+    logo: { src: '/casos/ceromarket.png', ancho: 448, alto: 190 },
   },
 ];
