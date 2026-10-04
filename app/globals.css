@@ -183,16 +183,22 @@ button, input, textarea { font: inherit; }
 
 .cases-section { background: #11131b; }
 .case-grid { display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 15px; margin-top: 50px; }
-.case-card { display: flex; flex-direction: column; min-height: 430px; padding: 30px; border: 1px solid rgba(255,255,255,.1); border-radius: 20px; background: #1b1d27; }
+/* Cada card ocupa 4 filas compartidas (eyebrow, logo, desafío, entregables):
+   con subgrid las filas miden lo que el contenido más alto de esa fila, y las
+   tres cards quedan alineadas línea por línea. */
+.case-card { display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 0; padding: 30px; border: 1px solid rgba(255,255,255,.1); border-radius: 20px; background: #1b1d27; }
 .case-card:first-child { background: linear-gradient(145deg,#332325,#1b1d27 62%); }
-.case-card h3 { margin-top: 44px; font: 500 31px/1.1 var(--cc-font-display); letter-spacing: -.035em; }
-.case-card h3.case-logo { display: flex; align-items: flex-end; min-height: 52px; }
+.case-head { display: flex; flex-direction: column; align-items: flex-start; padding-top: 42px; }
+/* Caja de altura fija con el logo apoyado abajo: los logos de distinta
+   proporción comparten la misma línea base y el dominio cae siempre igual. */
+.case-card h3.case-logo { display: flex; align-items: flex-end; height: 52px; }
 .case-logo img { display: block; width: auto; max-width: 100%; opacity: .78; filter: drop-shadow(0 6px 18px rgba(0,0,0,.35)); transition: opacity .4s ease, transform .4s ease; transform-origin: left bottom; }
 .case-card:hover .case-logo img { opacity: 1; transform: scale(1.03); }
 @media (prefers-reduced-motion: reduce) { .case-card:hover .case-logo img { transform: none; } }
 .case-card .case-domain { display: inline-flex; align-items: center; gap: 5px; margin-top: 14px; color: #ffc095; font-size: 12px; }
 .case-card p { color: #b4b3bc; font-size: 14px; line-height: 1.6; }
-.case-result { margin-top: auto; padding-top: 25px; border-top: 1px solid rgba(255,255,255,.12); }
+.case-card .case-challenge { margin-top: 22px; padding-bottom: 28px; }
+.case-result { padding-top: 24px; border-top: 1px solid rgba(255,255,255,.12); }
 .case-result strong { display: block; margin-bottom: 9px; color: #f6eee8; font-size: 13px; }
 
 .process-section { background: #0e1018; }
@@ -327,7 +333,7 @@ button, input, textarea { font: inherit; }
 @media (max-width: 900px) {
   .nav-links { gap: 18px; }
   .case-grid { grid-template-columns: 1fr 1fr; }
-  .case-card:first-child { grid-column: 1 / -1; min-height: 300px; }
+  .case-card:first-child { grid-column: 1 / -1; }
   .process-grid { gap: 35px; }
 }
 @media (max-width: 700px) {
@@ -367,8 +373,8 @@ button, input, textarea { font: inherit; }
     transform: scale(1.8) translate(-15px, 20px);
   }
   .case-grid { margin-top: 36px; }
-  .case-card, .case-card:first-child { grid-column: auto; min-height: 365px; }
-  .case-card h3 { margin-top: 30px; }
+  .case-card, .case-card:first-child { grid-column: auto; }
+  .case-head { padding-top: 30px; }
   .process-photo { min-height: 390px; }
   .process-grid { gap: 42px; }
   .product-grid { margin-top: 36px; }
