@@ -13,7 +13,7 @@ const dmSans = DM_Sans({
   display: 'swap',
 });
 
-const title = 'Colonia Cloud — Diseño y tecnología desde Colonia';
+const title = 'Colonia Cloud · Diseño y tecnología desde Colonia';
 const description =
   'Diseño web, marketing digital, infraestructura cloud e IA aplicada para negocios que quieren avanzar. Desde Colonia del Sacramento, Uruguay.';
 

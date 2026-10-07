@@ -3,7 +3,7 @@ import Link from 'next/link';
 import InternalHero from '@/components/ui/InternalHero';
 
 export const metadata: Metadata = {
-  title: 'Términos y Condiciones — Colonia Cloud',
+  title: 'Términos y Condiciones · Colonia Cloud',
   description:
     'Condiciones que regulan el uso del sitio colonia.cloud y la contratación de servicios de Colonia Cloud.',
   alternates: { canonical: '/terminos' },

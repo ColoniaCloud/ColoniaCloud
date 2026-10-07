@@ -41,7 +41,7 @@ const SITE_URL = 'https://colonia.cloud';
 // El title suma la marca (queda ~60 caracteres con un título normal) y la
 // description arranca del excerpt, que es lo único que ya está escrito.
 const generateTitle: GenerateTitle<Post> = ({ doc }) =>
-  doc?.title ? `${doc.title} — Colonia Cloud` : 'Colonia Cloud';
+  doc?.title ? `${doc.title} · Colonia Cloud` : 'Colonia Cloud';
 
 const generateDescription: GenerateDescription<Post> = ({ doc }) => doc?.excerpt || '';
 

@@ -5,7 +5,7 @@ import { WhatsAppIcon } from '@/components/ui/brand-icons';
 import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
-  title: 'Gracias — Colonia Cloud',
+  title: 'Gracias · Colonia Cloud',
   robots: { index: false, follow: false },
 };
 

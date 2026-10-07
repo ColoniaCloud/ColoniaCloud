@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const { slug } = await params;
   const service = getService(slug);
   if (!service) return {};
-  return { title: `${service.name} — Colonia Cloud`, description: service.heroDescription, alternates: { canonical: `/servicios/${slug}` } };
+  return { title: `${service.name} · Colonia Cloud`, description: service.heroDescription, alternates: { canonical: `/servicios/${slug}` } };
 }
 
 export default async function ServicioDetallePage({ params }: { params: Promise<Params> }) {

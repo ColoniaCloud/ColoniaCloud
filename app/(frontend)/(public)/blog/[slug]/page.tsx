@@ -43,7 +43,7 @@ function resolveSeo(post: Post) {
   const author = post.author && typeof post.author === 'object' ? post.author : null;
 
   return {
-    title: post.meta?.title || `${post.title} — Colonia Cloud`,
+    title: post.meta?.title || `${post.title} · Colonia Cloud`,
     description: post.meta?.description || post.excerpt,
     noindex: Boolean(post.meta?.noindex),
     cover,
@@ -75,7 +75,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = await findPublishedPost(slug);
-  if (!post) return { title: 'Artículo no encontrado — Colonia Cloud' };
+  if (!post) return { title: 'Artículo no encontrado · Colonia Cloud' };
 
   const seo = resolveSeo(post);
 

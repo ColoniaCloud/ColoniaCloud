@@ -5,7 +5,7 @@ import { getPayload } from 'payload';
 import config from '@payload-config';
 
 export const metadata: Metadata = {
-  title: 'Blog — Colonia Cloud',
+  title: 'Blog · Colonia Cloud',
   description: 'Ideas, guías y novedades sobre diseño web, marketing, infraestructura cloud e inteligencia artificial.',
   alternates: { canonical: '/blog' },
 };

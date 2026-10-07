@@ -5,7 +5,7 @@ import ContactForm from '@/components/ui/ContactForm';
 import { whatsappHref } from '@/lib/contact';
 
 export const metadata: Metadata = {
-  title: 'Contacto — Colonia Cloud',
+  title: 'Contacto · Colonia Cloud',
   description: 'Contanos tu proyecto. Hablemos por WhatsApp o dejanos un mensaje.',
   alternates: { canonical: '/contacto' },
 };

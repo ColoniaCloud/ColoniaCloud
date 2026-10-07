@@ -5,7 +5,7 @@ import InternalHero from '@/components/ui/InternalHero';
 import SectionCta from '@/components/ui/SectionCta';
 
 export const metadata: Metadata = {
-  title: 'Nosotros — Colonia Cloud',
+  title: 'Nosotros · Colonia Cloud',
   description: 'Diseño y tecnología desde Colonia del Sacramento, Uruguay. Conocé la forma en que trabajamos.',
   alternates: { canonical: '/nosotros' },
 };

@@ -7,7 +7,7 @@ import PlanGrid from '@/components/ui/PlanGrid';
 import { services } from '@/lib/services';
 
 export const metadata: Metadata = {
-  title: 'Servicios — Colonia Cloud',
+  title: 'Servicios · Colonia Cloud',
   description: 'Diseño web, marketing digital, infraestructura cloud e IA y automatizaciones desde Colonia del Sacramento.',
   alternates: { canonical: '/servicios' },
 };

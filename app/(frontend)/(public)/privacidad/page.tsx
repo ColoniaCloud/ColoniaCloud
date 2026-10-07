@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import InternalHero from '@/components/ui/InternalHero';
 
 export const metadata: Metadata = {
-  title: 'Política de Privacidad — Colonia Cloud',
+  title: 'Política de Privacidad · Colonia Cloud',
   description:
     'Cómo Colonia Cloud recopila, usa y protege los datos personales de quienes visitan el sitio o se ponen en contacto.',
   alternates: { canonical: '/privacidad' },
