@@ -1,15 +1,15 @@
 # Colonia Cloud — diseño y oferta vigente
 
-**Septiembre de 2026.** Este documento reemplaza las decisiones de interfaz y catálogo de `01-brandbook.md` a `04-productos-servicios.md` cuando haya diferencias.
+**Actualizado el 15 de octubre de 2026.** Este documento reemplaza las decisiones de interfaz y catálogo de `01-brandbook.md` a `04-productos-servicios.md` cuando haya diferencias.
 
 Acá van la dirección y la oferta. La implementación —tokens, tipografía, grilla, anatomía de componentes y el sistema de animaciones— está en [`SISTEMA-VISUAL-2026.md`](SISTEMA-VISUAL-2026.md).
 
 ## Dirección visual
 
-- Interfaz oscura con una atmósfera de atardecer: azul profundo, carbón y luz cálida.
+- Fondo general celeste casi blanco (`#F5FAFD`), texto azul oscuro (`#162833`) y superficies blancas. Sin gradientes decorativos.
 - Tipografía Clash Display para titulares y DM Sans para lectura y controles.
-- Composición editorial con fotografías reales de Colonia del Sacramento.
-- El hero usa gradientes CSS y `public/atardecer colonia.webp`; no carga video ni WebGL.
+- Composición con fotografías reales de Colonia del Sacramento en las secciones de contenido.
+- Hero de alto mínimo igual al viewport dinámico (`100dvh`), con video local `public/drone.mp4` ocupando todo el fondo y contenido centrado horizontal y verticalmente sobre una capa oscura. Isologo blanco con entrada desde abajo, desenfoque y fundido; titular y subtítulo entran palabra por palabra. Los botones principales usan un gradiente negro vertical. En móvil el video también ocupa el fondo; con movimiento reducido se muestra el póster hasta que se solicita reproducir.
 - Los casos muestran trabajo verificable. Los testimonios de origen pendiente de confirmar no aparecen en la home.
 
 ## Servicios
