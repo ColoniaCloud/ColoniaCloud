@@ -275,7 +275,7 @@ body:has(main > [data-dark-top]) .site-header:not(.is-solid) .nav-client:hover {
 .client-strip-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 22px 48px; }
 .client-strip p { margin: 0; color: rgb(var(--cc-on-ink-soft)); font-size: 15px; }
 .client-logos { display: flex; flex-wrap: wrap; align-items: center; gap: 22px 52px; margin: 0; padding: 0; list-style: none; }
-.client-logos img { display: block; width: auto; opacity: 0.86; }
+.client-logos svg { display: block; opacity: 0.86; }
 
 /* ---------- Servicios ---------- */
 .service-layout { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(32px, 6vw, 96px); align-items: start; }

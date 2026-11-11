@@ -5,6 +5,8 @@ import {
   siGooglecloud,
   siMysql,
   siRedhat,
+  siGoogle,
+  siMeta,
   siAnthropic,
   type SimpleIcon,
 } from 'simple-icons';
@@ -39,6 +41,17 @@ export const GoogleCloudIcon = createBrandIcon(siGooglecloud);
 export const MysqlIcon = createBrandIcon(siMysql);
 export const RedhatIcon = createBrandIcon(siRedhat);
 export const AnthropicIcon = createBrandIcon(siAnthropic);
+export const GoogleIcon = createBrandIcon(siGoogle);
+export const MetaIcon = createBrandIcon(siMeta);
+
+// simple-icons tampoco distribuye el de Oracle: se dibuja acá su iso (la "O").
+export function OracleIcon({ size = 24, ...props }: BrandIconProps) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={size} height={size} fill="currentColor" role="img" {...props}>
+      <path d="M16.412 4.412h-8.82a7.588 7.588 0 0 0-.008 15.176h8.828a7.588 7.588 0 0 0 0-15.176zm-.193 12.502H7.786a4.915 4.915 0 0 1 0-9.828h8.433a4.914 4.914 0 1 1 0 9.828z" />
+    </svg>
+  );
+}
 
 // simple-icons no distribuye el logo de LinkedIn (removido a pedido de LinkedIn/Microsoft).
 // Se usa el trazado de public/brand/linkedin.svg en su lugar, con fill="currentColor".

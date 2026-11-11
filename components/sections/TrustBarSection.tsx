@@ -1,19 +1,21 @@
-import { casos } from '@/lib/casos';
+import { GoogleIcon, MetaIcon, OracleIcon, RedhatIcon } from '@/components/ui/brand-icons';
 
-// Altura de cada logo según su proporción, para que uno apaisado y uno
-// compacto pesen lo mismo a la vista (área visual constante).
-const logoHeight = (ancho: number, alto: number) => Math.round(62 / Math.sqrt(ancho / alto));
+const partners = [
+  { nombre: 'Red Hat', Icono: RedhatIcon },
+  { nombre: 'Oracle', Icono: OracleIcon },
+  { nombre: 'Google', Icono: GoogleIcon },
+  { nombre: 'Meta', Icono: MetaIcon },
+];
 
 export default function TrustBarSection() {
   return (
-    <section className="client-strip on-ink" aria-label="Clientes">
+    <section className="client-strip on-ink" aria-label="Partners">
       <div className="site-container client-strip-inner">
-        <p>Marcas que ya trabajan con nosotros</p>
+        <p>Partners:</p>
         <ul className="client-logos">
-          {casos.map(({ cliente, logo }) => (
-            <li key={cliente}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={logo.src} alt={cliente} width={logo.ancho} height={logo.alto} loading="lazy" style={{ height: logoHeight(logo.ancho, logo.alto) }} />
+          {partners.map(({ nombre, Icono }) => (
+            <li key={nombre} title={nombre}>
+              <Icono size={34} aria-label={nombre} />
             </li>
           ))}
         </ul>
