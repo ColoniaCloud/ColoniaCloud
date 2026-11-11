@@ -19,19 +19,19 @@ type FormData = z.infer<typeof schema>;
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
 const baseInputClass = [
-  'w-full rounded-md text-[14px] text-cc-text bg-cc-bg',
-  'px-3 py-[9px]',
-  'border border-white/[0.16]',
-  'focus:outline-none focus:border-cc-accent',
-  'focus:shadow-[0_0_0_3px_rgba(255,171,121,0.18)]',
+  'w-full rounded-md text-[16px] text-cc-text bg-cc-bg',
+  'px-3 py-[10px]',
+  'border border-cc-text/30',
+  'focus:outline-none focus:border-cc-blue',
+  'focus:shadow-[0_0_0_3px_rgb(var(--cc-blue)/0.2)]',
   'placeholder:text-cc-muted',
-  'transition-all duration-150',
+  'transition-colors duration-150',
 ].join(' ');
 
 const errorInputClass = [
-  'w-full rounded-md text-[14px] text-cc-text bg-cc-bg',
-  'px-3 py-[9px]',
-  'border border-red-500',
+  'w-full rounded-md text-[16px] text-cc-text bg-cc-bg',
+  'px-3 py-[10px]',
+  'border border-red-600',
   'focus:outline-none focus:border-red-500',
   'focus:shadow-[0_0_0_3px_rgba(192,57,43,0.12)]',
   'placeholder:text-cc-muted',
@@ -154,7 +154,7 @@ export default function ContactForm({ withWhatsApp = false, showHeading = true }
           {status === 'loading' ? (
             <>
               <div
-                className="animate-spin w-4 h-4 border-2 border-[#161116] border-t-transparent rounded-full"
+                className="animate-spin w-4 h-4 border-2 border-cc-ink border-t-transparent rounded-full"
                 aria-hidden="true"
               />
               Enviando...
@@ -172,7 +172,7 @@ export default function ContactForm({ withWhatsApp = false, showHeading = true }
             href="https://wa.me/59896082266"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 text-[13px] font-medium text-cc-accent hover:underline"
+            className="inline-flex items-center justify-center gap-2 text-[13px] font-medium text-cc-warm hover:underline"
           >
             <WhatsAppIcon size={16} aria-hidden="true" />
             O escribinos por WhatsApp

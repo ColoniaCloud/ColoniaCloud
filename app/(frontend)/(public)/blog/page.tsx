@@ -26,7 +26,7 @@ export default async function BlogPage() {
 
   return (
     <>
-      <section className="inner-hero" aria-labelledby="blog-title">
+      <section className="inner-hero" data-dark-top="" aria-labelledby="blog-title">
         <div className="site-container">
           <span className="eyebrow">Ideas / Colonia Cloud</span>
           <h1 id="blog-title">Ideas para lo que viene.</h1>

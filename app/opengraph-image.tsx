@@ -14,16 +14,16 @@ export default async function OpengraphImage() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#11131d',
+          backgroundColor: '#091828',
           backgroundImage:
-            'radial-gradient(circle at 52% 110%, #a4533c 0%, #442b38 39%, #111b35 88%)',
+            'radial-gradient(circle at 50% 118%, #F28C38 0%, #1E5F8C 34%, #091828 78%)',
         }}
       >
         <div
           style={{
             fontSize: 76,
             fontWeight: 600,
-            color: '#fff7f0',
+            color: '#ECF3F9',
             letterSpacing: '-0.02em',
           }}
         >
@@ -33,7 +33,7 @@ export default async function OpengraphImage() {
           style={{
             marginTop: 20,
             fontSize: 30,
-            color: 'rgba(255,255,255,0.55)',
+            color: 'rgba(236,243,249,0.78)',
           }}
         >
           Diseño y tecnología desde Colonia

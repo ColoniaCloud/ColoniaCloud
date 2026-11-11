@@ -1,16 +1,54 @@
 # Colonia Cloud — diseño y oferta vigente
 
-**Actualizado el 15 de octubre de 2026.** Este documento reemplaza las decisiones de interfaz y catálogo de `01-brandbook.md` a `04-productos-servicios.md` cuando haya diferencias.
+**Actualizado el 11 de noviembre de 2026.** Este documento reemplaza las decisiones de interfaz y catálogo de `01-brandbook.md` a `04-productos-servicios.md` cuando haya diferencias.
 
 Acá van la dirección y la oferta. La implementación —tokens, tipografía, grilla, anatomía de componentes y el sistema de animaciones— está en [`SISTEMA-VISUAL-2026.md`](SISTEMA-VISUAL-2026.md).
 
 ## Dirección visual
 
-- Fondo general celeste casi blanco (`#F5FAFD`), texto azul oscuro (`#162833`) y superficies blancas. Sin gradientes decorativos.
-- Tipografía Clash Display para titulares y DM Sans para lectura y controles.
-- Composición con fotografías reales de Colonia del Sacramento en las secciones de contenido.
-- Hero de alto mínimo igual al viewport dinámico (`100dvh`), con video local `public/drone.mp4` ocupando todo el fondo y contenido centrado horizontal y verticalmente sobre una capa oscura. Isologo blanco con entrada desde abajo, desenfoque y fundido; titular y subtítulo entran palabra por palabra. Los botones principales usan un gradiente negro vertical. En móvil el video también ocupa el fondo; con movimiento reducido se muestra el póster hasta que se solicita reproducir.
-- Los casos muestran trabajo verificable. Los testimonios de origen pendiente de confirmar no aparecen en la home.
+Vigente desde el 11 de noviembre de 2026. Reemplaza a la dirección de octubre (fondo celeste, Clash Display + DM Sans, globo en el hero). `SISTEMA-VISUAL-2026.md` describe el sistema anterior y queda como referencia histórica; la fuente de verdad de tokens y componentes es `app/globals.css`.
+
+### Paleta: fría, con un único acento cálido
+
+La referencia es el río al anochecer: azules de noche y bruma, y la franja naranja del horizonte como único color cálido.
+
+| Token | Hex | Uso |
+|---|---|---|
+| `--cc-ink` | `#091828` | Noche. Fondos oscuros (hero, casos, footer) y texto principal. |
+| `--cc-ink-2` | `#12283E` | Superficies sobre fondo oscuro. |
+| `--cc-blue` | `#1E5F8C` | Río. Foco de formularios y detalles fríos. |
+| `--cc-ice` | `#DEEAF3` | Hielo. Secciones tintadas y etiquetas de precio. |
+| `--cc-bg` | `#F3F6F9` | Bruma. Fondo general. |
+| `--cc-surface` | `#FFFFFF` | Tarjetas y secciones alternas. |
+| `--cc-line` | `#D3DEE8` | Bordes y separadores. |
+| `--cc-text-body` | `#425568` | Texto de lectura (7,4:1 sobre bruma). |
+| `--cc-accent` | `#F28C38` | Acento cálido. Relleno de botones primarios, siempre con texto noche encima (7:1). |
+| `--cc-warm` | `#A64A0D` | El mismo acento para texto y enlaces sobre fondos claros (5,7:1). |
+
+Reglas: el acento cálido se reserva para la acción principal, las etiquetas y los detalles; nunca como fondo de sección. `--cc-accent` no se usa como color de texto sobre claro: para eso está `--cc-warm`. El logo es monocromo: negro sobre claro, blanco (invertido) sobre oscuro.
+
+### Tipografía
+
+- **Bricolage Grotesque** (500) en titulares. Una grotesca con carácter que acompaña al logo en Syne sin competirle.
+- **Geist** en lectura, navegación y controles. Cuerpo de 16 a 18px; nada por debajo de 13px.
+- **Geist Mono** en etiquetas, numeración, precios auxiliares y coordenadas.
+
+El H1 es el tamaño más grande de cada página; los H2 bajan un escalón (`.h-xl` → `.h-lg`).
+
+### Movimiento
+
+- Duraciones de interfaz: 100, 150, 200 o 300 ms, con ease-out. Solo se animan `transform`, `opacity` y `clip-path`.
+- Parallax: el componente `ScrollScene` escribe el avance del scroll en la variable CSS `--p` y las capas la leen con `calc()`. En el hero de la home el escenario queda fijado: la foto se encoge hasta ser una ventana, el titular sube y el faro emerge en primer plano. El collage "Hecho en Colonia" mueve tres fotos a tres velocidades.
+- El fondo del hero es un video de 8 s en bucle (`public/hero-loop.mp4`) renderizado con HyperFrames desde `motion/hero-loop/`. Solo se carga en escritorio y se puede pausar.
+- Con `prefers-reduced-motion` no hay parallax, ni video, ni entradas animadas.
+
+### Fotografía
+
+Fotos de Colonia del Sacramento y de trabajo, en tonos fríos. Las de Unsplash están en `public/unsplash/` con sus créditos en `public/unsplash/CREDITOS.md`. Los casos muestran trabajo verificable; no se usan fotos de stock para representar proyectos de clientes.
+
+### Voz
+
+De vos, directa y sin jerga. El llamado a la acción principal es siempre el mismo: **"Hablemos por WhatsApp"**. Los precios confirmados se muestran; lo que no está confirmado no se inventa.
 
 ## Servicios
 

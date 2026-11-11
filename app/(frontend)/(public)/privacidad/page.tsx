@@ -95,7 +95,7 @@ export default function PrivacidadPage() {
             De acuerdo con la Ley N.º 18.331, tenés derecho a acceder, rectificar, actualizar y
             solicitar la eliminación de tus datos personales, así como a oponerte a su tratamiento.
             Para ejercer estos derechos, escribinos a{' '}
-            <a href="mailto:comunicacion@colonia.cloud" className="text-cc-accent hover:underline">
+            <a href="mailto:comunicacion@colonia.cloud" className="text-cc-warm hover:underline">
               comunicacion@colonia.cloud
             </a>
             .
@@ -112,7 +112,7 @@ export default function PrivacidadPage() {
           <p className={pClass}>
             Ante cualquier consulta sobre esta política o sobre el tratamiento de tus datos,
             escribinos a{' '}
-            <a href="mailto:comunicacion@colonia.cloud" className="text-cc-accent hover:underline">
+            <a href="mailto:comunicacion@colonia.cloud" className="text-cc-warm hover:underline">
               comunicacion@colonia.cloud
             </a>{' '}
             o por WhatsApp al{' '}
@@ -120,7 +120,7 @@ export default function PrivacidadPage() {
               href="https://wa.me/59896082266"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-cc-accent hover:underline"
+              className="text-cc-warm hover:underline"
             >
               +598 96 082 266
             </a>

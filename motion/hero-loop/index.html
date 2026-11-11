@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      /* Fondo ambiente del hero de colonia.cloud: el río al anochecer.
+         Dura 8 s y vuelve exactamente al cuadro inicial, para poder repetirse
+         en bucle sin salto. Todo se anima con transform y opacity. */
+      :root {
+        --ground: #06121f;
+        --warm: 242, 140, 56;
+        --ice: 190, 215, 235;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ground); }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; }
+      .clip { position: absolute; inset: 0; }
+      #photo { z-index: 0; background: url('assets/rio-atardecer.jpg') center 62% / cover no-repeat; transform-origin: 50% 58%; }
+      /* Resplandor cálido sobre la línea del horizonte. */
+      #glow { z-index: 1;
+        background: radial-gradient(ellipse 46% 16% at 46% 55%, rgba(var(--warm), 0.5), rgba(var(--warm), 0) 70%);
+        mix-blend-mode: screen;
+      }
+      /* Haz del faro: un cono suave que barre el cielo desde la derecha. */
+      #beam { z-index: 3;
+        inset: auto; left: -40px; top: -1160px; width: 3600px; height: 3600px;
+        background: conic-gradient(from 256deg at 50% 50%, rgba(var(--ice), 0) 0deg, rgba(var(--ice), 0.26) 6deg, rgba(var(--ice), 0) 13deg, rgba(var(--ice), 0) 360deg);
+        -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 0, #000 30%, transparent 50%);
+        mask-image: radial-gradient(circle at 50% 50%, #000 0, #000 30%, transparent 50%);
+        mix-blend-mode: screen;
+      }
+      /* Bruma baja que se desplaza sobre el agua. */
+      #mist { z-index: 4;
+        inset: auto -30% 16% -30%; height: 260px;
+        background: linear-gradient(90deg, rgba(var(--ice), 0) 0%, rgba(var(--ice), 0.13) 30%, rgba(var(--ice), 0.04) 55%, rgba(var(--ice), 0.15) 78%, rgba(var(--ice), 0) 100%);
+        filter: blur(38px);
+      }
+      .star { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #dbe9f6; }
+      /* Viñeta fría para que el texto del sitio se lea encima. */
+      #vignette { z-index: 5; background: linear-gradient(180deg, rgba(6, 18, 31, 0.5) 0%, rgba(6, 18, 31, 0) 34%, rgba(6, 18, 31, 0) 62%, rgba(6, 18, 31, 0.62) 100%); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="8" data-width="1920" data-height="1080">
+      <div id="photo" class="clip" data-start="0" data-duration="8" data-track-index="0"></div>
+      <div id="glow" class="clip" data-start="0" data-duration="8" data-track-index="1"></div>
+      <div id="stars" class="clip" style="z-index: 2" data-start="0" data-duration="8" data-track-index="2">
+        <i class="star" style="left: 212px; top: 96px"></i>
+        <i class="star" style="left: 508px; top: 188px"></i>
+        <i class="star" style="left: 874px; top: 72px"></i>
+        <i class="star" style="left: 1180px; top: 214px"></i>
+        <i class="star" style="left: 1466px; top: 118px"></i>
+        <i class="star" style="left: 1702px; top: 252px"></i>
+        <i class="star" style="left: 1010px; top: 318px"></i>
+        <i class="star" style="left: 356px; top: 304px"></i>
+      </div>
+      <div id="beam" class="clip" data-start="0" data-duration="8" data-track-index="3"></div>
+      <div id="mist" class="clip" data-start="0" data-duration="8" data-track-index="4"></div>
+      <div id="vignette" class="clip" data-start="0" data-duration="8" data-track-index="5"></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const half = { duration: 4, ease: "sine.inOut", yoyo: true, repeat: 1 };
+
+      // Ida y vuelta de 4 s + 4 s: el cuadro 0 y el último coinciden.
+      tl.fromTo("#photo", { scale: 1.04, y: 0 }, { scale: 1.1, y: -14, ...half }, 0);
+      tl.fromTo("#glow", { opacity: 0.55, scaleX: 1 }, { opacity: 1, scaleX: 1.12, ...half }, 0);
+      tl.fromTo("#beam", { rotation: -9, opacity: 0.35 }, { rotation: 13, opacity: 1, ...half }, 0);
+      tl.fromTo("#mist", { xPercent: -7, opacity: 0.7 }, { xPercent: 7, opacity: 1, ...half }, 0);
+      gsap.utils.toArray(".star").forEach((star, i) => {
+        tl.fromTo(star, { opacity: 0.2 + (i % 3) * 0.2 }, { opacity: 0.95 - (i % 2) * 0.3, duration: 2, ease: "sine.inOut", yoyo: true, repeat: 3 }, 0);
+      });
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

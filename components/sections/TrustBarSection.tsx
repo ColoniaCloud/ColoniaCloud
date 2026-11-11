@@ -1,13 +1,22 @@
-import Reveal from '@/components/ui/Reveal';
+import { casos } from '@/lib/casos';
+
+// Altura de cada logo según su proporción, para que uno apaisado y uno
+// compacto pesen lo mismo a la vista (área visual constante).
+const logoHeight = (ancho: number, alto: number) => Math.round(62 / Math.sqrt(ancho / alto));
 
 export default function TrustBarSection() {
   return (
-    <section className="signal-bar" aria-label="Áreas de trabajo">
-      <div className="site-container signal-inner">
-        <Reveal as="p">Un equipo. Cuatro disciplinas conectadas.</Reveal>
-        {/* Las cuatro disciplinas entran juntas, como un bloque: escalonarlas
-            una por una le daría a una barra de paso más peso del que tiene. */}
-        <Reveal className="signal-items" delay={80}><span>Diseño</span><span>Marketing</span><span>Cloud</span><span>Inteligencia artificial</span></Reveal>
+    <section className="client-strip on-ink" aria-label="Clientes">
+      <div className="site-container client-strip-inner">
+        <p>Marcas que ya trabajan con nosotros</p>
+        <ul className="client-logos">
+          {casos.map(({ cliente, logo }) => (
+            <li key={cliente}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={logo.src} alt={cliente} width={logo.ancho} height={logo.alto} loading="lazy" style={{ height: logoHeight(logo.ancho, logo.alto) }} />
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

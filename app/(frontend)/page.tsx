@@ -2,7 +2,9 @@ import type { Metadata } from 'next';
 import HeroSection from '@/components/sections/HeroSection';
 import TrustBarSection from '@/components/sections/TrustBarSection';
 import ServiceHubSection from '@/components/sections/ServiceHubSection';
+import OrigenSection from '@/components/sections/OrigenSection';
 import CasosSection from '@/components/sections/CasosSection';
+import PlanesSection from '@/components/sections/PlanesSection';
 import ProcesoSection from '@/components/sections/ProcesoSection';
 import ProductosSection from '@/components/sections/ProductosSection';
 import FaqSection from '@/components/sections/FaqSection';
@@ -20,7 +22,9 @@ export default function HomePage() {
       <HeroSection />
       <TrustBarSection />
       <ServiceHubSection />
+      <OrigenSection />
       <CasosSection />
+      <PlanesSection />
       <ProcesoSection />
       <ProductosSection />
       <FaqSection />

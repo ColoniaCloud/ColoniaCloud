@@ -15,7 +15,7 @@ export default function GraciasPage() {
       <div className="max-w-[480px] mx-auto px-7 flex flex-col items-center text-center gap-5">
         {/* Ícono */}
         <div className="w-16 h-16 rounded-full bg-cc-accent-light flex items-center justify-center mb-2">
-          <Check size={32} className="text-cc-accent" aria-hidden="true" />
+          <Check size={32} className="text-cc-warm" aria-hidden="true" />
         </div>
 
         {/* Título */}
@@ -30,7 +30,7 @@ export default function GraciasPage() {
 
         {/* Promesa */}
         <div className="flex items-center gap-2 bg-cc-surface rounded-lg px-5 py-3">
-          <Clock size={16} className="text-cc-accent flex-shrink-0" aria-hidden="true" />
+          <Clock size={16} className="text-cc-warm flex-shrink-0" aria-hidden="true" />
           <p className="text-[14px] text-cc-text-body">
             Tiempo promedio de respuesta: menos de 24 horas
           </p>

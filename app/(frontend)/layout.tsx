@@ -1,17 +1,17 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
-import { DM_Sans } from 'next/font/google';
+import { Bricolage_Grotesque, Geist, Geist_Mono } from 'next/font/google';
 import '../globals.css';
-import IntroOverlay from '@/components/ui/IntroOverlay';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import WhatsAppButton from '@/components/layout/WhatsAppButton';
 
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  variable: '--cc-font-body',
-  display: 'swap',
-});
+// Titulares: Bricolage Grotesque, una grotesca con carácter que acompaña al
+// logo (Syne) sin competirle. Lectura e interfaz: Geist. Etiquetas, precios y
+// numeración: Geist Mono.
+const display = Bricolage_Grotesque({ subsets: ['latin'], variable: '--cc-font-display', display: 'swap' });
+const body = Geist({ subsets: ['latin'], variable: '--cc-font-body', display: 'swap' });
+const mono = Geist_Mono({ subsets: ['latin'], variable: '--cc-font-mono', display: 'swap' });
 
 const title = 'Colonia Cloud · Diseño y tecnología desde Colonia';
 const description =
@@ -81,7 +81,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className={dmSans.variable}>
+      <body className={`${display.variable} ${body.variable} ${mono.variable}`}>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-306THJ8M1R"
           strategy="afterInteractive"
@@ -105,20 +105,13 @@ export default function RootLayout({
             })(window, document, "clarity", "script", "yoy8s3qufi");
           `}
         </Script>
-        <link
-          rel="preload"
-          href="/fonts/ClashDisplay-Variable.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_JSON_LD) }}
         />
-        <IntroOverlay />
+        <a className="skip-link" href="#contenido">Saltar al contenido</a>
         <Navbar />
-        <main className="pt-0">{children}</main>
+        <main id="contenido">{children}</main>
         <WhatsAppButton />
         <Footer />
       </body>

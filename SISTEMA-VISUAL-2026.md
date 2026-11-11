@@ -1,5 +1,7 @@
 # Colonia Cloud — Sistema visual 2026
 
+> **Documento histórico.** Describe el sistema visual de octubre de 2026 (Clash Display, DM Sans, hero con globo). El sitio se reconstruyó el 11 de noviembre de 2026: la dirección vigente está en `DESIGN-2026.md` y los tokens en `app/globals.css`.
+
 **Actualización del 21 de octubre de 2026:** el tema general sigue siendo claro, con fondo `#F5FAFD`, superficies blancas, texto `#162833`, cuerpo `#4B5F6C` y acento de lectura `#97451C`. El hero usa video `public/drone.mp4` en todo el fondo, isologo blanco con entrada de fundido y desenfoque, titular y subtítulo animados palabra por palabra, y control de pausa. Los botones principales usan un gradiente negro vertical. En móvil el video también ocupa el fondo; la reproducción automática se desactiva con movimiento reducido. Ver `DESIGN-2026.md` y `app/globals.css` como fuentes vigentes. Las mediciones y capturas descritas abajo corresponden al diseño oscuro anterior.
 
 Este documento describe **cómo está construido el sitio hoy**. Los archivos `docs/01-brandbook.md` a `docs/04-productos-servicios.md` son el registro del diseño de 2025 —tema claro, acento negro— que este rediseño reemplazó: sirven como historia, no como referencia de implementación.

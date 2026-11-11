@@ -11,7 +11,7 @@ export default function NotFound() {
     <section className="min-h-[70vh] flex items-center justify-center bg-cc-bg pt-[110px] pb-[64px]">
       <div className="max-w-[520px] mx-auto px-7 flex flex-col items-center text-center gap-5">
         <div className="w-16 h-16 rounded-full bg-cc-accent-light flex items-center justify-center mb-2">
-          <Compass size={32} className="text-cc-accent" aria-hidden="true" />
+          <Compass size={32} className="text-cc-warm" aria-hidden="true" />
         </div>
 
         <h1 className="font-display font-medium text-[1.75rem] text-cc-text">
@@ -28,7 +28,7 @@ export default function NotFound() {
             <Link
               key={slug}
               href={`/servicios/${slug}`}
-              className="text-[13px] text-cc-text-body border border-white/10 rounded-full px-3 py-1 hover:border-cc-accent hover:text-cc-accent transition-colors"
+              className="text-[13px] text-cc-text-body border border-cc-line rounded-full px-3 py-1 hover:border-cc-warm hover:text-cc-warm transition-colors"
             >
               {name}
             </Link>

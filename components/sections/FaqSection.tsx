@@ -1,3 +1,5 @@
+import Link from 'next/link';
+import { ArrowUpRight } from 'lucide-react';
 import Reveal from '@/components/ui/Reveal';
 
 const faqs = [
@@ -11,15 +13,17 @@ const faqs = [
 export default function FaqSection() {
   return (
     <section id="preguntas" className="site-section faq-section" aria-labelledby="faq-title">
-      <div className="site-container">
-        <div className="section-intro" style={{ marginInline: 'auto', textAlign: 'center' }}>
+      <div className="site-container faq-layout">
+        <div className="section-head">
           <Reveal as="span" className="eyebrow">Antes de empezar</Reveal>
-          <Reveal as="h2" variant="blur-in" id="faq-title" className="display" delay={60}>Preguntas claras.<br />Respuestas directas.</Reveal>
+          <Reveal as="h2" id="faq-title" className="display h-lg">Preguntas claras, respuestas directas.</Reveal>
+          <Reveal as="p" className="body-copy">¿No está la tuya? Escribinos y te contestamos sin vueltas.</Reveal>
+          <Reveal><Link href="/contacto" className="section-link">Hacer una consulta <ArrowUpRight size={16} aria-hidden="true" /></Link></Reveal>
         </div>
-        {/* El Reveal renderiza el propio <details> para no romper ni el
-            acordeón ni `.faq-list details:last-child`, que es el que cierra
-            la lista con el borde de abajo. */}
-        <div className="faq-list stagger">{faqs.map(({ q, a }) => <Reveal as="details" key={q}><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></Reveal>)}</div>
+        {/* `details`/`summary` nativos: el acordeón funciona sin JavaScript. */}
+        <div className="faq-list">
+          {faqs.map(({ q, a }) => <details key={q}><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}
+        </div>
       </div>
     </section>
   );

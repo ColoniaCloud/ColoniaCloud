@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function ServiciosPage() {
   return <>
-    <InternalHero badge="Servicios" title="Cada avance necesita una buena base." description="Cuatro disciplinas conectadas para resolver lo que tu negocio necesita hoy y preparar lo que viene." />
+    <InternalHero badge="Servicios" title="Cada avance necesita una buena base." description="Cuatro disciplinas conectadas para resolver lo que tu negocio necesita hoy y preparar lo que viene." photo="/unsplash/colonia-panorama.webp" />
     <section className="interior-section" aria-labelledby="all-services-title">
       <div className="site-container">
         <span className="eyebrow">Nuestra oferta / 01—04</span>

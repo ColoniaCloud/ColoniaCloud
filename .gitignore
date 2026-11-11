@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# HyperFrames: artefactos de chequeo y renders intermedios
+motion/**/.hyperframes/
+motion/**/renders/

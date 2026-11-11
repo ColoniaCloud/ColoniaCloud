@@ -4,61 +4,73 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { Bot, Mail, Menu, X } from 'lucide-react';
-import { whatsappHref } from '@/lib/contact';
-import { InstagramIcon, LinkedinIcon, WhatsAppIcon } from '@/components/ui/brand-icons';
+import { ArrowUpRight, LogIn, Menu, X } from 'lucide-react';
 
 const links = [
   { href: '/servicios', label: 'Servicios' },
-  { href: '/#productos', label: 'Productos' },
   { href: '/#casos', label: 'Casos' },
+  { href: '/#productos', label: 'Productos' },
   { href: '/nosotros', label: 'Nosotros' },
   { href: '/blog', label: 'Blog' },
-  { href: '/contacto', label: 'Contacto' },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [solid, setSolid] = useState(false);
+
   useEffect(() => setOpen(false), [pathname]);
+
+  // El header es transparente mientras está sobre un hero oscuro (el primer
+  // bloque con `data-dark-top`) y pasa a sólido cuando el scroll lo deja
+  // atrás. En páginas sin hero oscuro el CSS ya lo muestra sólido.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => {
+      const hero = document.querySelector<HTMLElement>('main > [data-dark-top]');
+      const limit = hero ? hero.offsetTop + hero.offsetHeight - 76 : 20;
+      setSolid(window.scrollY > limit);
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [pathname]);
+
+  // Con el menú móvil abierto la página de atrás no debe moverse.
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [open]);
 
   return (
-    <header className={`site-header${scrolled ? ' site-header-scrolled' : ''}`}>
-      <div className="site-topbar">
-        <div className="site-header-inner site-topbar-inner">
-          <div className="site-socials" aria-label="Redes sociales">
-            <a href="https://instagram.com/colonia.cloud" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><InstagramIcon size={16} aria-hidden="true" /></a>
-            <a href="https://www.facebook.com/search/top?q=Colonia%20Cloud" target="_blank" rel="noopener noreferrer" aria-label="Buscar Colonia Cloud en Facebook"><span className="facebook-mark" aria-hidden="true">f</span></a>
-            <a href="https://linkedin.com/company/coloniacloud" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><LinkedinIcon size={17} aria-hidden="true" /></a>
+    <>
+      <header className={`site-header${solid ? ' is-solid' : ''}${open ? ' is-open' : ''}`}>
+        <nav className="site-nav" aria-label="Navegación principal">
+          <Link href="/" className="site-logo" aria-label="Colonia Cloud, inicio">
+            <Image src="/brand/logo.svg" alt="" width={148} height={32} priority />
+          </Link>
+          <div className="site-nav-right">
+            <div className="nav-links">
+              {links.map((link) => <Link key={link.href} href={link.href} aria-current={pathname === link.href ? 'page' : undefined}>{link.label}</Link>)}
+            </div>
+            <Link className="nav-client" href="/login"><LogIn size={16} aria-hidden="true" />Clientes</Link>
+            <Link className="nav-cta" href="/contacto">Hablemos <ArrowUpRight size={16} aria-hidden="true" /></Link>
+            <button className="menu-toggle" type="button" aria-label={open ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(!open)}>
+              {open ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
+            </button>
           </div>
-          <div className="site-socials" aria-label="Contacto directo">
-            <a href={whatsappHref()} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><WhatsAppIcon size={17} aria-hidden="true" /></a>
-            <a href="mailto:comunicacion@colonia.cloud" aria-label="Correo electrónico"><Mail size={18} aria-hidden="true" /></a>
-          </div>
-        </div>
-      </div>
-      <div className="site-nav-shell"><nav className="site-nav site-header-inner" aria-label="Navegación principal">
-        <Link href="/" className="site-logo" aria-label="Colonia Cloud, inicio"><Image src="/brand/logo.svg" alt="Colonia Cloud" width={147} height={32} priority /></Link>
-        <div className="site-nav-right">
-          <div className="nav-links">
-            {links.map((link) => <Link key={link.href} href={link.href} aria-current={pathname === link.href ? 'page' : undefined}>{link.label}</Link>)}
-          </div>
-          <Link className="nav-cta" href="/login">Acceso clientes</Link>
-          <button className="bot-trigger" type="button" disabled title="Agente disponible próximamente" aria-label="Agente disponible próximamente"><Bot size={22} aria-hidden="true" /></button>
-          <button className="menu-toggle" type="button" aria-label={open ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(!open)}>{open ? <X size={19} aria-hidden="true" /> : <Menu size={19} aria-hidden="true" />}</button>
-        </div>
-      </nav></div>
-      {open && <nav id="mobile-navigation" className="mobile-nav" aria-label="Navegación móvil">
-        {links.map((link) => <Link key={link.href} href={link.href} onClick={() => setOpen(false)}>{link.label}</Link>)}
-        <Link className="mobile-client-link" href="/login" onClick={() => setOpen(false)}>Acceso clientes</Link>
-      </nav>}
-    </header>
+        </nav>
+      </header>
+      {open && (
+        <nav id="mobile-navigation" className="mobile-nav" aria-label="Navegación móvil">
+          {links.map((link) => <Link key={link.href} href={link.href} onClick={() => setOpen(false)}>{link.label}<ArrowUpRight size={20} aria-hidden="true" /></Link>)}
+          <Link className="mobile-nav-cta" href="/contacto" onClick={() => setOpen(false)}>Hablemos de tu proyecto</Link>
+          <Link className="mobile-nav-client" href="/login" onClick={() => setOpen(false)}>Acceso clientes</Link>
+        </nav>
+      )}
+    </>
   );
 }

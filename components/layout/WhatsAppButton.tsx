@@ -67,14 +67,14 @@ export default function WhatsAppButton() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Contactar por WhatsApp"
-        className="cc-primary-button group relative w-14 h-14 rounded-full flex items-center justify-center border border-white/15 shadow-[0_4px_16px_rgba(0,0,0,0.35)] hover:scale-[1.08] transition-all duration-200"
+        className="cc-primary-button group relative w-14 h-14 rounded-full flex items-center justify-center border border-cc-ink/10 shadow-[0_4px_16px_rgba(0,0,0,0.35)] transition-colors duration-150"
       >
         {/* Tooltip */}
         <span className="absolute right-[calc(100%+12px)] top-1/2 -translate-y-1/2 bg-cc-surface text-cc-text text-[12px] font-medium px-3 py-1.5 rounded-md whitespace-nowrap pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-200">
           Escribínos
         </span>
 
-        <WhatsAppIcon size={26} className="text-white" aria-hidden="true" />
+        <WhatsAppIcon size={26} className="text-cc-ink" aria-hidden="true" />
       </a>
     </div>
   );

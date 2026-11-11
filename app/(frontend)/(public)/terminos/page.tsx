@@ -37,7 +37,7 @@ export default function TerminosPage() {
             Colonia Cloud presta servicios de desarrollo web y de aplicaciones, software de gestión,
             infraestructura (VPS, dominios y bases de datos) y asesoría tecnológica, descritos en
             detalle en la sección{' '}
-            <Link href="/servicios" className="text-cc-accent hover:underline">
+            <Link href="/servicios" className="text-cc-warm hover:underline">
               Servicios
             </Link>{' '}
             del sitio. El alcance, los plazos y el precio de cada proyecto se acuerdan por separado
@@ -126,7 +126,7 @@ export default function TerminosPage() {
           <h2 className={h2Class}>11. Contacto</h2>
           <p className={pClass}>
             Ante cualquier consulta sobre estos términos, escribinos a{' '}
-            <a href="mailto:comunicacion@colonia.cloud" className="text-cc-accent hover:underline">
+            <a href="mailto:comunicacion@colonia.cloud" className="text-cc-warm hover:underline">
               comunicacion@colonia.cloud
             </a>{' '}
             o por WhatsApp al{' '}
@@ -134,7 +134,7 @@ export default function TerminosPage() {
               href="https://wa.me/59896082266"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-cc-accent hover:underline"
+              className="text-cc-warm hover:underline"
             >
               +598 96 082 266
             </a>

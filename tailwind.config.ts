@@ -21,10 +21,15 @@ const config: Config = {
         "cc-warm": "rgb(var(--cc-warm) / <alpha-value>)",
         "cc-warm-deep": "rgb(var(--cc-warm-deep) / <alpha-value>)",
         "cc-warm-light": "rgb(var(--cc-warm-light) / <alpha-value>)",
+        "cc-ink": "rgb(var(--cc-ink) / <alpha-value>)",
+        "cc-ice": "rgb(var(--cc-ice) / <alpha-value>)",
+        "cc-line": "rgb(var(--cc-line) / <alpha-value>)",
+        "cc-blue": "rgb(var(--cc-blue) / <alpha-value>)",
       },
       fontFamily: {
         display: ["var(--cc-font-display)"],
         body: ["var(--cc-font-body)"],
+        mono: ["var(--cc-font-mono)"],
       },
       borderRadius: {
         sm: "var(--cc-radius-sm)",

@@ -1,62 +1,43 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { services } from '@/lib/services';
 import Reveal from '@/components/ui/Reveal';
 
 export default function ServiceHubSection() {
   return (
-    <section id="servicios" className="site-section service-section" aria-labelledby="services-title">
-      <div className="site-container">
-        <div className="section-topline">
-          <div className="section-intro">
-            <Reveal as="span" className="eyebrow">Lo que hacemos / 01—04</Reveal>
-            {/* blur-in solo en el titular: sobre texto de 14px el desenfoque
-                se ve sucio y cuesta GPU de más en móvil. */}
-            <Reveal as="h2" variant="blur-in" id="services-title" className="display" delay={60}>Cuatro formas<br />de avanzar.</Reveal>
-            <Reveal as="p" className="body-copy" delay={140}>Cada negocio tiene su propio momento. Encontramos el servicio adecuado y lo hacemos trabajar junto a los demás, con infraestructura eficiente y sin desperdicio de recursos.</Reveal>
-          </div>
-          <Reveal as="a" href="/servicios" className="section-link" delay={200}>Ver todos los servicios <ArrowUpRight size={16} aria-hidden="true" /></Reveal>
+    <section id="servicios" className="site-section" aria-labelledby="services-title">
+      <div className="site-container service-layout">
+        <div className="service-aside">
+          <Reveal as="span" className="eyebrow">Servicios</Reveal>
+          <Reveal as="h2" id="services-title" className="display h-lg">Cuatro formas de avanzar.</Reveal>
+          <Reveal as="p" className="body-copy">Cada negocio tiene su momento. Elegí por dónde empezar: lo hacemos trabajar junto a lo que ya tenés, con precios claros desde el primer día.</Reveal>
+          <Reveal><Link href="/servicios" className="section-link">Ver todos los planes <ArrowUpRight size={16} aria-hidden="true" /></Link></Reveal>
         </div>
-        {/* El Reveal renderiza el propio <a>, sin nodo intermedio: la grilla
-            tiene que seguir viendo a las cards como hijas directas para que
-            .service-card:nth-child(n)::before le dé a cada una su glow. */}
-        <div className="service-grid stagger">
-          {services.map(({ slug, number, illustration, cardTitle, cardOutcome, cardDescription }) => (
-            <Reveal as="a" className="service-card" href={`/servicios/${slug}`} key={slug}>
-              {/* La ilustración va DENTRO de la fila de arriba, no posicionada
-                  encima: como el bloque de texto lleva `margin-top: auto`, al
-                  ocupar lugar en el flujo lo empuja hacia abajo y no hay ancho
-                  de pantalla en el que puedan pisarse. Flotándola, entre 700 y
-                  900px —donde la grilla sigue en dos columnas y las cards se
-                  angostan— el titular subía y se le metía debajo.
 
-                  El alt va vacío aunque la ilustración se vea: nombra el mismo
-                  servicio que el <h3> de abajo, y describirla otra vez le haría
-                  leer dos veces lo mismo a un lector de pantalla.
-                  `unoptimized` porque el optimizador de Next no procesa SVG, y
-                  diferida porque la sección cae debajo del fold. */}
-              <div className="service-card-top">
-                <span className="service-card-number">{number} / SERVICIO</span>
-                <Image
-                  className="service-card-art"
-                  src={illustration.src}
-                  width={illustration.width}
-                  height={illustration.height}
-                  alt=""
-                  aria-hidden="true"
-                  loading="lazy"
-                  unoptimized
-                />
-              </div>
-              <div className="service-card-content">
-                <h3>{cardTitle}</h3>
-                <p className="service-card-outcome">{cardOutcome}</p>
-                <p className="service-card-description">{cardDescription}</p>
-                <span className="service-card-bottom">Conocer el servicio <ArrowRight size={18} aria-hidden="true" /></span>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+        <ul className="service-list stagger">
+          {services.map(({ slug, number, illustration, cardTitle, cardOutcome, cardDescription, plans }) => {
+            const from = plans ? Math.min(...plans.map((plan) => plan.price)) : null;
+            return (
+              <Reveal as="li" className="service-row" key={slug}>
+                <span className="service-row-number" aria-hidden="true">{number}</span>
+                <div>
+                  <h3>{cardTitle}</h3>
+                  <p className="service-row-outcome">{cardOutcome}</p>
+                  <p className="service-row-description">{cardDescription}</p>
+                  <div className="service-row-meta">
+                    <span className="price-tag">{from ? <>Desde USD {from} <small>/ mes</small></> : 'Presupuesto a medida'}</span>
+                    <Link className="service-row-link" href={`/servicios/${slug}`}>Conocer el servicio <ArrowRight size={17} aria-hidden="true" /></Link>
+                  </div>
+                </div>
+                {/* Ilustración de un hito de Colonia. Decorativa: el nombre del
+                    servicio ya está en el <h3>. `unoptimized` porque el
+                    optimizador de Next no procesa SVG. */}
+                <Image className="service-row-art" src={illustration.src} width={illustration.width} height={illustration.height} alt="" aria-hidden="true" loading="lazy" unoptimized />
+              </Reveal>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );
