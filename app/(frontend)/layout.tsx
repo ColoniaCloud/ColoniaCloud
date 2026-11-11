@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import { Bricolage_Grotesque, Geist, Geist_Mono } from 'next/font/google';
 import '../globals.css';
@@ -73,6 +73,10 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
   },
 };
+
+// Color de la interfaz del navegador en el teléfono: el mismo azul noche del
+// hero, para que la barra de direcciones no corte en claro.
+export const viewport: Viewport = { themeColor: '#091828' };
 
 export default function RootLayout({
   children,

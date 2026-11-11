@@ -52,7 +52,11 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: var(--cc-header-h); }
+/* El lienzo de la página es noche, no bruma: es lo que el navegador pinta
+   detrás del contenido (rebote del scroll, barra de desplazamiento, zonas
+   seguras del teléfono). Así no asoman franjas claras junto al hero ni al
+   footer, que son oscuros. */
+html { scroll-behavior: smooth; scroll-padding-top: var(--cc-header-h); background: rgb(var(--cc-ink)); scrollbar-color: rgb(var(--cc-muted)) rgb(var(--cc-ink)); }
 body {
   margin: 0;
   overflow-x: clip;
@@ -193,7 +197,10 @@ body:has(main > [data-dark-top]) .site-header:not(.is-solid) .nav-client:hover {
 .hero-media img, .hero-media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; }
 .hero-media video { opacity: 0; transition: opacity var(--cc-t-300) var(--cc-ease-out); }
 .hero-media video[data-ready] { opacity: 1; }
-.hero-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(var(--cc-ink) / 0.62) 0%, rgb(var(--cc-ink) / 0.12) 34%, rgb(var(--cc-ink) / 0.3) 62%, rgb(var(--cc-ink) / 0.86) 100%); }
+/* Dos velos: uno vertical (header arriba, pie abajo) y uno lateral que
+   oscurece la mitad izquierda, donde va el texto, para que el acento
+   naranja del titular no caiga sobre el resplandor del horizonte. */
+.hero-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgb(var(--cc-ink) / 0.72) 0%, rgb(var(--cc-ink) / 0.46) 38%, rgb(var(--cc-ink) / 0) 68%), linear-gradient(180deg, rgb(var(--cc-ink) / 0.62) 0%, rgb(var(--cc-ink) / 0.12) 34%, rgb(var(--cc-ink) / 0.3) 62%, rgb(var(--cc-ink) / 0.86) 100%); }
 .hero-faro { display: none; }
 .hero-content { position: relative; z-index: 3; width: var(--cc-container); margin-inline: auto; padding: calc(var(--cc-header-h) + 40px) 0 clamp(40px, 7vh, 72px); }
 .hero-copy { max-width: 880px; }
@@ -546,7 +553,14 @@ body:has(main > [data-dark-top]) .site-header:not(.is-solid) .nav-client:hover {
   .case-grid { grid-template-columns: 1fr; }
   .process-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .product-grid, .blog-grid { grid-template-columns: 1fr; }
-  .hero-media { transform: translate3d(0, calc(var(--p, 0) * 8%), 0) scale(1.1); }
+  /* En pantallas angostas el texto ocupa casi todo el alto, así que el
+     horizonte naranja quedaba justo detrás del titular. Se agranda la foto
+     hacia arriba para que el horizonte suba al tercio superior (libre) y el
+     texto quede sobre el agua oscura. */
+  /* La etiqueta queda cerca del horizonte: en blanco para que se lea. */
+  .hero .eyebrow { color: rgb(255 255 255 / 0.9); }
+  .hero-media { inset: -105% 0 0 0; transform: translate3d(0, calc(var(--p, 0) * 4%), 0); }
+  .hero-shade { background: linear-gradient(180deg, rgb(var(--cc-ink) / 0.66) 0%, rgb(var(--cc-ink) / 0.12) 15%, rgb(var(--cc-ink) / 0.58) 33%, rgb(var(--cc-ink) / 0.84) 100%); }
   .inner-hero-con-arte .site-container { grid-template-columns: 1fr; }
   .inner-hero-art { display: none; }
 }

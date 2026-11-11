@@ -43,7 +43,9 @@ export default function HeroMedia() {
   return (
     <>
       <div className="hero-media">
-        <Image src="/unsplash/rio-atardecer.webp" alt="" fill priority sizes="100vw" />
+        {/* En móvil la foto se muestra ampliada (ver .hero-media en globals.css),
+            así que se pide más ancha que la pantalla para que no se pixele. */}
+        <Image src="/unsplash/rio-atardecer.webp" alt="" fill priority sizes="(max-width: 959px) 260vw, 100vw" />
         {withVideo && (
           <video
             ref={videoRef}
