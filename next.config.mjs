@@ -11,6 +11,13 @@ const nextConfig = {
   // lo más viejo que puede llegar a Google son dos horas.
   expireTime: 7200,
 
+  // El admin de Payload arma su propia metadata y, sin `serverURL`, resuelve
+  // las imágenes sociales contra `http://localhost:3000`. Esta variable es lo
+  // único que lee como alternativa (no toca CORS ni CSRF como `serverURL`).
+  env: {
+    PAYLOAD_PUBLIC_SERVER_URL: 'https://colonia.cloud',
+  },
+
   async redirects() {
     return [
       { source: '/servicios/web-app', destination: '/servicios/diseno-web', permanent: true },
