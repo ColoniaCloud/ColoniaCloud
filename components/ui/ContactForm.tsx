@@ -41,9 +41,11 @@ const errorInputClass = [
 interface ContactFormProps {
   withWhatsApp?: boolean;
   showHeading?: boolean;
+  /** Si se pasa, se llama al enviar con éxito en lugar de ir a /gracias. */
+  onSuccess?: () => void;
 }
 
-export default function ContactForm({ withWhatsApp = false, showHeading = true }: ContactFormProps) {
+export default function ContactForm({ withWhatsApp = false, showHeading = true, onSuccess }: ContactFormProps) {
   const router = useRouter();
   const [status, setStatus] = useState<Status>('idle');
 
@@ -65,7 +67,8 @@ export default function ContactForm({ withWhatsApp = false, showHeading = true }
       if (!response.ok) throw new Error('send_failed');
 
       setStatus('success');
-      router.push('/gracias');
+      if (onSuccess) onSuccess();
+      else router.push('/gracias');
     } catch {
       setStatus('error');
     }

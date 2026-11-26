@@ -1,7 +1,8 @@
 'use client';
 
 import * as Dialog from '@radix-ui/react-dialog';
-import { X, MessageCircle } from 'lucide-react';
+import { useState } from 'react';
+import { X, MessageCircle, CircleCheck } from 'lucide-react';
 import { Button, type ButtonProps } from '@/components/ui/Button';
 import ContactForm from '@/components/ui/ContactForm';
 import { cn } from '@/lib/utils';
@@ -10,15 +11,20 @@ interface ContactModalProps {
   triggerLabel?: string;
   triggerVariant?: ButtonProps['variant'];
   triggerClassName?: string;
+  /** Muestra la confirmación dentro del modal en vez de ir a /gracias. */
+  inlineSuccess?: boolean;
 }
 
 export default function ContactModal({
   triggerLabel = 'Contacto',
   triggerVariant = 'primary',
   triggerClassName,
+  inlineSuccess = false,
 }: ContactModalProps) {
+  const [sent, setSent] = useState(false);
+
   return (
-    <Dialog.Root>
+    <Dialog.Root onOpenChange={(open) => { if (!open) setSent(false); }}>
       <Dialog.Trigger asChild>
         <Button
           variant={triggerVariant}
@@ -45,14 +51,31 @@ export default function ContactModal({
             </button>
           </Dialog.Close>
 
-          <Dialog.Title className="font-display font-medium text-[1.375rem] text-cc-text mb-1">
-            Hablemos
-          </Dialog.Title>
-          <Dialog.Description className="text-[14px] text-cc-text-body mb-5">
-            Contanos qué necesitás. Respondemos en menos de 24 horas.
-          </Dialog.Description>
+          {sent ? (
+            <div className="flex flex-col items-center gap-3 py-6 text-center">
+              <CircleCheck size={40} className="text-cc-warm" aria-hidden="true" />
+              <Dialog.Title className="font-display font-medium text-[1.375rem] text-cc-text">
+                Mensaje enviado
+              </Dialog.Title>
+              <Dialog.Description className="text-[14px] text-cc-text-body">
+                Gracias por escribirnos. Te respondemos en menos de 24 horas.
+              </Dialog.Description>
+              <Dialog.Close asChild>
+                <Button variant="outline" className="mt-2">Cerrar</Button>
+              </Dialog.Close>
+            </div>
+          ) : (
+            <>
+              <Dialog.Title className="font-display font-medium text-[1.375rem] text-cc-text mb-1">
+                Hablemos
+              </Dialog.Title>
+              <Dialog.Description className="text-[14px] text-cc-text-body mb-5">
+                Contanos qué necesitás. Respondemos en menos de 24 horas.
+              </Dialog.Description>
 
-          <ContactForm withWhatsApp showHeading={false} />
+              <ContactForm withWhatsApp showHeading={false} onSuccess={inlineSuccess ? () => setSent(true) : undefined} />
+            </>
+          )}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

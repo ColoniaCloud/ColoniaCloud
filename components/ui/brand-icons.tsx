@@ -8,6 +8,7 @@ import {
   siGoogle,
   siMeta,
   siAnthropic,
+  siCisco,
   type SimpleIcon,
 } from 'simple-icons';
 
@@ -43,6 +44,19 @@ export const RedhatIcon = createBrandIcon(siRedhat);
 export const AnthropicIcon = createBrandIcon(siAnthropic);
 export const GoogleIcon = createBrandIcon(siGoogle);
 export const MetaIcon = createBrandIcon(siMeta);
+export const CiscoIcon = createBrandIcon(siCisco);
+
+// simple-icons no distribuye el logo de AWS (removido a pedido de Amazon): se
+// dibuja una versión monocroma de la palabra "aws" con la sonrisa debajo.
+export function AwsIcon({ size = 24, ...props }: BrandIconProps) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={size} height={size} fill="currentColor" role="img" {...props}>
+      <text x="12" y="13" textAnchor="middle" fontFamily="Arial, Helvetica, sans-serif" fontWeight="700" fontSize="10.5" letterSpacing="-0.3">aws</text>
+      <path d="M3.2 16.1c4.9 3 12.3 3.2 17 .1l.5.8c-5 3.4-13 3.2-18.1-.1z" />
+      <path d="M18.6 15.2l2.9-.4-.9 2.8-.5-1.1z" />
+    </svg>
+  );
+}
 
 // simple-icons tampoco distribuye el de Oracle: se dibuja acá su iso (la "O").
 export function OracleIcon({ size = 24, ...props }: BrandIconProps) {

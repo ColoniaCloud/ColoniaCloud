@@ -5,6 +5,7 @@ import '../globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import WhatsAppButton from '@/components/layout/WhatsAppButton';
+import HideOnLanding from '@/components/layout/HideOnLanding';
 
 // Titulares: Bricolage Grotesque, una grotesca con carácter que acompaña al
 // logo (Syne) sin competirle. Lectura e interfaz: Geist. Etiquetas, precios y
@@ -114,10 +115,12 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_JSON_LD) }}
         />
         <a className="skip-link" href="#contenido">Saltar al contenido</a>
-        <Navbar />
+        <HideOnLanding><Navbar /></HideOnLanding>
         <main id="contenido">{children}</main>
-        <WhatsAppButton />
-        <Footer />
+        <HideOnLanding>
+          <WhatsAppButton />
+          <Footer />
+        </HideOnLanding>
       </body>
     </html>
   );

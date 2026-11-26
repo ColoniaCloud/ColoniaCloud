@@ -599,3 +599,44 @@ body:has(main > [data-dark-top]) .site-header:not(.is-solid) .nav-client:hover {
   .final-cta-actions > * { flex: 1 1 100%; }
   .client-logos { gap: 18px 34px; }
 }
+
+/* ── Portada temporal (components/landing/TemporaryLanding.tsx) ──
+   Entrada en una sola secuencia: iso (las dos medias lunas se cierran desde
+   los costados) → nombre (se descubre de izquierda a derecha) → texto →
+   marcas escalonadas cada 70 ms → botón. Sin rebote; con movimiento
+   reducido todo aparece en su estado final. */
+.landing { --landing-ease: cubic-bezier(0.2, 0, 0, 1); position: relative; min-height: 100dvh; display: grid; place-items: center; overflow: hidden; background: rgb(var(--cc-ink)); color: #fff; padding: 56px 16px; }
+.landing-media { position: absolute; inset: 0; }
+.landing-media img, .landing-media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.landing-media video { opacity: 0; transition: opacity 600ms var(--cc-ease-out); }
+.landing-media video[data-ready] { opacity: 1; }
+.landing-overlay { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgb(var(--cc-ink) / 0.55) 0%, rgb(var(--cc-ink) / 0.82) 75%), rgb(var(--cc-ink) / 0.25); }
+.landing-content { position: relative; z-index: 1; width: 100%; max-width: 720px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+.landing-logo { margin: 0; width: min(300px, 64vw); line-height: 0; }
+.landing-logo svg { width: 100%; height: auto; overflow: visible; }
+.landing-logo-half { transform-box: fill-box; animation: landing-half 900ms var(--landing-ease) both; }
+.landing-logo-half--a { --from: -40px; }
+.landing-logo-half--b { --from: 40px; animation-delay: 60ms; }
+.landing-logo-word { animation: landing-word 800ms var(--landing-ease) both; }
+.landing-logo-word--top { animation-delay: 380ms; }
+.landing-logo-word--bottom { animation-delay: 480ms; }
+
+.landing-text { margin: 28px 0 0; max-width: 60ch; font-size: clamp(15px, 1.5vw, 16.5px); line-height: 1.65; color: rgb(255 255 255 / 0.82); text-wrap: pretty; animation: landing-in 700ms 700ms var(--landing-ease) both; }
+.landing-rows { margin-top: 36px; display: flex; flex-direction: column; gap: 16px; }
+.landing-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 22px; }
+.landing-row-title { margin: 0; font-family: var(--cc-font-mono), monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(var(--cc-accent)); }
+.landing-logos { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 22px; }
+.landing-logos li { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: rgb(255 255 255 / 0.88); transition: color 200ms var(--landing-ease); }
+.landing-logos li:hover { color: #fff; }
+.landing-logos svg { flex-shrink: 0; }
+.landing-row-title, .landing-logos li { animation: landing-in 500ms var(--landing-ease) both; animation-delay: calc(950ms + var(--i, 0) * 70ms); }
+.landing-cta { margin-top: 40px; animation: landing-in 600ms 1700ms var(--landing-ease) both; }
+
+@keyframes landing-half { from { opacity: 0; transform: translateX(var(--from)); filter: blur(4px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes landing-word { from { opacity: 0; clip-path: inset(0 100% 0 0); transform: translateY(6px); } to { opacity: 1; clip-path: inset(0 0 0 0); transform: none; } }
+@keyframes landing-in { from { opacity: 0; transform: translateY(12px); filter: blur(4px); } to { opacity: 1; transform: none; filter: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-logo-half, .landing-logo-word, .landing-text, .landing-row-title, .landing-logos li, .landing-cta { animation: none; }
+}

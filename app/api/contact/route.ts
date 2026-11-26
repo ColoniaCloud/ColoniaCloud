@@ -8,7 +8,7 @@ const schema = z.object({
   mensaje: z.string().min(10),
 });
 
-const CONTACT_EMAIL_TO = 'comunicacion@colonia.cloud';
+const CONTACT_EMAIL_TO = 'manuel@colonia.cloud';
 const CONTACT_EMAIL_FROM = 'Colonia Cloud <onboarding@resend.dev>';
 
 export async function POST(request: Request) {
